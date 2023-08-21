@@ -1,0 +1,132 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  @apply font-fontPrimary;
+  outline: none;
+}
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  user-select: none;
+}
+input,
+select,
+textarea {
+  background-color: transparent;
+  outline: none;
+}
+button {
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  border: 0;
+}
+body {
+  min-height: 100vh;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+  @apply text-textPrimary;
+}
+
+// Slick slider
+.news .slick-track {
+  display: flex;
+  gap: 32px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: rgba(0, 131, 69, 1);
+  font-size: 12px;
+}
+
+.slick-dots li button:before {
+  font-size: 12px;
+  color: rgba(211, 210, 210, 1);
+  opacity: 1;
+}
+
+.partners .slick-track {
+  display: flex;
+  gap: 32px;
+}
+
+.link-shadow {
+  text-shadow: 4px 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.bg-hero {
+  background: url('/public/images/hero-bg-1.png'), url('/public/images/hero-bg-2.png');
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+.bg-hero-intro {
+  background: url('/public/images/hero-intro-bg-1.png'), url('/public/images/hero-intro-bg-2.png');
+  background-position: right top -80px;
+  background-repeat: no-repeat;
+}
+
+.bg-footer {
+  background: url('/public/images/footer-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.info-bg {
+  background: url('/public/images/info-bg-1.png'), url('/public/images/info-bg-2.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.orientation-bg {
+  background: url('/public/images/orientation-bg.png');
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+.vision-bg {
+  background: url('/public/images/vision-bg.png');
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+.icon-fill {
+  fill: #fff;
+  filter: drop-shadow(4px 2px 15px rgba(0, 0, 0, 0.05));
+}
+
+.titleShort {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.descShort {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+@media only screen and (max-width: 1300px) {
+  .bg-hero {
+    background: none;
+  }
+  .bg-hero-intro {
+    background: none;
+  }
+}
+
+@media only screen and (max-width: 1028px) {
+}

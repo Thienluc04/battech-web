@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'San Francisco Display';
+  src: url('/public/fonts/san-francisco-display/SFPRODISPLAYREGULAR.OTF'),
+    url('/public/fonts/san-francisco-display/SFPRODISPLAYMEDIUM.OTF'),
+    url('/public/fonts/san-francisco-display/SFPRODISPLAYBOLD.OTF');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Arial';
+  src: url('/public/fonts/arial/ARIAL.TTF'), url('/public/fonts/arial/ARIALBD.TTF'),
+    url('/public/fonts/arial/ARIALBI.TTF'), url('/public/fonts/arial/ArialMdm.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
