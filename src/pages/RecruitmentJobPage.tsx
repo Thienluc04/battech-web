@@ -21,7 +21,7 @@ export default function RecruitmentJobPage() {
 
   const dispatch = useAppDispatch();
 
-  const { data: listJobResponse } = useGetAllJobQuery(currentParams);
+  const { data: listJobResponse, isLoading } = useGetAllJobQuery(currentParams);
 
   useEffect(() => {
     if (listJobResponse) {
@@ -51,18 +51,23 @@ export default function RecruitmentJobPage() {
         <SearchJobs></SearchJobs>
         <div className="flex xl:flex-row flex-col gap-8 mb-[54px] xl:mx-0 mx-5">
           <JobSidebar></JobSidebar>
-          {currentJobList.length > 0 && (
+          {!isLoading && currentJobList.length > 0 && (
             <JobList>
               {currentJobList.map((item, index) => (
                 <JobItem key={index} job={item}></JobItem>
               ))}
             </JobList>
           )}
-          {currentJobList.length <= 0 && (
+          {!isLoading && currentJobList.length <= 0 && (
             <p className="flex-1 text-center">{t('Không tìm thấy công việc nào phù hợp')}</p>
           )}
+          {isLoading && (
+            <div className="flex-1">
+              <div className="w-10 h-10 mx-auto border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+            </div>
+          )}
         </div>
-        {currentJobList.length > 0 && (
+        {!isLoading && currentJobList.length > 0 && (
           <Pagination
             type="job"
             currentPage={currentPage}

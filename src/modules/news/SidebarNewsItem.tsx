@@ -10,7 +10,7 @@ export function SidebarNewsItem({ news }: SidebarNewsItemProps) {
   return (
     <div className="flex items-center">
       <Link to={`/news/${news.slug}`} className="block w-[136px]">
-        <img className="w-[136px] rounded-l-xl" src={news.image} alt="news-sidebar-img" />
+        <img className="w-[136px] h-[114px] rounded-l-xl" src={news.image} alt="news-sidebar-img" />
       </Link>
       <div className="flex-1 p-3">
         <Link to={`/news/${news.slug}`} className="font-medium leading-[18px] mb-1 block">

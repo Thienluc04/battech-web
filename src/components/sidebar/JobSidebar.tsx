@@ -135,42 +135,42 @@ export function JobSidebar(props: JobSidebarProps) {
   const handleFilterJob: SubmitHandler<FormData> = () => {
     const params = { ...currentParams };
     if (filter.address && filter.group && filter.type) {
-      dispatch(jobActions.setParams({ ...params, ...filter }));
+      dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
     } else {
       if (!filter.address) {
         delete params.address;
-        dispatch(jobActions.setParams({ ...params, ...filter }));
+        dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         if (!filter.group) {
           delete params.group;
-          dispatch(jobActions.setParams({ ...params, ...filter }));
+          dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         }
         if (!filter.type) {
           delete params.type;
-          dispatch(jobActions.setParams({ ...params, ...filter }));
+          dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         }
       }
       if (!filter.group) {
         delete params.group;
-        dispatch(jobActions.setParams({ ...params, ...filter }));
+        dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         if (!filter.address) {
           delete params.address;
-          dispatch(jobActions.setParams({ ...params, ...filter }));
+          dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         }
         if (!filter.type) {
           delete params.type;
-          dispatch(jobActions.setParams({ ...params, ...filter }));
+          dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         }
       }
       if (!filter.type) {
         delete params.type;
-        dispatch(jobActions.setParams({ ...params, ...filter }));
+        dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         if (!filter.address) {
           delete params.address;
-          dispatch(jobActions.setParams({ ...params, ...filter }));
+          dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         }
         if (!filter.group) {
           delete params.group;
-          dispatch(jobActions.setParams({ ...params, ...filter }));
+          dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         }
       }
     }

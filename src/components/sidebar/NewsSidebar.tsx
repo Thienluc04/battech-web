@@ -4,7 +4,7 @@ import { SidebarNewsItem } from '@/modules/news';
 export interface NewsSidebarProps {}
 
 export function NewsSidebar(props: NewsSidebarProps) {
-  const { data: listNews } = useGetAllNewsQuery({
+  const { data: listNews, isLoading } = useGetAllNewsQuery({
     isNewest: false,
     isEvent: false,
     _page: 1,
@@ -20,6 +20,9 @@ export function NewsSidebar(props: NewsSidebarProps) {
           listNews?.data.map((item, index) => (
             <SidebarNewsItem key={index} news={item}></SidebarNewsItem>
           ))}
+        {isLoading && (
+          <div className="w-10 h-10 mx-auto border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+        )}
       </div>
     </div>
   );

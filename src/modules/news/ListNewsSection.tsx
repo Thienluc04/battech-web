@@ -22,7 +22,7 @@ export function ListNewsSection(props: ListNewsSectionProps) {
 
   const { t } = useTranslation();
 
-  const { data: newsResponse } = useGetAllNewsQuery(currentParams);
+  const { data: newsResponse, isLoading } = useGetAllNewsQuery(currentParams);
 
   const dispatch = useAppDispatch();
   const listNews = useAppSelector(selectListNews);
@@ -54,7 +54,7 @@ export function ListNewsSection(props: ListNewsSectionProps) {
 
   useEffect(() => {
     if (currentCategory.length > 0) {
-      dispatch(newsActions.setParams({ ...currentParams, category: currentCategory }));
+      dispatch(newsActions.setParams({ ...currentParams, category: currentCategory, _page: 1 }));
     } else if (currentCategory === '') {
       const params = { ...currentParams };
       delete params.category;
@@ -95,7 +95,13 @@ export function ListNewsSection(props: ListNewsSectionProps) {
           setCurrentPage={setCurrentPage}
         ></Pagination>
       )}
-      {listNews.length <= 0 && <p className="text-center">Không tìm thấy bài viết nào phù hợp</p>}
+      {!isLoading && listNews.length <= 0 && (
+        <p className="text-center">Không tìm thấy bài viết nào phù hợp</p>
+      )}
+
+      {isLoading && (
+        <div className="w-10 h-10 mx-auto border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+      )}
     </section>
   );
 }

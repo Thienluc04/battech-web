@@ -17,7 +17,7 @@ export function NewestSection(props: NewestSectionProps) {
 
   const dispatch = useAppDispatch();
 
-  const { data: newestResponse } = useGetNewestListQuery({
+  const { data: newestResponse, isLoading } = useGetNewestListQuery({
     _page: 1,
     _limit: 3,
   });
@@ -55,6 +55,9 @@ export function NewestSection(props: NewestSectionProps) {
                 className="xl:w-[484px] xl:h-[265px] xl:rounded-none rounded-2xl"
               ></NewestItem>
             ))}
+            {isLoading && (
+              <div className="w-10 h-10 mx-auto border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+            )}
           </div>
         </div>
       )}

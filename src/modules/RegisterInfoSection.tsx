@@ -43,7 +43,7 @@ export function RegisterInfoSection(props: RegisterInfoSectionProps) {
 
   return (
     <section
-      className="info-bg xl:py-[270px] py-[160px] xl:mb-[144px] mb-20 xl:px-0 px-5"
+      className="info-bg max-lg:bg-green-600 xl:py-[270px] py-[160px] xl:mb-[144px] mb-20 xl:px-0 px-5"
       {...props}
     >
       <form onSubmit={handleSubmit(handleRegisterInfo)} className="max-w-[584px] mx-auto">

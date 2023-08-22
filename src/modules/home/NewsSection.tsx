@@ -63,7 +63,7 @@ export function NewsSection(props: NewsSectionProps) {
         className="flex xl:mb-[144px] mb-20 xl:pb-10 pb-5 news"
       >
         {eventNewsList.map((item, index) => (
-          <NewsItem key={index} news={item}></NewsItem>
+          <NewsItem key={index} news={item} hideDesc></NewsItem>
         ))}
       </Slider>
     </section>

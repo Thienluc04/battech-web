@@ -25,6 +25,13 @@ export default function NewsDetailsPage() {
     }
   }, [dispatch, similarNewsData]);
 
+  if (!newsDetails)
+    return (
+      <>
+        <div className="w-10 h-10 mx-auto my-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+      </>
+    );
+
   return (
     <div className="max-w-[1200px] mx-auto">
       <div className="flex items-center mx-5 my-6 xl:mx-0">

@@ -23,6 +23,13 @@ export default function JobDetailsPage() {
     }
   }, [dispatch, listSimilarJobs]);
 
+  if (!jobDetails)
+    return (
+      <>
+        <Header></Header>
+        <div className="w-10 h-10 mx-auto my-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+      </>
+    );
   return (
     <>
       <Header></Header>
