@@ -100,8 +100,9 @@ export function Header() {
             <Link
               key={item.path}
               to={item.path}
-              className={`pb-1 border ${
-                path.pathname === item.path ? 'text-primary border-b-primary' : 'border-b-gray97'
+              onClick={() => setMenuShow(false)}
+              className={`pb-1 border-b ${
+                path.pathname === item.path ? 'text-primary border-b-primary' : ' border-b-gray97'
               }`}
             >
               {t(item.name)}
