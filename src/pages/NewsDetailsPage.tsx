@@ -130,7 +130,7 @@ export default function NewsDetailsPage() {
           </Slider>
         ) : (
           <>
-            <div className="grid grid-cols-4 gap-8 xl:mb-[144px] mb-20 xl:pb-10 pb-5">
+            <div className="grid xl:grid-cols-4 grid-cols-1 gap-8 xl:mb-[144px] mb-20 xl:pb-10 pb-5">
               {listSimilarNews.map((item, index) => (
                 <NewsItem key={index} news={item}></NewsItem>
               ))}

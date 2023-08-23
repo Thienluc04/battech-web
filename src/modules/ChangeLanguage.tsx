@@ -46,7 +46,20 @@ export function ChangeLanguage({
           <span className="text-xl uppercase">en</span>
         </div>
       )}
-      {languageShow && (
+
+      {languageShow && !language && (
+        <div
+          className={`absolute top-full flex items-center gap-2 cursor-pointer`}
+          onClick={() => {
+            setLanguage('en');
+            setLanguageShow(false);
+          }}
+        >
+          <EnglandFlag></EnglandFlag>
+          <span className="text-xl uppercase">en</span>
+        </div>
+      )}
+      {languageShow && language && (
         <>
           <div
             className={`${

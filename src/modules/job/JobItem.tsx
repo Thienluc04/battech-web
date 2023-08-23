@@ -13,9 +13,11 @@ export function JobItem({ job }: JobItemProps) {
   return (
     <div className="flex items-end justify-between w-full rounded-md bg-[#EEE] p-3">
       <div>
-        <h2 className="text-xl font-bold text-textBase mb-[6px]">{job.title}</h2>
-        <p className="mb-1 text-textBase">{job.description}</p>
-        <div className="flex flex-col xl:gap-5 gap-3 xl:items-center xl:flex-row">
+        <h2 className="xl:text-xl md:text-lg text-sm font-bold text-textBase mb-[6px]">
+          {job.title}
+        </h2>
+        <p className="mb-1 text-xs md:text-base text-textBase">{job.description}</p>
+        <div className="flex flex-col gap-3 xl:gap-5 xl:items-center xl:flex-row">
           <div className="flex items-center gap-2">
             <DollarIcon variant="gray"></DollarIcon>
             <span className="text-sm leading-7 text-gray97">{job.wage}</span>
@@ -33,7 +35,7 @@ export function JobItem({ job }: JobItemProps) {
       <Button
         to={`/jobs/${job.slug}`}
         variant="primary"
-        className="xl:text-xs text-xs xl:leading-[25px] uppercase rounded-md"
+        className="xl:text-xs text-xs xl:leading-[25px] uppercase rounded-md block"
       >
         {t('Ứng tuyển')}
       </Button>

@@ -51,6 +51,8 @@ export function NewsSection(props: NewsSectionProps) {
         slidesToShow={3}
         slidesToScroll={3}
         arrows={false}
+        autoplay
+        autoplaySpeed={5000}
         responsive={[
           {
             breakpoint: 1024,

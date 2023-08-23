@@ -38,9 +38,8 @@ body {
 }
 
 // Slick slider
-.news .slick-track {
-  display: flex;
-  gap: 32px;
+.news .slick-slide {
+  padding: 0 10px;
 }
 
 .slick-dots li.slick-active button:before {
@@ -54,9 +53,8 @@ body {
   opacity: 1;
 }
 
-.partners .slick-track {
-  display: flex;
-  gap: 32px;
+.partners .slick-slide {
+  padding: 0 10px;
 }
 
 .link-shadow {

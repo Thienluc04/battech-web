@@ -226,7 +226,7 @@ export function JobSidebar(props: JobSidebarProps) {
           ))}
         </div>
       </div>
-      <Button variant="primary" className="w-[276px] mx-auto">
+      <Button variant="primary" className="xl:w-[276px] w-full mx-auto">
         {t('Áp dụng bộ lọc')}
       </Button>
     </form>

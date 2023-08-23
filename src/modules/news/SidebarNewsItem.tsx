@@ -9,7 +9,7 @@ export interface SidebarNewsItemProps {
 export function SidebarNewsItem({ news }: SidebarNewsItemProps) {
   return (
     <div className="flex items-center">
-      <Link to={`/news/${news.slug}`} className="block w-[136px]">
+      <Link to={`/news/${news.slug}`} className="block xl:w-[136px] w-[100px]">
         <img className="w-[136px] h-[114px] rounded-l-xl" src={news.image} alt="news-sidebar-img" />
       </Link>
       <div className="flex-1 p-3">

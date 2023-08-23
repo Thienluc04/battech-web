@@ -44,7 +44,7 @@ export function SearchJobs(props: SearchJobsProps) {
         control={control}
         className="flex-1 h-full pr-5 xl:border-r-0 border-primary xl:border-r-transparent"
       ></Input>
-      <Button variant="primary" className="w-[276px] xl:-ml-4 mx-auto">
+      <Button variant="primary" className="xl:w-[276px] w-full xl:-ml-4 mx-auto">
         {t('Tìm việc làm')}
       </Button>
     </form>
