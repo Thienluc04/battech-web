@@ -76,7 +76,7 @@ export default function RecruitmentJobPage() {
           ></Pagination>
         )}
       </div>
-      <Footer background="primary"></Footer>
+      <Footer></Footer>
     </>
   );
 }

@@ -188,7 +188,7 @@ export default function JobDetailsPage() {
           </div>
         </div>
       </div>
-      <Footer background="primary"></Footer>
+      <Footer></Footer>
     </>
   );
 }
