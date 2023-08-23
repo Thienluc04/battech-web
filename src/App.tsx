@@ -48,7 +48,11 @@ function App() {
     },
   ]);
   return (
-    <Suspense>
+    <Suspense
+      fallback={
+        <div className="mt-20 mx-auto w-10 h-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+      }
+    >
       <RouterProvider router={router} />
     </Suspense>
   );

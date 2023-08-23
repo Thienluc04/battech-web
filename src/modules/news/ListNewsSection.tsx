@@ -33,6 +33,7 @@ export function ListNewsSection(props: ListNewsSectionProps) {
       delete params.category;
       dispatch(newsActions.setParams({ ...params }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

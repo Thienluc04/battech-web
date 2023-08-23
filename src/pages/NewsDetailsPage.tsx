@@ -17,7 +17,9 @@ export default function NewsDetailsPage() {
 
   const dispatch = useAppDispatch();
 
-  const { data: similarNewsData } = useGetNewsWithCategoryQuery(newsDetails?.category as string);
+  const { data: similarNewsData, isLoading } = useGetNewsWithCategoryQuery(
+    newsDetails?.category as string,
+  );
 
   useEffect(() => {
     if (similarNewsData && similarNewsData.length > 0) {
@@ -127,11 +129,16 @@ export default function NewsDetailsPage() {
             ))}
           </Slider>
         ) : (
-          <div className="grid grid-cols-4 gap-8 xl:mb-[144px] mb-20 xl:pb-10 pb-5">
-            {listSimilarNews.map((item, index) => (
-              <NewsItem key={index} news={item}></NewsItem>
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-4 gap-8 xl:mb-[144px] mb-20 xl:pb-10 pb-5">
+              {listSimilarNews.map((item, index) => (
+                <NewsItem key={index} news={item}></NewsItem>
+              ))}
+            </div>
+            {isLoading && (
+              <div className="w-10 h-10 mx-auto my-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+            )}
+          </>
         )}
       </section>
     </div>
