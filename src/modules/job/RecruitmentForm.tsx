@@ -78,6 +78,7 @@ export function RecruitmentForm(props: RecruitmentFormProps) {
       <div className="mb-3">
         <RecruitmentField
           name="email"
+          type="email"
           control={control}
           title="Email"
           icon={<EmailIcon type="outline"></EmailIcon>}
@@ -88,6 +89,7 @@ export function RecruitmentForm(props: RecruitmentFormProps) {
       <div className="mb-3">
         <RecruitmentField
           name="phoneNumber"
+          type="tel"
           control={control}
           title="Số điện thoại"
           icon={<PhoneIcon variant="#AAAAAA"></PhoneIcon>}
