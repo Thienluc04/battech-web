@@ -74,6 +74,14 @@ export function Header() {
     }
   }, [menuShow]);
 
+  useEffect(() => {
+    if (menuShow) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = 'auto';
+    }
+  }, [menuShow]);
+
   return (
     <div className="flex items-center justify-between p-5 bg-white xl:p-8 shadow-headerShadow">
       <Link to={'/'}>
@@ -130,54 +138,6 @@ export function Header() {
           ))}
         </div>
         <div className="w-[1px] h-8 bg-[#9CA3AF] mx-p10"></div>
-        {/* <div className="relative">
-          {!languageShow && language === 'vn' && (
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => setLanguageShow(true)}
-            >
-              <VietnamFlag></VietnamFlag>
-              <span className="text-xl uppercase">vn</span>
-            </div>
-          )}
-          {!languageShow && language === 'en' && (
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => setLanguageShow(true)}
-            >
-              <EnglandFlag></EnglandFlag>
-              <span className="text-xl uppercase">en</span>
-            </div>
-          )}
-          {languageShow && (
-            <>
-              <div
-                className={`${
-                  language !== 'vn' ? 'absolute top-full' : ''
-                } flex items-center gap-2 cursor-pointer`}
-                onClick={() => {
-                  setLanguage('vn');
-                  setLanguageShow(false);
-                }}
-              >
-                <VietnamFlag></VietnamFlag>
-                <span className="text-xl uppercase">vn</span>
-              </div>
-              <div
-                className={`${
-                  language !== 'en' ? 'absolute top-full' : ''
-                } flex items-center gap-2 cursor-pointer`}
-                onClick={() => {
-                  setLanguage('en');
-                  setLanguageShow(false);
-                }}
-              >
-                <EnglandFlag></EnglandFlag>
-                <span className="text-xl uppercase">en</span>
-              </div>
-            </>
-          )}
-        </div> */}
         <ChangeLanguage
           language={language}
           languageShow={languageShow}
