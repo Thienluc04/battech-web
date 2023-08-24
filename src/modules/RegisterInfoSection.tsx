@@ -62,6 +62,7 @@ export function RegisterInfoSection(props: RegisterInfoSectionProps) {
         <div className="xl:mb-[60px] mb-10">
           <Input
             name="email"
+            type="email"
             control={control}
             placeholder={t('Nhập email của bạn')}
             className="text-[#606060] bg-white shadow-[4px_2px_15px_0px_rgba(0,_0,_0,_0.05)] border-none w-full"
