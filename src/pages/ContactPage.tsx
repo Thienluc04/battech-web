@@ -13,7 +13,7 @@ export default function ContactPage() {
         <h2 className="mb-1 text-2xl font-bold leading-7 text-center text-textBase">
           {t('SẴN SÀNG ĐỂ BẮT ĐẦU')}
         </h2>
-        <p className="font-medium leading-6 text-center">
+        <p className="px-5 font-medium leading-6 text-center">
           {t('Địa chỉ email của bạn sẽ không được công bố. Các trường bắt buộc đánh dấu')}
           <span className="text-[#F92323]">*</span>
         </p>

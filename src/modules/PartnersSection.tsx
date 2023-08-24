@@ -28,7 +28,7 @@ export function PartnersSection(props: PartnerSectionProps) {
         slidesToScroll={4}
         arrows={false}
         autoplay
-        autoplaySpeed={5000}
+        autoplaySpeed={3000}
         responsive={[
           {
             breakpoint: 1024,

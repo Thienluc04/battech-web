@@ -35,7 +35,7 @@ export function NewsItem({ news, hideDesc = false, className = '' }: NewsItemPro
       </div>
       <Link
         to={`/news/${news.slug}`}
-        className="px-3 mb-2 text-lg font-bold leading-7 xl:text-xl text-textPrimary titleShort"
+        className="px-3 mb-2 text-lg font-bold leading-7 xl:text-xl text-textPrimary titleShort min-h-[56px]"
       >
         {news.title}
       </Link>
