@@ -45,7 +45,7 @@ export function OrientationSection(props: OrientationSectionProps) {
         <span className="text-orange">{t('KHÁC BIỆT')} </span>
         <span className="text-primary">{t('VÀ TIÊN PHONG')}</span>
       </h2>
-      <div className="grid xl:grid-cols-4 grid-cols-1 xl:gap-8 gap-14 max-w-[1200px] xl:mx-auto mx-5">
+      <div className="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 xl:gap-8 gap-14 max-w-[1200px] xl:mx-auto mx-5">
         {listOrientations.map((item, index) => (
           <div
             key={index}

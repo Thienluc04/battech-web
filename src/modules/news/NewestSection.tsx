@@ -42,17 +42,17 @@ export function NewestSection(props: NewestSectionProps) {
     <section className="max-w-[1200px] xl:mx-auto mx-5 mb-[96px] relative" {...props}>
       <h2 className="mb-6 text-xl font-bold leading-7 text-textDesc">{t('Tin tức mới')}</h2>
       {largeNewest && newestList && newestList.length > 0 && (
-        <div className="flex xl:flex-row flex-col justify-center items-center gap-[30px] relative">
+        <div className="flex md:flex-row flex-col justify-center items-center gap-[30px] relative">
           <NewestItem
             newest={largeNewest}
-            className="xl:w-[688px] xl:h-[564px] xl:rounded-none rounded-2xl"
+            className="xl:w-[688px] md:h-[564px] xl:rounded-none rounded-2xl"
           ></NewestItem>
           <div className="flex flex-col gap-8">
             {newestList.map((item, index) => (
               <NewestItem
                 key={index}
                 newest={item}
-                className="xl:w-[484px] xl:h-[265px] xl:rounded-none rounded-2xl"
+                className="xl:w-[484px] md:h-[265px] xl:rounded-none rounded-2xl"
               ></NewestItem>
             ))}
           </div>

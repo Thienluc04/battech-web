@@ -30,11 +30,11 @@ export function NewsSection(props: NewsSectionProps) {
         {t('TIN TỨC')}
       </h2>
       <h3 className="mb-4 text-xl font-bold leading-7 text-textDesc">{t('Tin tức mới')}</h3>
-      <div className="flex flex-col gap-4 mb-8 xl:flex-row xl:mb-0">
+      <div className="flex flex-col gap-4 mb-8 md:flex-row xl:mb-0">
         {largeNewest && (
           <NewestItem
             newest={largeNewest}
-            className="xl:w-[780px] xl:h-[358px] rounded-xl"
+            className="xl:w-[780px] md:flex-1 xl:flex-none xl:h-[358px] rounded-xl"
           ></NewestItem>
         )}
         {newestItem && (
