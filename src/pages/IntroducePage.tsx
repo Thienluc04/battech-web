@@ -5,7 +5,7 @@ import {
   IntroSection,
   SloganSection,
   VisionSection,
-} from '@/modules/introduce';
+} from '@/modules/about';
 
 export default function IntroducePage() {
   return (
