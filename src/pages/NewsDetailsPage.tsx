@@ -4,6 +4,7 @@ import { NewsSidebar } from '@/components/sidebar';
 import { newsActions, selectListSimilarNews } from '@/features/news/newsSlice';
 import { NewsItem } from '@/modules/news';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import Slider from 'react-slick';
 
@@ -16,6 +17,8 @@ export default function NewsDetailsPage() {
   const listSimilarNews = useAppSelector(selectListSimilarNews);
 
   const dispatch = useAppDispatch();
+
+  const { t } = useTranslation();
 
   const { data: similarNewsData, isLoading } = useGetNewsWithCategoryQuery(
     newsDetails?.category as string,
@@ -38,7 +41,7 @@ export default function NewsDetailsPage() {
     <div className="max-w-[1200px] mx-auto">
       <div className="flex items-center mx-5 my-6 xl:mx-0">
         <p className="font-medium leading-6">
-          <span className="text-primary">Tin tức</span> /{' '}
+          <span className="text-primary">{t('Tin tức')}</span> /{' '}
           <span className="text-primary">{newsDetails?.category}</span> / {newsDetails?.title}
         </p>
       </div>
@@ -104,7 +107,9 @@ export default function NewsDetailsPage() {
       </div>
       <div className="h-[1px] bg-[#008346] mb-16 xl:mx-0 mx-5"></div>
       <section className="mx-5 xl:mx-0">
-        <h2 className="text-[#0a0a0a] text-xl font-bold leading-7 mb-7">Tin tức liên quan</h2>
+        <h2 className="text-[#0a0a0a] text-xl font-bold leading-7 mb-7">
+          {t('Tin tức liên quan')}
+        </h2>
         {listSimilarNews.length > 3 ? (
           <Slider
             dots

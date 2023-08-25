@@ -32,16 +32,17 @@ function App() {
           path: '/news/:slug',
           element: <NewsDetailsPage></NewsDetailsPage>,
         },
+        {
+          path: '/jobs',
+          element: <RecruitmentJobPage></RecruitmentJobPage>,
+        },
+        {
+          path: '/jobs/:slug',
+          element: <JobDetailsPage></JobDetailsPage>,
+        },
       ],
     },
-    {
-      path: '/jobs',
-      element: <RecruitmentJobPage></RecruitmentJobPage>,
-    },
-    {
-      path: '/jobs/:slug',
-      element: <JobDetailsPage></JobDetailsPage>,
-    },
+
     {
       path: '/contact',
       element: <ContactPage></ContactPage>,

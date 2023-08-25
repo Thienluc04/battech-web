@@ -1,17 +1,19 @@
 import { useGetSimilarJobsQuery, useGetSingleJobQuery } from '@/api/jobApi';
-import { AddressIcon, ClockIcon } from '@/components/icons';
-import { Footer, Header } from '@/modules';
-import { HeroSection, RecruitmentForm, SimilarJobs } from '@/modules/job';
-import { useParams } from 'react-router';
-import { useEffect } from 'react';
 import { useAppDispatch } from '@/app/hooks';
+import { AddressIcon, ClockIcon } from '@/components/icons';
 import { jobActions } from '@/features/job/jobSlice';
+import { HeroSection, RecruitmentForm, SimilarJobs } from '@/modules/job';
+import { useEffect } from 'react';
+import { useParams } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 export default function JobDetailsPage() {
   const { slug } = useParams();
   const dispatch = useAppDispatch();
 
   const { data: jobResponse } = useGetSingleJobQuery(slug as string);
+
+  const { t } = useTranslation();
 
   const jobDetails = jobResponse && jobResponse[0];
 
@@ -26,17 +28,15 @@ export default function JobDetailsPage() {
   if (!jobDetails)
     return (
       <>
-        <Header></Header>
         <div className="w-10 h-10 mx-auto my-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
       </>
     );
   return (
     <>
-      <Header></Header>
       <HeroSection></HeroSection>
       <div className="max-w-[1200px] mx-auto mb-[102px]">
         <p className="px-5 pt-4 mb-6 xl:px-0">
-          <span className="text-primary">Cơ hội việc làm</span> / {jobDetails?.title}
+          <span className="text-primary">{t('Cơ hội việc làm')}</span> / {jobDetails?.title}
         </p>
         <div className="flex xl:flex-row flex-col xl:px-0 px-5 gap-[68px]">
           <div className="max-w-[745px]">
@@ -188,7 +188,6 @@ export default function JobDetailsPage() {
           </div>
         </div>
       </div>
-      <Footer></Footer>
     </>
   );
 }

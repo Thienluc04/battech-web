@@ -2,7 +2,7 @@ import { useGetAllJobQuery } from '@/api/jobApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { JobSidebar } from '@/components/sidebar';
 import { jobActions, selectListJob, selectParamsJob } from '@/features/job/jobSlice';
-import { Footer, Header, Pagination } from '@/modules';
+import { Pagination } from '@/modules';
 import { HeroSection, JobItem, JobList, SearchJobs } from '@/modules/job';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -42,7 +42,6 @@ export default function RecruitmentJobPage() {
 
   return (
     <>
-      <Header></Header>
       <HeroSection></HeroSection>
       <div className="max-w-[1200px] mx-auto">
         <h2 className="mb-5 text-xl font-bold leading-7 text-center xl:mb-10 xl:text-2xl text-textBase">
@@ -76,7 +75,6 @@ export default function RecruitmentJobPage() {
           ></Pagination>
         )}
       </div>
-      <Footer></Footer>
     </>
   );
 }

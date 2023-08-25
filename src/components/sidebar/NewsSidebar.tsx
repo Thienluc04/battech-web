@@ -1,5 +1,6 @@
 import { useGetAllNewsQuery } from '@/api/newsApi';
 import { SidebarNewsItem } from '@/modules/news';
+import { useTranslation } from 'react-i18next';
 
 export interface NewsSidebarProps {}
 
@@ -11,9 +12,11 @@ export function NewsSidebar(props: NewsSidebarProps) {
     _limit: 6,
   });
 
+  const { t } = useTranslation();
+
   return (
     <div className="flex-1 mx-5 xl:mx-0" {...props}>
-      <h2 className="text-xl font-bold leading-7 text-[#0A0A0A] mb-3">Tin tức mới</h2>
+      <h2 className="text-xl font-bold leading-7 text-[#0A0A0A] mb-3">{t('Tin tức mới')}</h2>
       <div className="flex flex-col gap-5 shadow-[4px_2px_15px_0px_rgba(0,_0,_0,_0.05)]">
         {listNews &&
           listNews?.data.length > 0 &&

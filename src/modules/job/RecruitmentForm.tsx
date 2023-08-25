@@ -14,6 +14,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { phoneRegExp } from '@/constants/general';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 export interface RecruitmentFormProps {}
 
@@ -43,6 +44,8 @@ export function RecruitmentForm(props: RecruitmentFormProps) {
     resolver: yupResolver(schema),
   });
 
+  const { t } = useTranslation();
+
   const handleApplyJob: SubmitHandler<FieldValues> = (values) => {
     if (!isValid) return;
     console.log('RecruitmentForm ~ values:', values);
@@ -64,15 +67,15 @@ export function RecruitmentForm(props: RecruitmentFormProps) {
       className="p-6 border rounded-[10px] border-primary mb-6"
       {...props}
     >
-      <h2 className="mb-4 text-2xl font-bold text-textPrimary">Ứng tuyển trực tiếp</h2>
+      <h2 className="mb-4 text-2xl font-bold text-textPrimary">{t('Ứng tuyển trực tiếp')}</h2>
       <div className="mb-3">
         <RecruitmentField
           name="fullName"
           control={control}
-          title="Họ tên của bạn"
+          title={t('Họ tên của bạn')}
           icon={<UserIcon type="outline"></UserIcon>}
           placeholder="Bùi Văn A"
-          errorMessage={errors.fullName?.message}
+          errorMessage={errors.fullName && t(String(errors.fullName?.message))}
         ></RecruitmentField>
       </div>
       <div className="mb-3">
@@ -83,7 +86,7 @@ export function RecruitmentForm(props: RecruitmentFormProps) {
           title="Email"
           icon={<EmailIcon type="outline"></EmailIcon>}
           placeholder="123@gmail.com"
-          errorMessage={errors.email?.message}
+          errorMessage={errors.email && t(String(errors.email?.message))}
         ></RecruitmentField>
       </div>
       <div className="mb-3">
@@ -91,10 +94,10 @@ export function RecruitmentForm(props: RecruitmentFormProps) {
           name="phoneNumber"
           type="tel"
           control={control}
-          title="Số điện thoại"
+          title={t('Số điện thoại')}
           icon={<PhoneIcon variant="#AAAAAA"></PhoneIcon>}
           placeholder="0123456789"
-          errorMessage={errors.phoneNumber?.message}
+          errorMessage={errors.phoneNumber && t(String(errors.phoneNumber?.message))}
         ></RecruitmentField>
       </div>
       <div className="mb-3">
@@ -102,34 +105,34 @@ export function RecruitmentForm(props: RecruitmentFormProps) {
           name="fileCV"
           control={control}
           type="file"
-          title="Đính kèm CV"
+          title={t('Đính kèm CV')}
           icon={<AttachmentIcon variant="gray"></AttachmentIcon>}
           placeholder="bui van A.pdf"
-          errorMessage={errors.fileCV?.message}
+          errorMessage={errors.fileCV && t(String(errors.fileCV?.message))}
         ></RecruitmentField>
       </div>
       <div className="mb-3">
         <RecruitmentField
           name="socialMedia"
           control={control}
-          title="Địa chỉ Facebook/Skype/Linked"
+          title={t('Địa chỉ') + ' Facebook/Skype/Linked'}
           icon={<TagIcon variant="#AAAAAA"></TagIcon>}
           placeholder="facebook.com"
-          errorMessage={errors.socialMedia?.message}
+          errorMessage={errors.socialMedia && t(String(errors.socialMedia?.message))}
         ></RecruitmentField>
       </div>
       <div className="mb-4">
         <RecruitmentField
           name="whereKnown"
           control={control}
-          title="Bạn biết đến BATTECH qua đâu?"
+          title={t('Bạn biết đến BATTECH qua đâu?')}
           icon={<LiveHelpIcon variant="#AAAAAA"></LiveHelpIcon>}
-          placeholder="qua bạn bè..."
-          errorMessage={errors.whereKnown?.message}
+          placeholder={t('qua bạn bè') + '...'}
+          errorMessage={errors.whereKnown && t(String(errors.whereKnown?.message))}
         ></RecruitmentField>
       </div>
       <div className="mb-5">
-        <Textarea control={control} name="note" placeholder="Ghi chú..."></Textarea>
+        <Textarea control={control} name="note" placeholder={t('Ghi chú') + '...'}></Textarea>
       </div>
       <Button variant="primary" className="w-full rounded-md">
         Apply

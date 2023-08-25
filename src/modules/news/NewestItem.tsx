@@ -29,7 +29,7 @@ export function NewestItem({ newest, className = '' }: NewestItemProps) {
         </Button>
         <Link
           to={`/news/${newest.slug}`}
-          className="block mb-2 text-lg font-bold leading-7 text-white xl:text-2xl"
+          className="block mb-2 text-lg font-bold leading-7 text-white xl:text-2xl titleShort"
         >
           {newest.title}
         </Link>

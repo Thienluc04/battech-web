@@ -1,12 +1,11 @@
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { Textarea } from '@/components/textarea';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
-import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { phoneRegExp } from '@/constants/general';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
 
 export interface ContactFormProps {}
 
@@ -17,7 +16,7 @@ const schema = yup
       .string()
       .email('Bạn phải nhập đúng định dạng email')
       .required('Vui lòng nhập email vào trường này'),
-    phoneNumber: yup.string().matches(phoneRegExp, 'Số điện thoại không đúng định dạng'),
+    phoneNumber: yup.string(),
     content: yup.string(),
   })
   .required();

@@ -29,6 +29,7 @@ export default function HomePage() {
       dispatch(newsActions.setListEvent(newsEventResponse.data));
     }
   }, [dispatch, newsEventResponse]);
+
   return (
     <>
       <HeroSection></HeroSection>
