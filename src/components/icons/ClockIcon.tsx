@@ -1,6 +1,7 @@
-export interface ClockIconProps {
+import { ComponentProps } from 'react';
+
+export interface ClockIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray';
-  className?: string;
 }
 
 export function ClockIcon({ variant = 'white', className = '' }: ClockIconProps) {

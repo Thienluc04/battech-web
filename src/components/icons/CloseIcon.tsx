@@ -1,9 +1,7 @@
+import { ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-export interface CloseIconProps {
-  onClick?: () => void;
-  className?: string;
-}
+export interface CloseIconProps extends ComponentProps<'span'> {}
 
 export function CloseIcon({ onClick, className }: CloseIconProps) {
   return (

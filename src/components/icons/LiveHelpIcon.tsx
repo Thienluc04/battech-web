@@ -1,6 +1,7 @@
-export interface LiveHelpIconProps {
+import { ComponentProps } from 'react';
+
+export interface LiveHelpIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray' | string;
-  className?: string;
 }
 
 export function LiveHelpIcon({ variant = 'white', className = '' }: LiveHelpIconProps) {

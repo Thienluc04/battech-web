@@ -1,14 +1,12 @@
-import { Control, FieldValues, useController, Path, PathValue } from 'react-hook-form';
+import { ComponentProps } from 'react';
+import { Control, FieldValues, Path, PathValue, useController } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 
-export type InputProps<T extends FieldValues> = {
+export interface InputProps<T extends FieldValues> extends ComponentProps<'input'> {
   control: Control<T>;
   name: Path<T>;
-  placeholder: string;
-  className?: string;
   errorMessage?: string;
-  type?: string;
-};
+}
 
 export function Input<T extends FieldValues>({
   name,

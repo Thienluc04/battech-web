@@ -6,3 +6,4 @@ export * from './SimilarJobs';
 export * from './RecruitmentField';
 export * from './SimilarJobItem';
 export * from './SearchJobs';
+export * from './JobGroupField';

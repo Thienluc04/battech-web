@@ -1,7 +1,8 @@
+import { useTranslation } from 'react-i18next';
+
 import { Button } from '@/components/button';
 import { AddressIcon, ClockIcon, DollarIcon } from '@/components/icons';
 import { Job } from '@/models';
-import { useTranslation } from 'react-i18next';
 
 export interface JobItemProps {
   job: Job;

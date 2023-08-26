@@ -1,6 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
 import { Header } from '@/modules';
 import { ContactForm, ContactUsSection, HeroSection } from '@/modules/contact';
-import { useTranslation } from 'react-i18next';
 
 export default function ContactPage() {
   const { t } = useTranslation();

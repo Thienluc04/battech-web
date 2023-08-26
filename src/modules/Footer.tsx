@@ -1,3 +1,6 @@
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+
 import {
   ArrowRightIcon,
   DiscordIcon,
@@ -10,8 +13,6 @@ import {
   TwitterIcon,
   YoutubeIcon,
 } from '@/components/icons';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
 const footerLinkList: string[] = [
   'Giới thiệu về BATTECH',
@@ -31,8 +32,10 @@ export function Footer({ background = 'footer' }: FooterProps) {
   const { t } = useTranslation();
 
   return (
-    <div className={`xl:pt-[140px] pt-[160px] pb-[60px] bg-${background}  text-white`}>
-      <div className="max-w-[1200px] xl:mx-auto mx-5 flex xl:flex-row md:pl-20 pl-0 xl:pl-0 flex-col gap-8">
+    <div
+      className={`xl:pt-[140px] pt-[160px] pb-[60px] bg-${background} text-white flex justify-center xl:block`}
+    >
+      <div className="max-w-[1200px] xl:mx-auto mx-5 flex xl:flex-row xl:pl-0 flex-col gap-8">
         <div className="flex flex-col gap-4">
           <div>
             <img src="/images/logo-white.png" alt="logo-white" />

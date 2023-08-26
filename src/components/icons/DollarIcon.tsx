@@ -1,6 +1,7 @@
-export interface DollarIconProps {
+import { ComponentProps } from 'react';
+
+export interface DollarIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray';
-  className?: string;
 }
 
 export function DollarIcon({ variant = 'white', className = '' }: DollarIconProps) {

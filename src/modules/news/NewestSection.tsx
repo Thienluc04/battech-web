@@ -1,12 +1,14 @@
-import { useAppSelector } from '@/app/hooks';
-import { NewestItem } from '.';
-import { selectListNewestNews } from '@/features/news/newsSlice';
-import { useGetNewestListQuery } from '@/api/newsApi';
-import { useAppDispatch } from '@/app/hooks';
-import { newsActions } from '@/features/news/newsSlice';
 import { useEffect, useState } from 'react';
-import { News } from '@/models';
 import { useTranslation } from 'react-i18next';
+
+import { useGetNewestListQuery } from '@/api/newsApi';
+import { useAppSelector } from '@/app/hooks';
+import { useAppDispatch } from '@/app/hooks';
+import { selectListNewestNews } from '@/features/news/newsSlice';
+import { newsActions } from '@/features/news/newsSlice';
+import { News } from '@/models';
+
+import { NewestItem } from '.';
 
 export interface NewestSectionProps {}
 
@@ -45,20 +47,35 @@ export function NewestSection(props: NewestSectionProps) {
         <div className="flex md:flex-row flex-col justify-center items-center gap-[30px] relative">
           <NewestItem
             newest={largeNewest}
-            className="xl:w-[688px] md:h-[564px] xl:rounded-none rounded-2xl"
+            className="xl:w-[688px] md:h-[564px] w-full xl:rounded-none rounded-2xl"
           ></NewestItem>
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col w-full gap-8 md:w-auto">
             {newestList.map((item, index) => (
               <NewestItem
                 key={index}
                 newest={item}
-                className="xl:w-[484px] md:h-[265px] xl:rounded-none rounded-2xl"
+                className="xl:w-[484px] md:h-[265px] w-full xl:rounded-none rounded-2xl"
               ></NewestItem>
             ))}
           </div>
-          {isLoading && (
-            <div className="w-10 h-10 mx-auto border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
-          )}
+          {!isLoading && currentNewsList.length <= 0 && <p>Không có tin tức nào mới nhất</p>}
+        </div>
+      )}
+      {isLoading && (
+        <div className="flex md:flex-row flex-col justify-center items-center gap-[30px] relative">
+          <div className="w-full md:max-w-[830px] xl:w-[688px] md:w-[600px]">
+            <NewestItem loading className=" md:h-[564px] h-[176px] w-full rounded-2xl"></NewestItem>
+          </div>
+          <div className="flex flex-col flex-1 w-full gap-4 md:w-auto">
+            {new Array(2).fill(0).map((_item, index) => (
+              <NewestItem
+                key={index}
+                className="xl:w-[484px] md:h-[265px] md:w-full h-[176px] w-full rounded-2xl"
+                loading
+              ></NewestItem>
+            ))}
+          </div>
+          {!isLoading && currentNewsList.length <= 0 && <p>Không có tin tức nào mới nhất</p>}
         </div>
       )}
     </section>

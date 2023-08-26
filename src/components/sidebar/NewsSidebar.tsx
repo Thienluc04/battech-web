@@ -1,6 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
 import { useGetAllNewsQuery } from '@/api/newsApi';
 import { SidebarNewsItem } from '@/modules/news';
-import { useTranslation } from 'react-i18next';
 
 export interface NewsSidebarProps {}
 

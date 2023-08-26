@@ -1,11 +1,12 @@
-import { Button } from '@/components/button';
-import { Input } from '@/components/input';
-import { Textarea } from '@/components/textarea';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
+
+import { Button } from '@/components/button';
+import { Input } from '@/components/input';
+import { Textarea } from '@/components/textarea';
 
 export interface ContactFormProps {}
 
@@ -49,7 +50,7 @@ export function ContactForm(props: ContactFormProps) {
   return (
     <form
       onSubmit={handleSubmit(handleSendMessageContact)}
-      className="flex xl:flex-row flex-col xl:items-end gap-8 xl:mx-0 mx-5"
+      className="flex flex-col gap-8 mx-5 xl:flex-row xl:items-start xl:mx-0"
       {...props}
     >
       <div className="flex-1">
@@ -85,7 +86,7 @@ export function ContactForm(props: ContactFormProps) {
           ></Input>
         </div>
       </div>
-      <div className="flex-1">
+      <div className="flex-1 xl:mt-7">
         <div className="mb-10">
           <Textarea
             name="content"

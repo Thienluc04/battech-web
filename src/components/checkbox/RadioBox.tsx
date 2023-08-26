@@ -1,13 +1,10 @@
-import { PropsWithChildren } from 'react';
-import { FieldValues, Control, Path, PathValue, useController } from 'react-hook-form';
+import { ComponentProps, PropsWithChildren } from 'react';
+import { Control, FieldValues, Path, PathValue, useController } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 
-export interface RadioBoxProps<T extends FieldValues> {
-  checked?: boolean;
+export interface RadioBoxProps<T extends FieldValues> extends ComponentProps<'input'> {
   name: Path<T>;
   control: Control<T>;
-  className?: string;
-  value?: string;
 }
 
 export function RadioBox<T extends FieldValues>({

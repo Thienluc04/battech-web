@@ -1,6 +1,7 @@
-export interface TagIconProps {
+import { ComponentProps } from 'react';
+
+export interface TagIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray' | string;
-  className?: string;
 }
 
 export function TagIcon({ variant = 'white', className = '' }: TagIconProps) {

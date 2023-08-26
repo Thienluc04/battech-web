@@ -1,6 +1,7 @@
-export interface PhoneIconProps {
+import { ComponentProps } from 'react';
+
+export interface PhoneIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray' | string;
-  className?: string;
 }
 
 export function PhoneIcon({ variant = 'white', className = '' }: PhoneIconProps) {

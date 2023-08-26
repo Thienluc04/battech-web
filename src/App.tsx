@@ -1,6 +1,8 @@
+import { Suspense, lazy } from 'react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+
 import { MainLayout } from '@/components/layouts';
-import { lazy, Suspense } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import './App.scss';
 
 const HomePage = lazy(() => import('@/pages/HomePage'));
@@ -51,7 +53,9 @@ function App() {
   return (
     <Suspense
       fallback={
-        <div className="mt-20 mx-auto w-10 h-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+        <>
+          <div className="w-10 h-10 mx-auto mt-20 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+        </>
       }
     >
       <RouterProvider router={router} />

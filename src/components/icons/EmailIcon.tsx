@@ -1,14 +1,11 @@
-export interface IEmailIconProps {
+import { ComponentProps } from 'react';
+
+export interface EmailIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray';
-  className?: string;
   type?: 'primary' | 'outline';
 }
 
-export function EmailIcon({
-  variant = 'white',
-  className = '',
-  type = 'primary',
-}: IEmailIconProps) {
+export function EmailIcon({ variant = 'white', className = '', type = 'primary' }: EmailIconProps) {
   return (
     <span className={className}>
       {type === 'primary' && (

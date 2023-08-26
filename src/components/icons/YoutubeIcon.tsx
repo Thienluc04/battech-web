@@ -1,6 +1,7 @@
-export interface YoutubeIconProps {
+import { ComponentProps } from 'react';
+
+export interface YoutubeIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray' | string;
-  className?: string;
 }
 
 export function YoutubeIcon({ variant = 'white', className = '' }: YoutubeIconProps) {

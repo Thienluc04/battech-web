@@ -1,12 +1,14 @@
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useGetAllNewsQuery } from '@/api/newsApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { listCategories } from '@/constants/general';
 import { newsActions, selectListNews, selectParamsNews } from '@/features/news/newsSlice';
-import { useEffect, useState } from 'react';
+import { Category } from '@/models';
+
 import { ListNews, NewsItem } from '.';
 import { Pagination } from '..';
-import { Category } from '@/models';
-import { useTranslation } from 'react-i18next';
 
 export interface ListNewsSectionProps {}
 
@@ -101,7 +103,11 @@ export function ListNewsSection(props: ListNewsSectionProps) {
       )}
 
       {isLoading && (
-        <div className="w-10 h-10 mx-auto border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+        <ListNews>
+          {new Array(8).fill(0).map((item, index) => (
+            <NewsItem key={index} loading></NewsItem>
+          ))}
+        </ListNews>
       )}
     </section>
   );

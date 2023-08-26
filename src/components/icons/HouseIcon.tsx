@@ -1,6 +1,7 @@
-export interface HouseIconProps {
+import { ComponentProps } from 'react';
+
+export interface HouseIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray';
-  className?: string;
 }
 
 export function HouseIcon({ variant = 'white', className = '' }: HouseIconProps) {

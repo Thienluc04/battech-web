@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
+
 import { DateIcon, UserIcon } from '@/components/icons';
 import { News } from '@/models';
-import { Link } from 'react-router-dom';
 
 export interface SidebarNewsItemProps {
   news: News;
@@ -13,7 +14,7 @@ export function SidebarNewsItem({ news }: SidebarNewsItemProps) {
         <img className="w-[136px] h-[114px] rounded-l-xl" src={news.image} alt="news-sidebar-img" />
       </Link>
       <div className="flex-1 p-3">
-        <Link to={`/news/${news.slug}`} className="font-medium leading-[18px] mb-1 block">
+        <Link to={`/news/${news.slug}`} className="font-medium leading-[18px] mb-2 block">
           {news.title}
         </Link>
         <div className="flex items-center justify-between">

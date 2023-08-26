@@ -1,4 +1,4 @@
-import { Control, FieldValues, useController, Path, PathValue } from 'react-hook-form';
+import { Control, FieldValues, Path, PathValue, useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 export interface RecruitmentFieldProps<T extends FieldValues> {
@@ -45,7 +45,7 @@ export function RecruitmentField<T extends FieldValues>({
           <span className="block text-gray97">{field.value || t('Chọn file CV của bạn')}</span>
         )}
       </label>
-      <span className="text-sm font-bold text-red-500">{errorMessage}</span>
+      {errorMessage && <span className="text-sm font-bold text-red-500">{errorMessage}</span>}
     </label>
   );
 }

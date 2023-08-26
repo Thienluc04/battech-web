@@ -1,6 +1,7 @@
-export interface UserIconProps {
+import { ComponentProps } from 'react';
+
+export interface UserIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray';
-  className?: string;
   type?: 'primary' | 'outline';
 }
 

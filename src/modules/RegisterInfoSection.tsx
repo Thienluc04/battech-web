@@ -1,10 +1,11 @@
-import { Button } from '@/components/button';
-import { Input } from '@/components/input';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
-import { useTranslation } from 'react-i18next';
+
+import { Button } from '@/components/button';
+import { Input } from '@/components/input';
 
 export interface RegisterInfoSectionProps {}
 

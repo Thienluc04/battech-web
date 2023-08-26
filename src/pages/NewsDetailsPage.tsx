@@ -1,12 +1,13 @@
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router';
+import Slider from 'react-slick';
+
 import { useGetNewsWithCategoryQuery, useGetSingleNewsQuery } from '@/api/newsApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { NewsSidebar } from '@/components/sidebar';
 import { newsActions, selectListSimilarNews } from '@/features/news/newsSlice';
 import { NewsItem } from '@/modules/news';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router';
-import Slider from 'react-slick';
 
 export default function NewsDetailsPage() {
   const { slug } = useParams();

@@ -1,9 +1,7 @@
+import { ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-export interface MenuRightIconProps {
-  onClick?: () => void;
-  className?: string;
-}
+export interface MenuRightIconProps extends ComponentProps<'span'> {}
 
 export function MenuRightIcon({ onClick, className }: MenuRightIconProps) {
   return (

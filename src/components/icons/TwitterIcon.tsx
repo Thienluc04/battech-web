@@ -1,6 +1,7 @@
-export interface TwitterIconProps {
+import { ComponentProps } from 'react';
+
+export interface TwitterIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray' | string;
-  className?: string;
 }
 
 export function TwitterIcon({ variant = 'white', className = '' }: TwitterIconProps) {

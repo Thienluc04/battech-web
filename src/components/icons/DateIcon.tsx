@@ -1,6 +1,7 @@
-export interface DateIconProps {
+import { ComponentProps } from 'react';
+
+export interface DateIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray';
-  className?: string;
 }
 
 export function DateIcon({ variant = 'white', className = '' }: DateIconProps) {

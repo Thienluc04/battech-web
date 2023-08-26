@@ -1,7 +1,7 @@
-export interface ArrowLeftIconProps {
+import { ComponentProps } from 'react';
+
+export interface ArrowLeftIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray';
-  className?: string;
-  onClick?: () => void;
 }
 
 export function ArrowLeftIcon({

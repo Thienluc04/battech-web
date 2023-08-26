@@ -1,10 +1,11 @@
+import { useEffect } from 'react';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { jobActions, selectParamsJob } from '@/features/job/jobSlice';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 export interface SearchJobsProps {}
 

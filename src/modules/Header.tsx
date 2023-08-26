@@ -1,38 +1,13 @@
-import { CloseIcon, MenuRightIcon } from '@/components/icons';
-import { i18nInit } from '@/constants/i18n';
 import i18n from 'i18next';
 import { useEffect, useRef, useState } from 'react';
 import { initReactI18next, useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
+
+import { CloseIcon, MenuRightIcon } from '@/components/icons';
+import { listLink } from '@/constants/header';
+import { i18nInit } from '@/constants/i18n';
+
 import { ChangeLanguage } from '.';
-
-interface ListLink {
-  path: string;
-  name: string;
-}
-
-const listLink: ListLink[] = [
-  {
-    path: '/',
-    name: 'Trang chủ',
-  },
-  {
-    path: '/introduce',
-    name: 'Giới thiệu',
-  },
-  {
-    path: '/news',
-    name: 'Tin tức',
-  },
-  {
-    path: '/jobs',
-    name: 'Cơ hội việc làm',
-  },
-  {
-    path: '/contact',
-    name: 'Liên hệ',
-  },
-];
 
 i18n.use(initReactI18next).init(i18nInit);
 

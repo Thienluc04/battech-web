@@ -1,9 +1,8 @@
+import { ComponentProps } from 'react';
+import { Control, FieldValues, Path, PathValue, useController } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
-import { Control, FieldValues, useController, Path, PathValue } from 'react-hook-form';
 
-export interface TextareaProps<T extends FieldValues> {
-  placeholder: string;
-  className?: string;
+export interface TextareaProps<T extends FieldValues> extends ComponentProps<'textarea'> {
   control: Control<T>;
   name: Path<T>;
   errorMessage?: string;

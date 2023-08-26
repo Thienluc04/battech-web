@@ -1,6 +1,7 @@
-export interface DiscordIconProps {
+import { ComponentProps } from 'react';
+
+export interface DiscordIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray' | string;
-  className?: string;
 }
 
 export function DiscordIcon({ variant = 'white', className = '' }: DiscordIconProps) {

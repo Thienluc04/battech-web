@@ -30,28 +30,6 @@ export const listCategories: string[] = [
   'PHÁT TRIỂN PHẦN MỀM',
 ];
 
-export const jobGroup = {
-  ALL: 'All',
-  FRONTEND: 'Frontend',
-  BACKEND: 'Backend',
-  PRODUCT_DESIGN: 'Product Design',
-  TESTER: 'Tester',
-  HR: 'HR',
-};
-
-export const jobAddress = {
-  ALL: 'All',
-  HANOI: 'Hà Nội',
-  HCM: 'Hồ Chí Minh',
-};
-
-export const jobType = {
-  ALL: 'All',
-  FULLTIME: 'Fulltime',
-  PARTTIME: 'Parttime',
-  INTERN: 'Intern',
-};
-
 export const linkApi = 'https://battech-server.onrender.com/api/';
 
 export const phoneRegExp =

@@ -1,13 +1,13 @@
-import { EnglandFlag, VietnamFlag } from '@/components/icons';
-import { Dispatch, SetStateAction } from 'react';
+import { ComponentProps, Dispatch, SetStateAction } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-export interface ChangeLanguageProps {
+import { EnglandFlag, VietnamFlag } from '@/components/icons';
+
+export interface ChangeLanguageProps extends ComponentProps<'div'> {
   languageShow: boolean;
   language: 'en' | 'vn' | undefined;
   setLanguageShow: Dispatch<SetStateAction<boolean>>;
   setLanguage: Dispatch<SetStateAction<'vn' | 'en' | undefined>>;
-  className?: string;
 }
 
 export function ChangeLanguage({

@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
+
 import { useGetNewestListQuery, useGetNewsEventListQuery } from '@/api/newsApi';
 import { useAppDispatch } from '@/app/hooks';
 import { newsActions } from '@/features/news/newsSlice';
 import { PartnersSection, RegisterInfoSection } from '@/modules';
 import { HeroSection, IntroduceSection, NewsSection, OrientationSection } from '@/modules/home';
-import { useEffect } from 'react';
 
 export default function HomePage() {
   const dispatch = useAppDispatch();

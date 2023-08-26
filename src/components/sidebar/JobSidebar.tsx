@@ -1,14 +1,14 @@
-import { RadioBox } from '@/components/checkbox';
-import { Button } from '@/components/button';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { jobAddress, jobGroup, jobType } from '@/constants/general';
-import { useAppDispatch } from '@/app/hooks';
-import { useSelector } from 'react-redux';
-import { jobActions, selectParamsJob } from '@/features/job/jobSlice';
 import { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
-export interface JobSidebarProps {}
+import { useAppDispatch } from '@/app/hooks';
+import { Button } from '@/components/button';
+import { RadioBox } from '@/components/checkbox';
+import { jobAddress, jobGroup, jobType, listAddress, listGroup, listType } from '@/constants/job';
+import { jobActions, selectParamsJob } from '@/features/job/jobSlice';
+import { JobGroupField } from '@/modules/job';
 
 interface FormData {
   group?: string;
@@ -16,68 +16,7 @@ interface FormData {
   type?: string;
 }
 
-const listGroup = [
-  {
-    text: 'Tất cả',
-    group: jobGroup.ALL,
-  },
-  {
-    text: 'Frontend',
-    group: jobGroup.FRONTEND,
-  },
-  {
-    text: 'Backend',
-    group: jobGroup.BACKEND,
-  },
-  {
-    text: 'Product Design',
-    group: jobGroup.PRODUCT_DESIGN,
-  },
-  {
-    text: 'Tester',
-    group: jobGroup.TESTER,
-  },
-  {
-    text: 'HR',
-    group: jobGroup.HR,
-  },
-];
-
-const listAddress = [
-  {
-    text: 'Tất cả',
-    address: jobAddress.ALL,
-  },
-  {
-    text: 'Hà Nội',
-    address: jobAddress.HANOI,
-  },
-  {
-    text: 'Hồ Chí Minh',
-    address: jobAddress.HCM,
-  },
-];
-
-const listType = [
-  {
-    text: 'Tất cả',
-    type: jobType.ALL,
-  },
-  {
-    text: 'Toàn thời gian',
-    type: jobType.FULLTIME,
-  },
-  {
-    text: 'Bán thời gian',
-    type: jobType.PARTTIME,
-  },
-  {
-    text: 'Thực tập sinh',
-    type: jobType.INTERN,
-  },
-];
-
-export function JobSidebar(props: JobSidebarProps) {
+export function JobSidebar() {
   const { control, handleSubmit, watch } = useForm({
     mode: 'onSubmit',
     defaultValues: {
@@ -177,14 +116,9 @@ export function JobSidebar(props: JobSidebarProps) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(handleFilterJob)}
-      className="flex flex-col gap-[68px] md:mx-auto"
-      {...props}
-    >
+    <form onSubmit={handleSubmit(handleFilterJob)} className="flex flex-col gap-[68px] md:mx-auto">
       <div className="flex flex-col gap-8 border-r border-r-primary md:border-r-0">
-        <div className="flex flex-col gap-1">
-          <h2 className="text-xl font-bold leading-7 text-textBase">{t('Nhóm công việc')}</h2>
+        <JobGroupField title={t('Nhóm công việc')}>
           {listGroup.map((item, index) => (
             <RadioBox
               key={index}
@@ -196,9 +130,8 @@ export function JobSidebar(props: JobSidebarProps) {
               {t(item.text)}
             </RadioBox>
           ))}
-        </div>
-        <div className="flex flex-col gap-1">
-          <h2 className="text-xl font-bold leading-7 text-textBase">{t('Địa điểm làm việc')}</h2>
+        </JobGroupField>
+        <JobGroupField title={t('Địa điểm làm việc')}>
           {listAddress.map((item, index) => (
             <RadioBox
               key={index}
@@ -210,9 +143,8 @@ export function JobSidebar(props: JobSidebarProps) {
               {t(item.text)}
             </RadioBox>
           ))}
-        </div>
-        <div className="flex flex-col gap-1">
-          <h2 className="text-xl font-bold leading-7 text-textBase">{t('Loại công việc')}</h2>
+        </JobGroupField>
+        <JobGroupField title={t('Loại công việc')}>
           {listType.map((item, index) => (
             <RadioBox
               key={index}
@@ -224,7 +156,7 @@ export function JobSidebar(props: JobSidebarProps) {
               {t(item.text)}
             </RadioBox>
           ))}
-        </div>
+        </JobGroupField>
       </div>
       <Button variant="primary" className="xl:w-[276px] w-full mx-auto">
         {t('Áp dụng bộ lọc')}

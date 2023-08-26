@@ -1,9 +1,8 @@
+import { ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-export interface ArrowRightIconProps {
+export interface ArrowRightIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray';
-  className?: string;
-  onClick?: () => void;
 }
 
 export function ArrowRightIcon({

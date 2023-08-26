@@ -1,3 +1,9 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+
 import { Button } from '@/components/button';
 import {
   AttachmentIcon,
@@ -7,14 +13,10 @@ import {
   TagIcon,
   UserIcon,
 } from '@/components/icons';
-import { RecruitmentField } from '.';
 import { Textarea } from '@/components/textarea';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { phoneRegExp } from '@/constants/general';
-import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+
+import { RecruitmentField } from '.';
 
 export interface RecruitmentFormProps {}
 

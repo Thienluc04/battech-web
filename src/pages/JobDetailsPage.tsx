@@ -1,11 +1,12 @@
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router';
+
 import { useGetSimilarJobsQuery, useGetSingleJobQuery } from '@/api/jobApi';
 import { useAppDispatch } from '@/app/hooks';
 import { AddressIcon, ClockIcon } from '@/components/icons';
 import { jobActions } from '@/features/job/jobSlice';
 import { HeroSection, RecruitmentForm, SimilarJobs } from '@/modules/job';
-import { useEffect } from 'react';
-import { useParams } from 'react-router';
-import { useTranslation } from 'react-i18next';
 
 export default function JobDetailsPage() {
   const { slug } = useParams();
@@ -31,6 +32,7 @@ export default function JobDetailsPage() {
         <div className="w-10 h-10 mx-auto my-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
       </>
     );
+
   return (
     <>
       <HeroSection></HeroSection>

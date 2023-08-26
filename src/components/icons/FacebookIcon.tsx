@@ -1,6 +1,7 @@
-export interface FacebookIconProps {
+import { ComponentProps } from 'react';
+
+export interface FacebookIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray' | string;
-  className?: string;
 }
 
 export function FacebookIcon({ variant = 'white', className = '' }: FacebookIconProps) {

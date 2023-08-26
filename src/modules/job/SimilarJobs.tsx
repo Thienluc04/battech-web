@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next';
+
 import { useAppSelector } from '@/app/hooks';
 import { selectSimilarJobs } from '@/features/job/jobSlice';
+
 import { SimilarJobItem } from '.';
-import { useTranslation } from 'react-i18next';
 
 export interface SimilarJobsProps {}
 

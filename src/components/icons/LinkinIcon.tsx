@@ -1,6 +1,7 @@
-export interface LinkinIconProps {
+import { ComponentProps } from 'react';
+
+export interface LinkinIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray' | string;
-  className?: string;
 }
 
 export function LinkinIcon({ variant = 'white', className = '' }: LinkinIconProps) {

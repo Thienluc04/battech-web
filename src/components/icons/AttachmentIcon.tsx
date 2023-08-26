@@ -1,6 +1,7 @@
-export interface AttachmentIconProps {
+import { ComponentProps } from 'react';
+
+export interface AttachmentIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray';
-  className?: string;
 }
 
 export function AttachmentIcon({ variant = 'white', className = '' }: AttachmentIconProps) {

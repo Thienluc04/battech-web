@@ -1,5 +1,6 @@
-import { ArrowLeftIcon, ArrowRightIcon } from '@/components/icons';
 import { memo } from 'react';
+
+import { ArrowLeftIcon, ArrowRightIcon } from '@/components/icons';
 
 export interface PaginationProps {
   type?: 'job' | 'news';

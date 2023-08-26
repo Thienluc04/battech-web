@@ -1,6 +1,7 @@
-export interface AddressIconProps {
+import { ComponentProps } from 'react';
+
+export interface AddressIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray';
-  className?: string;
 }
 
 export function AddressIcon({ variant = 'white', className = '' }: AddressIconProps) {

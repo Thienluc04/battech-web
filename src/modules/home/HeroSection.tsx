@@ -1,7 +1,8 @@
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+
 import { Button } from '@/components/button';
 import { listSocialNetwork } from '@/constants/general';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
 export interface HeroSectionProps {}
 

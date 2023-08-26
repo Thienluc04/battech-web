@@ -1,11 +1,12 @@
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { useGetAllJobQuery } from '@/api/jobApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { JobSidebar } from '@/components/sidebar';
 import { jobActions, selectListJob, selectParamsJob } from '@/features/job/jobSlice';
 import { Pagination } from '@/modules';
 import { HeroSection, JobItem, JobList, SearchJobs } from '@/modules/job';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 const JOB_PER_PAGE = 6;
 

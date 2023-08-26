@@ -1,9 +1,8 @@
+import { ComponentProps } from 'react';
 import { Link } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
-export interface ButtonProps {
-  onClick?: () => void;
-  className?: string;
+export interface ButtonProps extends ComponentProps<'button'> {
   to?: string;
   variant: 'primary' | 'secondary';
 }
