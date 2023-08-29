@@ -2,6 +2,7 @@ import { Suspense, lazy } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { MainLayout } from '@/components/layouts';
+import { Footer, Header } from '@/modules';
 
 import './App.scss';
 
@@ -20,47 +21,111 @@ function App() {
       children: [
         {
           path: '/',
-          element: <HomePage></HomePage>,
+          element: (
+            <Suspense
+              fallback={
+                <>
+                  <div className="w-10 h-10 mx-auto my-20 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+                </>
+              }
+            >
+              <HomePage></HomePage>
+            </Suspense>
+          ),
         },
         {
           path: '/introduce',
-          element: <IntroducePage></IntroducePage>,
+          element: (
+            <Suspense
+              fallback={
+                <>
+                  <div className="w-10 h-10 mx-auto my-20 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+                </>
+              }
+            >
+              <IntroducePage></IntroducePage>,
+            </Suspense>
+          ),
         },
         {
           path: '/news',
-          element: <NewsListPage></NewsListPage>,
+          element: (
+            <Suspense
+              fallback={
+                <>
+                  <div className="w-10 h-10 mx-auto my-20 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+                </>
+              }
+            >
+              <NewsListPage></NewsListPage>,
+            </Suspense>
+          ),
         },
         {
           path: '/news/:slug',
-          element: <NewsDetailsPage></NewsDetailsPage>,
+          element: (
+            <Suspense
+              fallback={
+                <>
+                  <div className="w-10 h-10 mx-auto my-20 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+                </>
+              }
+            >
+              <NewsDetailsPage></NewsDetailsPage>,
+            </Suspense>
+          ),
         },
         {
           path: '/jobs',
-          element: <RecruitmentJobPage></RecruitmentJobPage>,
+          element: (
+            <Suspense
+              fallback={
+                <>
+                  <div className="w-10 h-10 mx-auto my-20 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+                </>
+              }
+            >
+              <RecruitmentJobPage></RecruitmentJobPage>,
+            </Suspense>
+          ),
         },
         {
           path: '/jobs/:slug',
-          element: <JobDetailsPage></JobDetailsPage>,
+          element: (
+            <Suspense
+              fallback={
+                <>
+                  <div className="w-10 h-10 mx-auto my-20 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+                </>
+              }
+            >
+              <JobDetailsPage></JobDetailsPage>,
+            </Suspense>
+          ),
         },
       ],
     },
 
     {
       path: '/contact',
-      element: <ContactPage></ContactPage>,
+      element: (
+        <Suspense
+          fallback={
+            <div className="flex flex-col min-h-screen">
+              <Header />
+              <div className="flex-1">
+                <div className="w-10 h-10 mx-auto my-20 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+              </div>
+              <Footer />
+            </div>
+          }
+        >
+          <ContactPage></ContactPage>,
+        </Suspense>
+      ),
     },
   ]);
-  return (
-    <Suspense
-      fallback={
-        <>
-          <div className="w-10 h-10 mx-auto mt-20 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
-        </>
-      }
-    >
-      <RouterProvider router={router} />
-    </Suspense>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

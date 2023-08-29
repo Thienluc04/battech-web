@@ -1,5 +1,7 @@
+import { ComponentProps } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { twMerge } from 'tailwind-merge';
 
 import {
   ArrowRightIcon,
@@ -24,16 +26,19 @@ const footerLinkList: string[] = [
   'Giải pháp marketing online',
 ];
 
-interface FooterProps {
+interface FooterProps extends ComponentProps<'div'> {
   background?: 'footer' | 'primary';
 }
 
-export function Footer({ background = 'footer' }: FooterProps) {
+export function Footer({ background = 'footer', className = '' }: FooterProps) {
   const { t } = useTranslation();
 
   return (
     <div
-      className={`xl:pt-[140px] pt-[160px] pb-[60px] bg-${background} text-white flex justify-center xl:block`}
+      className={twMerge(
+        `xl:pt-[140px] pt-[160px] pb-[60px] bg-${background} text-white flex justify-center xl:block`,
+        className,
+      )}
     >
       <div className="max-w-[1200px] xl:mx-auto mx-5 flex xl:flex-row xl:pl-0 flex-col gap-8">
         <div className="flex flex-col gap-4">

@@ -110,7 +110,7 @@ export const i18nInit = {
         'Tìm việc làm': 'Search for job',
         'Ứng tuyển': 'Apply Job',
         'Tên công việc': 'Name for job',
-        'Nhóm công việc': 'Work catagories',
+        'Nhóm công việc': 'Work categories',
         'Địa điểm làm việc': 'Locations',
         'Loại công việc': 'Type of Work',
         'Tất cả': 'All',

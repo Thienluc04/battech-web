@@ -8,4 +8,10 @@ export interface Job {
   date: string;
   group: string;
   type: string;
+  content: JobContent[];
+}
+
+export interface JobContent {
+  title: string;
+  list: string[];
 }

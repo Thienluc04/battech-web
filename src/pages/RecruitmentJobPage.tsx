@@ -63,7 +63,11 @@ export default function RecruitmentJobPage() {
           )}
           {isLoading && (
             <div className="flex-1">
-              <div className="w-10 h-10 mx-auto border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+              <JobList>
+                {new Array(6).fill(0).map((_item, index) => (
+                  <JobItem key={index} loading></JobItem>
+                ))}
+              </JobList>
             </div>
           )}
         </div>

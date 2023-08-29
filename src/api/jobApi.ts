@@ -1,7 +1,8 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
 import { linkApi } from '@/constants/general';
 import { Job } from '@/models';
-import { ListParams, ListResponse } from '@/models/common';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { ListParams, ListResponse, jobKind } from '@/models/common';
 
 export const jobApi = createApi({
   reducerPath: 'jobApi',
@@ -53,7 +54,38 @@ export const jobApi = createApi({
         };
       },
     }),
+    getWorkCategories: builder.query<jobKind[], ListParams>({
+      query: (params) => {
+        return {
+          url: 'workCategories',
+          params,
+        };
+      },
+    }),
+    getWorkLocations: builder.query<jobKind[], ListParams>({
+      query: (params) => {
+        return {
+          url: 'workLocations',
+          params,
+        };
+      },
+    }),
+    getWorkTypes: builder.query<jobKind[], ListParams>({
+      query: (params) => {
+        return {
+          url: 'workTypes',
+          params,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllJobQuery, useGetSingleJobQuery, useGetSimilarJobsQuery } = jobApi;
+export const {
+  useGetAllJobQuery,
+  useGetSingleJobQuery,
+  useGetSimilarJobsQuery,
+  useGetWorkCategoriesQuery,
+  useGetWorkLocationsQuery,
+  useGetWorkTypesQuery,
+} = jobApi;

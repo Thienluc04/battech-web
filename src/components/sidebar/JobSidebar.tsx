@@ -1,17 +1,23 @@
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import Skeleton from 'react-loading-skeleton';
 import { useSelector } from 'react-redux';
 
+import {
+  useGetWorkCategoriesQuery,
+  useGetWorkLocationsQuery,
+  useGetWorkTypesQuery,
+} from '@/api/jobApi';
 import { useAppDispatch } from '@/app/hooks';
 import { Button } from '@/components/button';
 import { RadioBox } from '@/components/checkbox';
-import { jobAddress, jobGroup, jobType, listAddress, listGroup, listType } from '@/constants/job';
+import { jobAddress, jobGroup, jobType } from '@/constants/job';
 import { jobActions, selectParamsJob } from '@/features/job/jobSlice';
 import { JobGroupField } from '@/modules/job';
 
 interface FormData {
-  group?: string;
+  category?: string;
   address?: string;
   type?: string;
 }
@@ -20,11 +26,15 @@ export function JobSidebar() {
   const { control, handleSubmit, watch } = useForm({
     mode: 'onSubmit',
     defaultValues: {
-      group: jobGroup.ALL,
+      category: jobGroup.ALL,
       address: jobAddress.ALL,
       type: jobType.ALL,
     },
   });
+
+  const { data: workCategories, isLoading: categoriesLoading } = useGetWorkCategoriesQuery({});
+  const { data: workLocations, isLoading: locationsLoading } = useGetWorkLocationsQuery({});
+  const { data: workTypes, isLoading: typesLoading } = useGetWorkTypesQuery({});
 
   const { t } = useTranslation();
 
@@ -34,20 +44,20 @@ export function JobSidebar() {
 
   const dispatch = useAppDispatch();
 
-  const watchGroup = watch('group');
+  const watchCategory = watch('category');
   const watchAddress = watch('address');
   const watchType = watch('type');
 
   useEffect(() => {
-    if (watchGroup !== jobGroup.ALL) {
-      setFilter({ ...filter, group: watchGroup });
+    if (watchCategory !== jobGroup.ALL) {
+      setFilter({ ...filter, category: watchCategory });
     } else {
       const temp: FormData = { ...filter };
-      delete temp.group;
+      delete temp.category;
       setFilter({ ...temp });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watchGroup]);
+  }, [watchCategory]);
 
   useEffect(() => {
     if (watchAddress !== jobAddress.ALL) {
@@ -73,14 +83,14 @@ export function JobSidebar() {
 
   const handleFilterJob: SubmitHandler<FormData> = () => {
     const params = { ...currentParams };
-    if (filter.address && filter.group && filter.type) {
+    if (filter.address && filter.category && filter.type) {
       dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
     } else {
       if (!filter.address) {
         delete params.address;
         dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
-        if (!filter.group) {
-          delete params.group;
+        if (!filter.category) {
+          delete params.category;
           dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         }
         if (!filter.type) {
@@ -88,8 +98,8 @@ export function JobSidebar() {
           dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         }
       }
-      if (!filter.group) {
-        delete params.group;
+      if (!filter.category) {
+        delete params.category;
         dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         if (!filter.address) {
           delete params.address;
@@ -107,8 +117,8 @@ export function JobSidebar() {
           delete params.address;
           dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         }
-        if (!filter.group) {
-          delete params.group;
+        if (!filter.category) {
+          delete params.category;
           dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
         }
       }
@@ -119,43 +129,49 @@ export function JobSidebar() {
     <form onSubmit={handleSubmit(handleFilterJob)} className="flex flex-col gap-[68px] md:mx-auto">
       <div className="flex flex-col gap-8 border-r border-r-primary md:border-r-0">
         <JobGroupField title={t('Nhóm công việc')}>
-          {listGroup.map((item, index) => (
-            <RadioBox
-              key={index}
-              name="group"
-              control={control}
-              checked={watchGroup === item.group}
-              value={item.group}
-            >
-              {t(item.text)}
-            </RadioBox>
-          ))}
+          {workCategories &&
+            workCategories.map((item, index) => (
+              <RadioBox
+                key={index}
+                name="category"
+                control={control}
+                checked={watchCategory === item.value}
+                value={item.value}
+              >
+                {t(item.text)}
+              </RadioBox>
+            ))}
+          {categoriesLoading && <Skeleton className="w-[150px] h-4" count={6}></Skeleton>}
         </JobGroupField>
         <JobGroupField title={t('Địa điểm làm việc')}>
-          {listAddress.map((item, index) => (
-            <RadioBox
-              key={index}
-              name="address"
-              control={control}
-              checked={watchAddress === item.address}
-              value={item.address}
-            >
-              {t(item.text)}
-            </RadioBox>
-          ))}
+          {workLocations &&
+            workLocations.map((item, index) => (
+              <RadioBox
+                key={index}
+                name="address"
+                control={control}
+                checked={watchAddress === item.value}
+                value={item.value}
+              >
+                {t(item.text)}
+              </RadioBox>
+            ))}
+          {locationsLoading && <Skeleton className="w-[150px] h-4" count={6}></Skeleton>}
         </JobGroupField>
         <JobGroupField title={t('Loại công việc')}>
-          {listType.map((item, index) => (
-            <RadioBox
-              key={index}
-              name="type"
-              control={control}
-              checked={watchType === item.type}
-              value={item.type}
-            >
-              {t(item.text)}
-            </RadioBox>
-          ))}
+          {workTypes &&
+            workTypes.map((item, index) => (
+              <RadioBox
+                key={index}
+                name="type"
+                control={control}
+                checked={watchType === item.value}
+                value={item.value}
+              >
+                {t(item.text)}
+              </RadioBox>
+            ))}
+          {typesLoading && <Skeleton className="w-[150px] h-4" count={6}></Skeleton>}
         </JobGroupField>
       </div>
       <Button variant="primary" className="xl:w-[276px] w-full mx-auto">

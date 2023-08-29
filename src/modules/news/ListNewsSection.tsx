@@ -104,7 +104,7 @@ export function ListNewsSection(props: ListNewsSectionProps) {
 
       {isLoading && (
         <ListNews>
-          {new Array(8).fill(0).map((item, index) => (
+          {new Array(8).fill(0).map((_item, index) => (
             <NewsItem key={index} loading></NewsItem>
           ))}
         </ListNews>

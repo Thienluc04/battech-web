@@ -9,6 +9,7 @@ export interface News {
   image: string;
   isNewest: boolean;
   isEvent: boolean;
+  content: NewsContent[];
 }
 
 export type Category =
@@ -18,3 +19,9 @@ export type Category =
   | 'GAME NFT'
   | 'PHÁT TRIỂN PHẦN MỀM'
   | '';
+
+export interface NewsContent {
+  contentTitle: string;
+  contentDesc: string;
+  contentImg: string;
+}
