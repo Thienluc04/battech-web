@@ -21,7 +21,9 @@ export default function JobDetailsPage() {
   const [jobDetail, setJobDetail] = useState<Job>();
   const [jobContent, setJobContent] = useState<JobContent[]>();
 
-  const { data: listSimilarJobs } = useGetSimilarJobsQuery(jobDetail?.group as string);
+  const { data: listSimilarJobs, isLoading: similarLoading } = useGetSimilarJobsQuery(
+    jobDetail?.group as string,
+  );
 
   useEffect(() => {
     if (jobResponse && jobResponse?.length > 0) {
@@ -108,7 +110,7 @@ export default function JobDetailsPage() {
           )}
           <div className="flex-1">
             <RecruitmentForm></RecruitmentForm>
-            <SimilarJobs></SimilarJobs>
+            <SimilarJobs loading={similarLoading}></SimilarJobs>
           </div>
         </div>
       </div>

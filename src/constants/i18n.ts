@@ -150,6 +150,7 @@ export const i18nInit = {
         'Bạn chưa chọn tệp CV': 'Please enter your CV file',
         'Bạn chưa nhập trường này': 'Please enter in this field',
         'Vui lòng nhập tên của bạn': 'Please enter your name',
+        'Không có công việc nào tương tự': 'There are no similar jobs',
       },
     },
   },
