@@ -3,6 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 
 import { Button } from '@/components/button';
 import { AddressIcon, ClockIcon, DollarIcon } from '@/components/icons';
+import { vn } from '@/constants/languages';
 import { Job } from '@/models';
 
 export interface JobItemProps {
@@ -42,7 +43,7 @@ export function JobItem({ job, loading = false }: JobItemProps) {
             variant="primary"
             className="xl:text-xs text-xs xl:leading-[25px] uppercase rounded-md block"
           >
-            {t('Ứng tuyển')}
+            {t(vn.job.BUTTON_APPLY_TEXT)}
           </Button>
         </div>
       )}

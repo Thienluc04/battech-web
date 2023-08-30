@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
 import { Textarea } from '@/components/textarea';
+import { vn } from '@/constants/languages';
 
 export interface ContactFormProps {}
 
@@ -44,7 +45,7 @@ export function ContactForm(props: ContactFormProps) {
       fullName: '',
       phoneNumber: '',
     });
-    toast.success('Gửi tin nhắn thành công!');
+    toast.success(t(vn.toast.MESSAGE_SUCCESS) + '!');
   };
 
   return (
@@ -56,13 +57,13 @@ export function ContactForm(props: ContactFormProps) {
       <div className="flex-1">
         <div className="flex flex-col mb-4">
           <label className="mb-1 font-medium leading-6">
-            {t('Tên')} <span className="text-[#F92323]">*</span>
+            {t(vn.contact.FORM_NAME)} <span className="text-[#F92323]">*</span>
           </label>
           <Input
             name="fullName"
             control={control}
             errorMessage={errors.fullName && t(String(errors.fullName?.message))}
-            placeholder={t('Nhập tên')}
+            placeholder={t(vn.contact.FORM_NAME_PLACEHOLDER)}
           ></Input>
         </div>
         <div className="flex flex-col mb-4">
@@ -73,16 +74,16 @@ export function ContactForm(props: ContactFormProps) {
             name="email"
             control={control}
             errorMessage={errors.email && t(String(errors.email?.message))}
-            placeholder={t('Nhập email')}
+            placeholder={t(vn.contact.FORM_EMAIL_PLACEHOLDER)}
           ></Input>
         </div>
         <div className="flex flex-col">
-          <label className="mb-1 font-medium leading-6">{t('Số điện thoại')}</label>
+          <label className="mb-1 font-medium leading-6">{t(vn.contact.PHONE)}</label>
           <Input
             name="phoneNumber"
             control={control}
             errorMessage={errors.phoneNumber && t(String(errors.phoneNumber?.message))}
-            placeholder={t('Nhập số điện thoại')}
+            placeholder={t(vn.contact.FORM_PHONE_PLACEHOLDER)}
           ></Input>
         </div>
       </div>
@@ -91,13 +92,13 @@ export function ContactForm(props: ContactFormProps) {
           <Textarea
             name="content"
             control={control}
-            placeholder={t('Nhập nội dung')}
+            placeholder={t(vn.contact.FORM_CONTENT_PLACEHOLDER)}
             errorMessage={errors.content?.message}
             className="h-[140px] rounded-[18px] p-3"
           ></Textarea>
         </div>
         <Button variant="primary" className="w-full">
-          {t('Gửi tin nhắn')}
+          {t(vn.contact.FORM_BUTTON_TEXT)}
         </Button>
       </div>
     </form>

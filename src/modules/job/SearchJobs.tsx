@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
+import { vn } from '@/constants/languages';
 import { jobActions, selectParamsJob } from '@/features/job/jobSlice';
 
 export interface SearchJobsProps {}
@@ -41,12 +42,12 @@ export function SearchJobs(props: SearchJobsProps) {
     >
       <Input
         name="nameJob"
-        placeholder={t('Tên công việc')}
+        placeholder={t(vn.job.SEARCH_PLACEHOLDER)}
         control={control}
         className="flex-1 h-full pr-5 xl:border-r-0 border-primary xl:border-r-transparent"
       ></Input>
       <Button variant="primary" className="xl:w-[276px] w-full xl:-ml-4 mx-auto">
-        {t('Tìm việc làm')}
+        {t(vn.job.SEARCH_BUTTON_TEXT)}
       </Button>
     </form>
   );

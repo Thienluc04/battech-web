@@ -58,7 +58,7 @@ export function Header() {
   }, [menuShow]);
 
   return (
-    <div className="flex items-center justify-between p-5 bg-white xl:p-8 shadow-headerShadow">
+    <div className="sticky top-0 left-0 right-0 z-50 flex items-center justify-between p-5 bg-white xl:p-8 shadow-headerShadow">
       <Link to={'/'}>
         <img src="/images/logo.png" alt="logo" />
       </Link>

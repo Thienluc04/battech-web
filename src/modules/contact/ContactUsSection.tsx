@@ -1,5 +1,7 @@
-import { AddressIcon, EmailIcon, PhoneIcon } from '@/components/icons';
 import { useTranslation } from 'react-i18next';
+
+import { AddressIcon, EmailIcon, PhoneIcon } from '@/components/icons';
+import { vn } from '@/constants/languages';
 
 export interface ContactUsSectionProps {}
 
@@ -24,22 +26,14 @@ export function ContactUsSection(props: ContactUsSectionProps) {
       </div>
 
       <div>
-        <h2 className="mb-2 text-2xl font-bold leading-7 text-primary">
-          {t('LIÊN HỆ VỚI CHÚNG TÔI')}
-        </h2>
-        <p className="mb-4 font-medium leading-6">
-          {t(
-            'Hãy gọi cho chúng tôi hoặc ghé qua bất cứ lúc nào, chúng tôi sẽ cố gắng giải đáp mọi thắc mắc trong vòng 24 giờ vào các ngày làm việc. Rất hân hạnh được trả lời câu hỏi của bạn.',
-          )}
-        </p>
+        <h2 className="mb-2 text-2xl font-bold leading-7 text-primary">{t(vn.contact.TITLE)}</h2>
+        <p className="mb-4 font-medium leading-6">{t(vn.contact.DESCRIPTION)}</p>
         <div className="p-3 rounded-xl bg-white shadow-[4px_2px_15px_0px_rgba(0,_0,_0,_0.05)] mb-8">
           <div className="flex gap-2">
             <AddressIcon variant="green"></AddressIcon>
-            <span className="font-medium leading-6 text-gray7A">{t('Địa chỉ')}</span>
+            <span className="font-medium leading-6 text-gray7A">{t(vn.contact.ADDRESS_TITLE)}</span>
           </div>
-          <p className="text-[#0a0a0a] font-medium leading-6">
-            {t('Tầng 2, Tòa HH02, Eco Lakeview, 32 Đại Từ, P. Đại Kim, Q. Hoàng Mai, TP. Hà Nội')}
-          </p>
+          <p className="text-[#0a0a0a] font-medium leading-6">{t(vn.contact.ADDRESS)}</p>
         </div>
         <div className="p-3 rounded-xl bg-white shadow-[4px_2px_15px_0px_rgba(0,_0,_0,_0.05)] mb-8">
           <div className="flex gap-2">
@@ -51,7 +45,7 @@ export function ContactUsSection(props: ContactUsSectionProps) {
         <div className="p-3 rounded-xl bg-white shadow-[4px_2px_15px_0px_rgba(0,_0,_0,_0.05)] mb-8">
           <div className="flex gap-2">
             <PhoneIcon variant="green"></PhoneIcon>
-            <span className="font-medium leading-6 text-gray7A">{t('Số điện thoại')}</span>
+            <span className="font-medium leading-6 text-gray7A">{t(vn.contact.PHONE)}</span>
           </div>
           <p className="text-[#0a0a0a] font-medium leading-6">024 85 896 999</p>
         </div>

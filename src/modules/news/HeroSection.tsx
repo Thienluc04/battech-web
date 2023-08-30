@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { listSocialNetwork } from '@/constants/general';
+import { vn } from '@/constants/languages';
 
 export interface HeroSectionProps {}
 
@@ -19,12 +20,10 @@ export function HeroSection(props: HeroSectionProps) {
             className="xl:text-[32px] text-2xl font-bold text-primary xl:mb-6 mb-4 uppercase xl:leading-9 leading-7 font-fontArial 
             xl:text-left text-center"
           >
-            {t('TIN TỨC')} - {t('SỰ KIỆN')}
+            {t(vn.news.HERO_NEWS)} - {t(vn.news.HERO_EVENT)}
           </h1>
           <p className="font-medium leading-6 text-textDesc max-w-[375px] xl:text-left text-center">
-            {t(
-              'Cung cấp cập nhật thông tin, sự kiện mới của công ty đến với khách hàng và đối tác',
-            )}
+            {t(vn.news.HERO_DESCRIPTION)}
           </p>
         </div>
         <div className="pt-[95px] xl:block hidden">

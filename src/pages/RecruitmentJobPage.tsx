@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetAllJobQuery } from '@/api/jobApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { JobSidebar } from '@/components/sidebar';
+import { vn } from '@/constants/languages';
 import { jobActions, selectListJob, selectParamsJob } from '@/features/job/jobSlice';
 import { Pagination } from '@/modules';
 import { HeroSection, JobItem, JobList, SearchJobs } from '@/modules/job';
@@ -46,7 +47,7 @@ export default function RecruitmentJobPage() {
       <HeroSection></HeroSection>
       <div className="max-w-[1200px] mx-auto">
         <h2 className="mb-5 text-xl font-bold leading-7 text-center xl:mb-10 xl:text-2xl text-textBase">
-          {t('CƠ HỘI LÀM VIỆC HIỆN TẠI')}
+          {t(vn.job.TITLE)}
         </h2>
         <SearchJobs></SearchJobs>
         <div className="flex xl:flex-row flex-col gap-8 mb-[54px] xl:mx-0 mx-5">
@@ -59,7 +60,7 @@ export default function RecruitmentJobPage() {
             </JobList>
           )}
           {!isLoading && currentJobList.length <= 0 && (
-            <p className="flex-1 text-center">{t('Không tìm thấy công việc nào phù hợp')}</p>
+            <p className="flex-1 text-center">{t(vn.job.FILTER_NOT_MATCH)}</p>
           )}
           {isLoading && (
             <div className="flex-1">

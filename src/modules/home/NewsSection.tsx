@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Slider from 'react-slick';
 
 import { useAppSelector } from '@/app/hooks';
+import { vn } from '@/constants/languages';
 import { selectListEventNews, selectListNewestNews } from '@/features/news/newsSlice';
 import { News } from '@/models';
 import { NewestItem, NewsItem } from '@/modules/news';
@@ -28,9 +29,9 @@ export function NewsSection(props: NewsSectionProps) {
   return (
     <section className="max-w-[1200px] xl:mx-auto mx-3 xl:mt-[144px] mt-20" {...props}>
       <h2 className="mb-8 text-xl font-bold leading-7 text-center uppercase xl:mb-2 xl:text-2xl text-primary">
-        {t('TIN TỨC')}
+        {t(vn.home.NEWS_TITLE)}
       </h2>
-      <h3 className="mb-4 text-xl font-bold leading-7 text-textDesc">{t('Tin tức mới')}</h3>
+      <h3 className="mb-4 text-xl font-bold leading-7 text-textDesc">{t(vn.home.NEWEST_TITLE)}</h3>
       <div className="flex flex-col gap-4 mb-8 md:flex-row xl:mb-0">
         {largeNewest ? (
           <NewestItem
@@ -52,7 +53,7 @@ export function NewsSection(props: NewsSectionProps) {
         )}
       </div>
       <h3 className="mt-6 mb-4 text-xl font-bold leading-7 text-textDesc">
-        {t('Tin tức và sự kiện')}
+        {t(vn.home.NEWS_EVENT_TITLE)}
       </h3>
       {eventNewsList.length > 0 && (
         <Slider

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Button } from '@/components/button';
 import { listSocialNetwork } from '@/constants/general';
+import { vn } from '@/constants/languages';
 
 export interface HeroSectionProps {}
 
@@ -17,16 +18,14 @@ export function HeroSection(props: HeroSectionProps) {
             BATTECH ERP
           </h1>
           <h2 className="px-5 mb-6 text-xl font-bold leading-6 text-center uppercase xl:px-0 xl:leading-7 xl:text-2xl text-primary xl:text-left">
-            {t('GIẢI PHÁP QUẢN TRỊ NGUỒN LỰC DOANH NGHIỆP')}
+            {t(vn.home.HERO_SEMI_TITLE)}
           </h2>
           <p className="font-medium leading-6 xl:mb-[52px] xl:text-left text-center xl:px-0 px-3 mb-10">
-            {t(
-              'Hỗ trợ Ban lãnh đạo hoạch định và điều hành toàn bộ nguồn lực của doanh nghiệp bao gồm Hàng hóa - Tài chính - Nhân sự - Truyền thông và kết nối các bộ phận thao tác nghiệp vụ hiệu quả thông qua những quy trình được thiết kế theo quy chuẩn quốc tế.',
-            )}
+            {t(vn.home.HERO_DESCRIPTION)}
           </p>
           <div className="text-center xl:text-left">
             <Button variant="primary" to="/" className="px-5">
-              {t('Đăng ký nhận tư vấn')}
+              {t(vn.home.HERO_BUTTON_TEXT)}
             </Button>
           </div>
         </div>

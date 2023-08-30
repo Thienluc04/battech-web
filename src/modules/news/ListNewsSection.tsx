@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetAllNewsQuery } from '@/api/newsApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { listCategories } from '@/constants/general';
+import { vn } from '@/constants/languages';
 import { newsActions, selectListNews, selectParamsNews } from '@/features/news/newsSlice';
 import { Category } from '@/models';
 
@@ -99,7 +100,7 @@ export function ListNewsSection(props: ListNewsSectionProps) {
         ></Pagination>
       )}
       {!isLoading && listNews.length <= 0 && (
-        <p className="text-center">Không tìm thấy bài viết nào phù hợp</p>
+        <p className="text-center">{t(vn.news.NEWS_NOT_MATCH)}</p>
       )}
 
       {isLoading && (

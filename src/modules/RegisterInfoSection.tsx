@@ -6,6 +6,7 @@ import * as yup from 'yup';
 
 import { Button } from '@/components/button';
 import { Input } from '@/components/input';
+import { vn } from '@/constants/languages';
 
 export interface RegisterInfoSectionProps {}
 
@@ -39,7 +40,7 @@ export function RegisterInfoSection(props: RegisterInfoSectionProps) {
       email: '',
       fullName: '',
     });
-    toast.success(t('Đăng ký thông tin thành công') + '!');
+    toast.success(t(vn.toast.SUCCESS) + '!');
   };
 
   return (
@@ -49,13 +50,13 @@ export function RegisterInfoSection(props: RegisterInfoSectionProps) {
     >
       <form onSubmit={handleSubmit(handleRegisterInfo)} className="max-w-[584px] mx-auto">
         <h2 className="mb-8 text-xl font-bold leading-7 text-center text-white xl:mb-10 xl:text-2xl">
-          {t('Đăng ký nhận thông tin mới nhất từ BATTECH')}
+          {t(vn.home.REGISTER_TITLE)}
         </h2>
         <div className="mb-4">
           <Input
             name="fullName"
             control={control}
-            placeholder={t('Nhập tên của bạn')}
+            placeholder={t(vn.home.REGISTER_NAME_PLACEHOLDER)}
             className="text-[#606060] bg-white shadow-[4px_2px_15px_0px_rgba(0,_0,_0,_0.05)] border-none w-full"
             errorMessage={errors.fullName && t(String(errors.fullName?.message))}
           ></Input>
@@ -65,13 +66,13 @@ export function RegisterInfoSection(props: RegisterInfoSectionProps) {
             name="email"
             type="email"
             control={control}
-            placeholder={t('Nhập email của bạn')}
+            placeholder={t(vn.home.REGISTER_EMAIL_PLACEHOLDER)}
             className="text-[#606060] bg-white shadow-[4px_2px_15px_0px_rgba(0,_0,_0,_0.05)] border-none w-full"
             errorMessage={errors.email && t(String(errors.email?.message))}
           ></Input>
         </div>
         <Button variant="primary" className="block mx-auto">
-          {t('Đăng ký nhận thông tin')}
+          {t(vn.home.REGISTER_BUTTON_TEXT)}
         </Button>
       </form>
     </section>

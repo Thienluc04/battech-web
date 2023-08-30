@@ -6,6 +6,7 @@ import { useParams } from 'react-router';
 import { useGetSimilarJobsQuery, useGetSingleJobQuery } from '@/api/jobApi';
 import { useAppDispatch } from '@/app/hooks';
 import { AddressIcon, ClockIcon } from '@/components/icons';
+import { vn } from '@/constants/languages';
 import { jobActions } from '@/features/job/jobSlice';
 import { Job, JobContent } from '@/models';
 import { HeroSection, RecruitmentForm, SimilarJobs } from '@/modules/job';
@@ -54,7 +55,7 @@ export default function JobDetailsPage() {
         )}
         {jobDetail && (
           <p className="px-5 pt-4 mb-6 xl:px-0 md:max-w-[700px] mx-auto xl:max-w-none xl:mx-0">
-            <span className="text-primary">{t('Cơ hội việc làm')}</span> / {jobDetail?.title}
+            <span className="text-primary">{t(vn.job.DETAIL_BREADCRUMB)}</span> / {jobDetail?.title}
           </p>
         )}
         <div className="flex xl:flex-row flex-col xl:px-0 px-5 gap-[68px] md:max-w-[700px] mx-auto xl:max-w-none xl:mx-0">

@@ -13,6 +13,7 @@ import { useAppDispatch } from '@/app/hooks';
 import { Button } from '@/components/button';
 import { RadioBox } from '@/components/checkbox';
 import { jobAddress, jobGroup, jobType } from '@/constants/job';
+import { vn } from '@/constants/languages';
 import { jobActions, selectParamsJob } from '@/features/job/jobSlice';
 import { JobGroupField } from '@/modules/job';
 
@@ -128,7 +129,7 @@ export function JobSidebar() {
   return (
     <form onSubmit={handleSubmit(handleFilterJob)} className="flex flex-col gap-[68px] md:mx-auto">
       <div className="flex flex-col gap-8 border-r border-r-primary md:border-r-0">
-        <JobGroupField title={t('Nhóm công việc')}>
+        <JobGroupField title={t(vn.job.FILTER_GROUP_TITLE)}>
           {workCategories &&
             workCategories.map((item, index) => (
               <RadioBox
@@ -143,7 +144,7 @@ export function JobSidebar() {
             ))}
           {categoriesLoading && <Skeleton className="w-[150px] h-4" count={6}></Skeleton>}
         </JobGroupField>
-        <JobGroupField title={t('Địa điểm làm việc')}>
+        <JobGroupField title={t(vn.job.FILTER_ADDRESS_TITLE)}>
           {workLocations &&
             workLocations.map((item, index) => (
               <RadioBox
@@ -158,7 +159,7 @@ export function JobSidebar() {
             ))}
           {locationsLoading && <Skeleton className="w-[150px] h-4" count={6}></Skeleton>}
         </JobGroupField>
-        <JobGroupField title={t('Loại công việc')}>
+        <JobGroupField title={t(vn.job.FILTER_GROUP_TITLE)}>
           {workTypes &&
             workTypes.map((item, index) => (
               <RadioBox
@@ -175,7 +176,7 @@ export function JobSidebar() {
         </JobGroupField>
       </div>
       <Button variant="primary" className="xl:w-[276px] w-full mx-auto">
-        {t('Áp dụng bộ lọc')}
+        {t(vn.job.FILTER_BUTTON_TEXT)}
       </Button>
     </form>
   );

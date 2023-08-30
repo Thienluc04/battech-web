@@ -1,3 +1,5 @@
+import { vn } from './languages';
+
 interface ListLink {
   path: string;
   name: string;
@@ -6,22 +8,22 @@ interface ListLink {
 export const listLink: ListLink[] = [
   {
     path: '/',
-    name: 'Trang chủ',
+    name: vn.header.HOME,
   },
   {
     path: '/introduce',
-    name: 'Giới thiệu',
+    name: vn.header.ABOUT,
   },
   {
     path: '/news',
-    name: 'Tin tức',
+    name: vn.header.NEWS,
   },
   {
     path: '/jobs',
-    name: 'Cơ hội việc làm',
+    name: vn.header.JOB,
   },
   {
     path: '/contact',
-    name: 'Liên hệ',
+    name: vn.header.CONTACT,
   },
 ];

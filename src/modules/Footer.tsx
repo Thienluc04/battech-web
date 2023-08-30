@@ -15,20 +15,13 @@ import {
   TwitterIcon,
   YoutubeIcon,
 } from '@/components/icons';
-
-const footerLinkList: string[] = [
-  'Giới thiệu về BATTECH',
-  'Thoả thuận sử dụng',
-  'Chính sách bảo hành',
-  'Chương trình đối tác',
-  'Tuyển dụng nhân sự',
-  'Trung tâm hỗ trợ',
-  'Giải pháp marketing online',
-];
+import { vn } from '@/constants/languages';
 
 interface FooterProps extends ComponentProps<'div'> {
   background?: 'footer' | 'primary';
 }
+
+const footerLinkList: string[] = vn.footer.LIST_LINK;
 
 export function Footer({ background = 'footer', className = '' }: FooterProps) {
   const { t } = useTranslation();
@@ -45,11 +38,7 @@ export function Footer({ background = 'footer', className = '' }: FooterProps) {
           <div>
             <img src="/images/logo-white.png" alt="logo-white" />
           </div>
-          <p className="leading-6  max-w-[380px]">
-            {t(
-              'Tại BATTECH, chúng tôi luôn phấn đấu giúp các doanh nghiệp định hình lại phương pháp quản trị doanh nghiệp để vận hành tốt hơn, nâng cao hiệu quả kinh doanh và cải thiện đời sống thông qua việc kết nối con người và công nghệ hiện đại.',
-            )}
-          </p>
+          <p className="leading-6  max-w-[380px]">{t(vn.footer.DESCRIPTION)}</p>
           {background === 'primary' && (
             <div className="flex items-center gap-4 xl:mt-[60px]">
               <div className="flex items-center justify-center w-10 h-10 bg-white rounded-full">
@@ -71,11 +60,13 @@ export function Footer({ background = 'footer', className = '' }: FooterProps) {
           )}
         </div>
         <div className="max-w-[318px]">
-          <h2 className="text-2xl font-bold leading-7 uppercase mb-[26px]">{t('LIÊN HỆ')}</h2>
+          <h2 className="text-2xl font-bold leading-7 uppercase mb-[26px]">
+            {t(vn.footer.CONTACT)}
+          </h2>
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-2">
               <PhoneIcon></PhoneIcon>
-              <p className="leading-6 max-w-[280px]">{t('Điện thoại')}: 024 85 896 999</p>
+              <p className="leading-6 max-w-[280px]">{t(vn.footer.PHONE)}: 024 85 896 999</p>
             </div>
             <div className="flex items-center gap-2">
               <EmailIcon></EmailIcon>
@@ -84,22 +75,17 @@ export function Footer({ background = 'footer', className = '' }: FooterProps) {
             <div className="flex items-center gap-2">
               <HouseIcon className="block w-5"></HouseIcon>
               <p className="leading-6 max-w-[280px]">
-                {t('Ðịa chỉ')}:{' '}
-                {t('Tòa HH02, Eco Lakeview, số 32 Ðại Từ, phường Ðại Kim, quận Hoàng Mai, Hà Nội')}
+                {t(vn.footer.ADDRESS)}: {t(vn.footer.ADDRESS_CONTENT)}
               </p>
             </div>
             <div className="flex items-center gap-2">
               <TagIcon></TagIcon>
-              <p className="leading-6 max-w-[280px]">
-                {t('CÔNG TY CỔ PHẦN TẬP ĐOÀN CÔNG NGHỆ BATTECH')}
-              </p>
+              <p className="leading-6 max-w-[280px]">{t(vn.footer.COMPANY)}</p>
             </div>
           </div>
         </div>
         <div>
-          <h2 className="text-2xl font-bold leading-7 uppercase mb-[26px]">
-            {t('LIÊN KẾT HỮU ÍCH')}
-          </h2>
+          <h2 className="text-2xl font-bold leading-7 uppercase mb-[26px]">{t(vn.footer.LINKS)}</h2>
           <div className="flex flex-col gap-2">
             {footerLinkList.map((item, index) => (
               <div key={index} className="flex gap-2">

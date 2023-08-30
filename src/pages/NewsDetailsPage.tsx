@@ -7,6 +7,7 @@ import Slider from 'react-slick';
 import { useGetNewsWithCategoryQuery, useGetSingleNewsQuery } from '@/api/newsApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { NewsSidebar } from '@/components/sidebar';
+import { vn } from '@/constants/languages';
 import { newsActions, selectListSimilarNews } from '@/features/news/newsSlice';
 import { News, NewsContent } from '@/models';
 import { NewsItem } from '@/modules/news';
@@ -52,8 +53,8 @@ export default function NewsDetailsPage() {
       <div className="flex items-center mx-5 my-6 xl:mx-0 md:max-w-[790px] md:mx-auto xl:max-w-none md:px-5 xl:px-0">
         {newsDetail && (
           <p className="font-medium leading-6">
-            <span className="text-primary">{t('Tin tức')}</span> /{' '}
-            <span className="text-primary">{newsDetail?.category}</span> / {newsDetail?.title}
+            <span className="text-primary">{t(vn.news.DETAIL_BREADCRUMB)}</span> /{' '}
+            <span className="text-primary">{t(newsDetail?.category)}</span> / {newsDetail?.title}
           </p>
         )}
         {!newsDetail && (
@@ -107,7 +108,7 @@ export default function NewsDetailsPage() {
       <div className="h-[1px] bg-[#008346] mb-16 xl:mx-0 mx-5 md:max-w-[790px] md:mx-auto xl:max-w-none"></div>
       <section className="mx-5 xl:mx-0 md:max-w-[790px] md:mx-auto xl:max-w-none">
         <h2 className="text-[#0a0a0a] text-xl font-bold leading-7 mb-7">
-          {t('Tin tức liên quan')}
+          {t(vn.news.DETAIL_SIMILAR_TITLE)}
         </h2>
         {listSimilarNews.length > 3 ? (
           <Slider

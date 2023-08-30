@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
+import { vn } from '@/constants/languages';
+
 export interface CredoSectionProps {}
 
 interface CredoItem {
@@ -14,42 +16,37 @@ const listCredoItems: CredoItem[] = [
     image: '/images/support-icon.png',
     alt: 'support-icon',
     name: 'Teamwork',
-    description:
-      'Tinh thần đồng đội - mỗi cá nhân nhỏ tập hợp gắn kết, nâng đỡ đoàn kết vì mục tiêu chung xây dựng công ty phát triển vững mạnh.',
+    description: vn.introduce.CREDO_LIST[0],
   },
   {
     image: '/images/trust-icon.png',
     alt: 'trust-icon',
     name: 'Trust',
-    description: 'Tin cậy - giữ chữ tín, giữ đúng lời hứa.',
+    description: vn.introduce.CREDO_LIST[1],
   },
   {
     image: '/images/innovation-icon.png',
     alt: 'innovation-icon',
     name: 'Innovation',
-    description:
-      'Sáng tạo, đổi mới - luôn học tập trao đổi cập nhật kiến thức mới để đưa vào ứng dụng trong công việc, luôn cải tiến áp dụng những công nghệ mới nhất để tạo ra sản phẩm tốt nhất.',
+    description: vn.introduce.CREDO_LIST[2],
   },
   {
     image: '/images/ethics-icon.png',
     alt: 'ethics-icon',
     name: 'Ethics',
-    description:
-      'Đạo đức - trung thực khi phục vụ khách hàng, hiểu và tuân thủ các quy định của công ty, trách nhiệm với công việc, bình đẳng và tôn trọng mọi người.',
+    description: vn.introduce.CREDO_LIST[3],
   },
   {
     image: '/images/community-icon.png',
     alt: 'community-icon',
     name: 'Customers',
-    description:
-      'Khách hàng - đặt khách hàng là trung tâm phát triển, Battech luôn sẵn sàng lắng nghe và thay đổi theo chiều hướng tích cực để đưa ra sản phẩm phù hợp',
+    description: vn.introduce.CREDO_LIST[4],
   },
   {
     image: '/images/archery-icon.png',
     alt: 'archery-icon',
     name: 'Goals',
-    description:
-      'Mục tiêu - hoàn thành sản phẩm phòng họp ảo và đưa ra thị trường. Được các doanh nghiệp lớn tin cậy sử dụng rộng rãi.',
+    description: vn.introduce.CREDO_LIST[5],
   },
 ];
 
@@ -59,7 +56,7 @@ export function CredoSection(props: CredoSectionProps) {
   return (
     <section className="max-w-[1200px] mx-auto mb-[92px]" {...props}>
       <h2 className="text-xl font-bold leading-7 text-center uppercase xl:text-2xl text- mb-9">
-        {t('TÔN CHỈ LÀM VIỆC')}
+        {t(vn.introduce.CREDO_TITLE)}
       </h2>
       <div className="flex flex-wrap items-center justify-center gap-8">
         {listCredoItems.map((item, index) => (

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetNewestListQuery } from '@/api/newsApi';
 import { useAppSelector } from '@/app/hooks';
 import { useAppDispatch } from '@/app/hooks';
+import { vn } from '@/constants/languages';
 import { selectListNewestNews } from '@/features/news/newsSlice';
 import { newsActions } from '@/features/news/newsSlice';
 import { News } from '@/models';
@@ -42,7 +43,7 @@ export function NewestSection(props: NewestSectionProps) {
 
   return (
     <section className="max-w-[1200px] xl:mx-auto mx-5 mb-[96px] relative" {...props}>
-      <h2 className="mb-6 text-xl font-bold leading-7 text-textDesc">{t('Tin tức mới')}</h2>
+      <h2 className="mb-6 text-xl font-bold leading-7 text-textDesc">{t(vn.news.NEWEST_TITLE)}</h2>
       {largeNewest && newestList && newestList.length > 0 && (
         <div className="flex md:flex-row flex-col justify-center items-center gap-[30px] relative">
           <NewestItem
@@ -58,7 +59,7 @@ export function NewestSection(props: NewestSectionProps) {
               ></NewestItem>
             ))}
           </div>
-          {!isLoading && currentNewsList.length <= 0 && <p>Không có tin tức nào mới nhất</p>}
+          {!isLoading && currentNewsList.length <= 0 && <p>{t(vn.news.NEWS_NO_LATEST)}</p>}
         </div>
       )}
       {isLoading && (
@@ -75,7 +76,7 @@ export function NewestSection(props: NewestSectionProps) {
               ></NewestItem>
             ))}
           </div>
-          {!isLoading && currentNewsList.length <= 0 && <p>Không có tin tức nào mới nhất</p>}
+          {!isLoading && currentNewsList.length <= 0 && <p>{t(vn.news.NEWS_NO_LATEST)}</p>}
         </div>
       )}
     </section>

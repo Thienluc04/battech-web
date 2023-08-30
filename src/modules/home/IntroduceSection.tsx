@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
+import { vn } from '@/constants/languages';
+
 export interface IntroduceSectionProps {}
 
 interface Item {
@@ -12,22 +14,22 @@ const listItems: Item[] = [
   {
     image: '/images/clock-icon.png',
     alt: 'clock-icon',
-    title: 'Phản hồi nhanh',
+    title: vn.home.ABOUT_ITEMS[0],
   },
   {
     image: '/images/dev-icon.png',
     alt: 'dev-icon',
-    title: 'Hệ thống phát triển',
+    title: vn.home.ABOUT_ITEMS[1],
   },
   {
     image: '/images/padlock-icon.png',
     alt: 'padlock-icon',
-    title: 'Bảo mật thông tin',
+    title: vn.home.ABOUT_ITEMS[2],
   },
   {
     image: '/images/secure-shield-icon.png',
     alt: 'secure-shield-icon',
-    title: 'Tự động hóa',
+    title: vn.home.ABOUT_ITEMS[3],
   },
 ];
 
@@ -44,12 +46,10 @@ export function IntroduceSection(props: IntroduceSectionProps) {
       </div>
       <div className="max-w-[586px]">
         <h2 className="mb-4 text-xl font-bold leading-7 text-center uppercase xl:mb-6 xl:text-2xl text-primary xl:text-left">
-          {t('GIỚI THIỆU VỀ BATTECH')}
+          {t(vn.home.ABOUT_TITLE)}
         </h2>
         <p className="px-5 leading-6 text-center text-textPrimary xl:text-left xl:px-0">
-          {t(
-            'Với gần 15 năm kinh nghiệm, Công ty cổ phần Quốc tế BATTECH là nhà cung cấp các giải pháp quản trị nguồn lực doanh nghiệp chuyên nghiệp. Hỗ trợ Ban lãnh đạo hoạch định và điều hành toàn bộ nguồn lực của doanh nghiệp bao gồm Hàng hóa - Tài chính - Nhân sự - Truyền thông và kết nối các bộ phận thao tác nghiệp vụ hiệu quả thông qua những quy trình được thiết kế theo quy chuẩn quốc tế.',
-          )}
+          {t(vn.home.ABOUT_DESCRIPTION)}
         </p>
         <div className="grid items-center grid-cols-2 gap-8 mt-8 xl:flex">
           {listItems.map((item, index) => (
