@@ -80,7 +80,6 @@ export function JobSidebar() {
   }, [watchType]);
 
   const handleFilterJob: SubmitHandler<FormData> = () => {
-    console.log(filter);
     dispatch(jobActions.setParams({ ...filter, _page: 1, _limit: 6 }));
   };
 
