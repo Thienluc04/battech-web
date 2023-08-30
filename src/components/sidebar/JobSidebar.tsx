@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import Skeleton from 'react-loading-skeleton';
-import { useSelector } from 'react-redux';
 
 import {
   useGetWorkCategoriesQuery,
@@ -14,7 +13,7 @@ import { Button } from '@/components/button';
 import { RadioBox } from '@/components/checkbox';
 import { jobAddress, jobGroup, jobType } from '@/constants/job';
 import { vn } from '@/constants/languages';
-import { jobActions, selectParamsJob } from '@/features/job/jobSlice';
+import { jobActions } from '@/features/job/jobSlice';
 import { JobGroupField } from '@/modules/job';
 
 interface FormData {
@@ -40,8 +39,6 @@ export function JobSidebar() {
   const { t } = useTranslation();
 
   const [filter, setFilter] = useState<FormData>({});
-
-  const currentParams = useSelector(selectParamsJob);
 
   const dispatch = useAppDispatch();
 
@@ -83,47 +80,8 @@ export function JobSidebar() {
   }, [watchType]);
 
   const handleFilterJob: SubmitHandler<FormData> = () => {
-    const params = { ...currentParams };
-    if (filter.address && filter.category && filter.type) {
-      dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
-    } else {
-      if (!filter.address) {
-        delete params.address;
-        dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
-        if (!filter.category) {
-          delete params.category;
-          dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
-        }
-        if (!filter.type) {
-          delete params.type;
-          dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
-        }
-      }
-      if (!filter.category) {
-        delete params.category;
-        dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
-        if (!filter.address) {
-          delete params.address;
-          dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
-        }
-        if (!filter.type) {
-          delete params.type;
-          dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
-        }
-      }
-      if (!filter.type) {
-        delete params.type;
-        dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
-        if (!filter.address) {
-          delete params.address;
-          dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
-        }
-        if (!filter.category) {
-          delete params.category;
-          dispatch(jobActions.setParams({ ...params, ...filter, _page: 1 }));
-        }
-      }
-    }
+    console.log(filter);
+    dispatch(jobActions.setParams({ ...filter, _page: 1, _limit: 6 }));
   };
 
   return (
