@@ -76,8 +76,10 @@ export function ListNewsSection(props: ListNewsSectionProps) {
             onClick={() => {
               if (item === currentCategory) {
                 setCurrentCategory('');
+                setCurrentPage(1);
               } else {
                 setCurrentCategory(item as Category);
+                setCurrentPage(1);
               }
             }}
             className={`xl:text-2xl text-xl font-bold leading-7 cursor-pointer ${
