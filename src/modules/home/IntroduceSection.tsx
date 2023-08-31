@@ -1,37 +1,9 @@
 import { useTranslation } from 'react-i18next';
 
+import { introListItem } from '@/constants/home';
 import { vn } from '@/constants/languages';
 
 export interface IntroduceSectionProps {}
-
-interface Item {
-  image: string;
-  alt: string;
-  title: string;
-}
-
-const listItems: Item[] = [
-  {
-    image: '/images/clock-icon.png',
-    alt: 'clock-icon',
-    title: vn.home.ABOUT_ITEMS[0],
-  },
-  {
-    image: '/images/dev-icon.png',
-    alt: 'dev-icon',
-    title: vn.home.ABOUT_ITEMS[1],
-  },
-  {
-    image: '/images/padlock-icon.png',
-    alt: 'padlock-icon',
-    title: vn.home.ABOUT_ITEMS[2],
-  },
-  {
-    image: '/images/secure-shield-icon.png',
-    alt: 'secure-shield-icon',
-    title: vn.home.ABOUT_ITEMS[3],
-  },
-];
 
 export function IntroduceSection(props: IntroduceSectionProps) {
   const { t } = useTranslation();
@@ -52,7 +24,7 @@ export function IntroduceSection(props: IntroduceSectionProps) {
           {t(vn.home.ABOUT_DESCRIPTION)}
         </p>
         <div className="grid items-center grid-cols-2 gap-8 mt-8 xl:flex">
-          {listItems.map((item, index) => (
+          {introListItem.map((item, index) => (
             <div
               className="w-[123px] h-[144px] flex flex-col items-center justify-center gap-3 
                 shadow-[4px_2px_15px_0px_rgba(0,_0,_0,_0.05)] border rounded-2xl border-primary mx-auto"

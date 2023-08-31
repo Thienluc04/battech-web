@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { linkApi } from '@/constants/general';
 import { Job } from '@/models';
-import { ListParams, ListResponse, jobKind } from '@/models/common';
+import { ListParams, ListResponse, jobKind } from '@/models';
 
 export const jobApi = createApi({
   reducerPath: 'jobApi',

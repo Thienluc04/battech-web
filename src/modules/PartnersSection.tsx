@@ -1,20 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import Slider from 'react-slick';
 
+import { listImgPartners } from '@/constants/general';
 import { vn } from '@/constants/languages';
 
 export interface PartnerSectionProps {}
-
-const listImgPartners: string[] = [
-  '/images/partner-1.png',
-  '/images/partner-2.png',
-  '/images/partner-3.png',
-  '/images/partner-4.png',
-  '/images/partner-1.png',
-  '/images/partner-2.png',
-  '/images/partner-3.png',
-  '/images/partner-4.png',
-];
 
 export function PartnersSection(props: PartnerSectionProps) {
   const { t } = useTranslation();

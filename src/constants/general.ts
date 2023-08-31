@@ -30,6 +30,17 @@ export const listCategories: string[] = [
   'PHÁT TRIỂN PHẦN MỀM',
 ];
 
+export const listImgPartners: string[] = [
+  '/images/partner-1.png',
+  '/images/partner-2.png',
+  '/images/partner-3.png',
+  '/images/partner-4.png',
+  '/images/partner-1.png',
+  '/images/partner-2.png',
+  '/images/partner-3.png',
+  '/images/partner-4.png',
+];
+
 export const linkApi = 'https://battech-server.onrender.com/api/';
 
 export const phoneRegExp =

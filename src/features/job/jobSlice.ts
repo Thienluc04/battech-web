@@ -1,7 +1,8 @@
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import { RootState } from '@/app/store';
 import { Job } from '@/models';
-import { ListParams } from '@/models/common';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { ListParams } from '@/models';
 
 interface JobState {
   list: Job[];
