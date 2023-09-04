@@ -23,7 +23,7 @@ export default function JobDetailsPage() {
   const [jobContent, setJobContent] = useState<JobContent[]>();
 
   const { data: listSimilarJobs, isLoading: similarLoading } = useGetSimilarJobsQuery(
-    jobDetail?.group as string,
+    jobDetail?.category as string,
   );
 
   useEffect(() => {

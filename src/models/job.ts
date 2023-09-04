@@ -6,7 +6,7 @@ export interface Job {
   wage: string;
   address: string;
   date: string;
-  group: string;
+  category: string;
   type: string;
   content: JobContent[];
 }

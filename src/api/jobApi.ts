@@ -45,11 +45,11 @@ export const jobApi = createApi({
       },
     }),
     getSimilarJobs: builder.query<Job[], string>({
-      query: (group) => {
+      query: (category) => {
         return {
           url: 'jobs',
           params: {
-            group,
+            category,
           },
         };
       },
