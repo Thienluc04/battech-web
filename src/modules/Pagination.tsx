@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { ArrowLeftIcon, ArrowRightIcon } from '@/components/icons';
 
 export interface PaginationProps {
-  type?: 'job' | 'news';
+  type?: 'job' | 'news' | 'admin';
   totalPage: number;
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
@@ -94,6 +94,42 @@ export const Pagination = memo(
                 className={`${currentPage < totalPage ? 'cursor-pointer' : 'cursor-default'}`}
               ></ArrowRightIcon>
             </span>
+          </div>
+        )}
+
+        {type === 'admin' && (
+          <div className="flex items-center border border-[#D5D8DD]">
+            <div
+              className="w-6 h-[22px] bg-white flex justify-center items-center cursor-pointer 
+            border-r border-r-[#D5D8DD] rounded-l"
+            >
+              <ArrowLeftIcon variant="#C7CBD1"></ArrowLeftIcon>
+            </div>
+            {new Array(4).fill(0).map((_, index) => {
+              if (index === 0) {
+                return (
+                  <div
+                    className="w-6 h-[22px] bg-primaryAdmin text-sm flex items-center justify-center text-white border-r 
+                border-r-[#D5D8DD] cursor-pointer"
+                    key={index}
+                  >
+                    1
+                  </div>
+                );
+              }
+              return (
+                <div
+                  className="w-6 h-[22px] bg-white text-sm flex items-center justify-center text-textAdmin border-r 
+                border-r-[#D5D8DD] cursor-pointer"
+                  key={index}
+                >
+                  {index + 1}
+                </div>
+              );
+            })}
+            <div className="w-6 h-[22px] bg-white flex justify-center items-center cursor-pointer rounded-r">
+              <ArrowRightIcon variant="#C7CBD1"></ArrowRightIcon>
+            </div>
           </div>
         )}
       </>

@@ -1,8 +1,9 @@
 import { Suspense, lazy } from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { MainLayout } from '@/components/layouts';
+import { AdminLayout, MainLayout } from '@/components/layouts';
 import { Footer, Header } from '@/modules';
+import { CreatePost, ManagePost } from '@/modules/admin';
 
 import './App.scss';
 
@@ -13,6 +14,7 @@ const NewsDetailsPage = lazy(() => import('@/pages/NewsDetailsPage'));
 const RecruitmentJobPage = lazy(() => import('@/pages/RecruitmentJobPage'));
 const JobDetailsPage = lazy(() => import('@/pages/JobDetailsPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
+const LoginPage = lazy(() => import('@/pages/LoginPage'));
 
 function App() {
   const router = createBrowserRouter([
@@ -105,7 +107,27 @@ function App() {
         },
       ],
     },
-
+    {
+      element: <AdminLayout></AdminLayout>,
+      children: [
+        {
+          path: '/manage/posts',
+          element: (
+            <Suspense>
+              <ManagePost></ManagePost>
+            </Suspense>
+          ),
+        },
+        {
+          path: '/manage/posts/create',
+          element: (
+            <Suspense>
+              <CreatePost></CreatePost>
+            </Suspense>
+          ),
+        },
+      ],
+    },
     {
       path: '/contact',
       element: (
@@ -121,6 +143,14 @@ function App() {
           }
         >
           <ContactPage></ContactPage>,
+        </Suspense>
+      ),
+    },
+    {
+      path: '/login',
+      element: (
+        <Suspense>
+          <LoginPage></LoginPage>
         </Suspense>
       ),
     },

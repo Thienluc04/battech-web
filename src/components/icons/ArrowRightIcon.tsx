@@ -2,7 +2,7 @@ import { ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export interface ArrowRightIconProps extends ComponentProps<'span'> {
-  variant?: 'white' | 'green' | 'gray';
+  variant?: 'white' | 'green' | 'gray' | string;
 }
 
 export function ArrowRightIcon({

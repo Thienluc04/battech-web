@@ -1,3 +1,4 @@
+import { HTMLInputTypeAttribute } from 'react';
 import { Control, FieldValues, Path, PathValue, useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +8,7 @@ export interface RecruitmentFieldProps<T extends FieldValues> {
   placeholder: string;
   icon: React.ReactNode;
   control: Control<T>;
-  type?: string;
+  type?: HTMLInputTypeAttribute;
   errorMessage?: string;
 }
 

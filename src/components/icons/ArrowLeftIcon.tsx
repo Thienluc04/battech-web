@@ -1,7 +1,7 @@
 import { ComponentProps } from 'react';
 
 export interface ArrowLeftIconProps extends ComponentProps<'span'> {
-  variant?: 'white' | 'green' | 'gray';
+  variant?: 'white' | 'green' | 'gray' | string;
 }
 
 export function ArrowLeftIcon({
