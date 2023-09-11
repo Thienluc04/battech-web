@@ -100,35 +100,37 @@ export const Pagination = memo(
         {type === 'admin' && (
           <div className="flex items-center border border-[#D5D8DD]">
             <div
-              className="w-6 h-[22px] bg-white flex justify-center items-center cursor-pointer 
-            border-r border-r-[#D5D8DD] rounded-l"
+              className={`w-6 h-[22px] bg-white flex justify-center items-center
+              border-r border-r-[#D5D8DD] rounded-l ${currentPage > 1 ? 'cursor-pointer' : ''}`}
+              onClick={handleClickPrevPage}
             >
-              <ArrowLeftIcon variant="#C7CBD1"></ArrowLeftIcon>
+              <ArrowLeftIcon variant={currentPage > 1 ? '#186E25' : '#C7CBD1'}></ArrowLeftIcon>
             </div>
-            {new Array(4).fill(0).map((_, index) => {
-              if (index === 0) {
-                return (
-                  <div
-                    className="w-6 h-[22px] bg-primaryAdmin text-sm flex items-center justify-center text-white border-r 
-                border-r-[#D5D8DD] cursor-pointer"
-                    key={index}
-                  >
-                    1
-                  </div>
-                );
-              }
+            {new Array(totalPage).fill(0).map((_, index) => {
               return (
                 <div
-                  className="w-6 h-[22px] bg-white text-sm flex items-center justify-center text-textAdmin border-r 
-                border-r-[#D5D8DD] cursor-pointer"
+                  className={`w-6 h-[22px]  text-sm flex items-center justify-center border-r 
+                  border-r-[#D5D8DD] cursor-pointer ${
+                    currentPage === index + 1
+                      ? 'bg-primaryAdmin text-white'
+                      : 'bg-white text-textAdmin'
+                  }`}
                   key={index}
+                  onClick={() => setCurrentPage(index + 1)}
                 >
                   {index + 1}
                 </div>
               );
             })}
-            <div className="w-6 h-[22px] bg-white flex justify-center items-center cursor-pointer rounded-r">
-              <ArrowRightIcon variant="#C7CBD1"></ArrowRightIcon>
+            <div
+              className={`w-6 h-[22px] bg-white flex justify-center items-center rounded-r ${
+                currentPage < totalPage ? 'cursor-pointer' : ''
+              }`}
+              onClick={handleClickNextPage}
+            >
+              <ArrowRightIcon
+                variant={currentPage < totalPage ? '#186E25' : '#C7CBD1'}
+              ></ArrowRightIcon>
             </div>
           </div>
         )}

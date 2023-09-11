@@ -1,5 +1,4 @@
 import { ComponentProps } from 'react';
-import { twMerge } from 'tailwind-merge';
 
 export interface ArrowRightIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray' | string;
@@ -11,7 +10,7 @@ export function ArrowRightIcon({
   onClick = () => {},
 }: ArrowRightIconProps) {
   return (
-    <span className={twMerge('cursor-pointer', className)} onClick={onClick}>
+    <span className={className} onClick={onClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={24}

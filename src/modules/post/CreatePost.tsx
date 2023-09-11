@@ -1,10 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import ImageUploader from 'quill-image-uploader';
 import 'quill-image-uploader/dist/quill.imageUploader.min.css';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import ReactQuill, { Quill } from 'react-quill';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
@@ -13,8 +11,10 @@ import { Button } from '@/components/button';
 import { ArrowLeftIcon, CheckIcon } from '@/components/icons';
 import { Input } from '@/components/input';
 import { Textarea } from '@/components/textarea';
+import { modulesImageUpload } from '@/constants/general';
 import { ImageUpload } from '@/modules';
-import { PostField, PostSidebar } from '@/modules/admin';
+
+import { PostField, PostSidebar } from '.';
 
 const schema = yup.object({
   title: yup.string().required('Bạn cần phải nhập tiêu đề bài viết'),
@@ -28,7 +28,7 @@ const schema = yup.object({
   date: yup.string(),
 });
 
-Quill.register('modules/imageUploader', ImageUploader);
+// Quill.register('modules/imageUploader', ImageUploader);
 
 export function CreatePost() {
   const {
@@ -37,7 +37,7 @@ export function CreatePost() {
     formState: { isValid, errors },
     setValue,
   } = useForm({
-    mode: 'onChange',
+    mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
 
@@ -50,28 +50,6 @@ export function CreatePost() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content]);
 
-  const modules = useMemo(
-    () => ({
-      toolbar: [
-        ['bold', 'italic', 'underline', 'strike'],
-        ['blockquote'],
-        [{ header: 1 }, { header: 2 }], // custom button values
-        [{ list: 'ordered' }, { list: 'bullet' }],
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        ['link', 'image'],
-      ],
-      imageUploader: {
-        upload: async (file: File | null) => {
-          if (!file) return;
-          console.log('upload: ~ file:', file);
-        },
-      },
-    }),
-    [],
-  );
-
-  const { t } = useTranslation();
-
   const handleAddNewPost: SubmitHandler<FieldValues> = (values) => {
     if (!isValid) return;
     console.log(values);
@@ -80,7 +58,7 @@ export function CreatePost() {
   return (
     <form onSubmit={handleSubmit(handleAddNewPost)} className="flex-1 px-4 py-[26px] bg-blueBg">
       <div className="flex items-center justify-between mb-4">
-        <div className="flex gap-1 items-center">
+        <div className="flex items-center gap-1">
           <Link to={'/manage/posts'}>
             <ArrowLeftIcon variant="black"></ArrowLeftIcon>
           </Link>
@@ -92,13 +70,13 @@ export function CreatePost() {
             className="flex items-center gap-[6px] px-p10 bg-[#C8CBD1] rounded h-8"
           >
             <CheckIcon></CheckIcon>
-            <span className="text-textAdmin font-fontRoboto text-base">Publish</span>
+            <span className="text-base text-textAdmin font-fontRoboto">Publish</span>
           </Button>
           <Button
             variant="secondary"
             className="flex items-center gap-[6px] px-p10 bg-primaryAdmin rounded h-8"
           >
-            <span className="text-white font-fontRoboto text-base">Lưu bài viết</span>
+            <span className="text-base text-white font-fontRoboto">Lưu bài viết</span>
           </Button>
         </div>
       </div>
@@ -110,7 +88,7 @@ export function CreatePost() {
                 control={control}
                 name="title"
                 className="h-[85px] w-full border border-borderAdmin resize-none p-3 rounded font-fontRoboto"
-                errorMessage={errors.title && t(String(errors.title.message))}
+                errorMessage={errors.title && String(errors.title.message)}
               ></Textarea>
             </PostField>
             <PostField className="flex-1" title="Mô tả" required>
@@ -118,14 +96,14 @@ export function CreatePost() {
                 control={control}
                 name="description"
                 className="h-[85px] w-full border border-borderAdmin resize-none p-3 rounded font-fontRoboto"
-                errorMessage={errors.description && t(String(errors.description.message))}
+                errorMessage={errors.description && String(errors.description.message)}
               ></Textarea>
             </PostField>
           </div>
           <PostField title="Nội dung" required>
             <div className="h-[552px] max-w-full entry-content">
               <ReactQuill
-                modules={modules}
+                modules={modulesImageUpload}
                 theme="snow"
                 value={content}
                 onChange={setContent}
@@ -133,8 +111,8 @@ export function CreatePost() {
               ></ReactQuill>
             </div>
             {errors.content && (
-              <p className="pt-1 text-sm font-bold text-red-500 mb-2">
-                {t(String(errors.content.message))}
+              <p className="pt-1 mb-2 text-sm font-bold text-red-500">
+                {String(errors.content.message)}
               </p>
             )}
           </PostField>
@@ -143,8 +121,8 @@ export function CreatePost() {
               <Input
                 control={control}
                 name="slug"
-                className="rounded w-full border-borderAdmin font-fontRoboto"
-                errorMessage={errors.slug && t(String(errors.slug.message))}
+                className="w-full rounded border-borderAdmin font-fontRoboto"
+                errorMessage={errors.slug && String(errors.slug.message)}
               ></Input>
             </PostField>
             <PostField title="Ảnh" className="flex-1">

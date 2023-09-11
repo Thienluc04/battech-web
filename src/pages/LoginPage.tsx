@@ -1,11 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
+import { useHandleFetchMeMutation, useHandleLoginMutation } from '@/api/authApi';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Checkbox } from '@/components/checkbox';
+import { authAction, selectCurrentUser } from '@/features/auth/authSlice';
+import { AuthLogin } from '@/models';
 import { LoginField } from '@/modules/login';
+import { saveToken } from '@/utils/auth';
 
 const schema = yup.object({
   email: yup
@@ -23,22 +29,47 @@ export default function LoginPage() {
     control,
     handleSubmit,
     formState: { isValid, errors },
-    reset,
   } = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(schema),
   });
 
   const { t } = useTranslation();
+  const [login, { data: dataLogin }] = useHandleLoginMutation();
+  const [fetchMe, { data: dataFetchMe }] = useHandleFetchMeMutation();
+
+  const currentUser = useAppSelector(selectCurrentUser);
+
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (currentUser) navigate('/manage/posts');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (dataLogin) {
+      fetchMe(dataLogin.accessToken);
+      saveToken(dataLogin.accessToken, dataLogin.refreshToken);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataLogin]);
+
+  useEffect(() => {
+    if (dataFetchMe) {
+      dispatch(authAction.setCurrentUser(dataFetchMe));
+      navigate('/manage/posts');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataFetchMe]);
 
   const handleLoginForm: SubmitHandler<FieldValues> = (values) => {
     if (!isValid) return;
-    console.log(values);
-    reset({
-      email: '',
-      password: '',
-    });
+    login(values as AuthLogin);
   };
+
+  if (currentUser) return null;
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-blueBg">

@@ -35,3 +35,5 @@ export * from './ArrowDownIcon';
 export * from './CheckIcon';
 export * from './CloseCircleIcon';
 export * from './UploadIcon';
+export * from './ImageIcon';
+export * from './SettingIcon';

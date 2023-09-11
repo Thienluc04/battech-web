@@ -2,9 +2,9 @@ import { ComponentProps } from 'react';
 
 export interface TrashIconProps extends ComponentProps<'span'> {}
 
-export function TrashIcon({ className = '' }: TrashIconProps) {
+export function TrashIcon({ className = '', onClick }: TrashIconProps) {
   return (
-    <span className={className}>
+    <span className={className} onClick={onClick}>
       <svg
         width={20}
         height={20}
