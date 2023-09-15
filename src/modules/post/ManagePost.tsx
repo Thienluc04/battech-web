@@ -2,15 +2,21 @@ import { useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
+import { useGetListTopicQuery } from '@/api/topicApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Button } from '@/components/button';
-import { FilterIcon, PlusIcon, SearchIcon, SquaresFourIcon } from '@/components/icons';
+import {
+  FilterIcon,
+  MenuLeftIcon,
+  PlusIcon,
+  SearchIcon,
+  SquaresFourIcon,
+} from '@/components/icons';
 import { Input } from '@/components/input';
-import { listCategories } from '@/constants/general';
+import { authAction, selectShowSidebar } from '@/features/auth/authSlice';
 import { postActions, selectParamsPost } from '@/features/post/postSlice';
-import { Category } from '@/models';
-
-import { TablePost } from '.';
+import { Topic } from '@/models';
+import { TablePost } from '@/modules/post';
 
 export function ManagePost() {
   const {
@@ -24,9 +30,13 @@ export function ManagePost() {
   const [showFilter, setShowFilter] = useState<boolean>(false);
 
   const currentParams = useAppSelector(selectParamsPost);
+  const showSidebar = useAppSelector(selectShowSidebar);
+
   const dispatch = useAppDispatch();
 
   const watchSearch = watch('search');
+
+  const { data: listTopic } = useGetListTopicQuery({ sort: 'asc' });
 
   useEffect(() => {
     dispatch(postActions.setParams({ ...currentParams, sort: sortValue }));
@@ -51,18 +61,24 @@ export function ManagePost() {
     dispatch(postActions.setParams({ ...currentParams, search: values.search }));
   };
 
-  const handleFilterByCategory = (category: Category) => {
-    if ((category as string) === 'All') {
-      dispatch(postActions.setParams({ ...currentParams, category: '' }));
+  const handleFilterByCategory = (topic: string) => {
+    if (topic === 'All') {
+      dispatch(postActions.setParams({ ...currentParams, topic: '' }));
     } else {
-      dispatch(postActions.setParams({ ...currentParams, category }));
+      dispatch(postActions.setParams({ ...currentParams, topic }));
     }
   };
 
   return (
     <div className="flex-1 px-4 py-[26px] bg-blueBg">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold leading-5 font-fontRoboto">Danh mục bài viết</h1>
+        <div className="flex items-center gap-5">
+          <MenuLeftIcon
+            className="xl:hidden"
+            onClick={() => dispatch(authAction.setShowSidebar(!showSidebar))}
+          ></MenuLeftIcon>
+          <h1 className="text-2xl font-semibold leading-5 font-fontRoboto">Danh mục bài viết</h1>
+        </div>
         <Link
           to={'/manage/posts/create'}
           className="flex items-center gap-[6px] px-p10 h-8 bg-primaryAdmin rounded"
@@ -96,15 +112,17 @@ export function ManagePost() {
           </div>
           {showFilter && (
             <select
-              onChange={(e) => handleFilterByCategory(e.target.value as Category)}
+              onChange={(e) => handleFilterByCategory(e.target.value as string)}
               className="px-2 h-8 rounded bg-white border border-[#9D9D9D] cursor-pointer"
             >
               <option value="All">Tất cả</option>
-              {listCategories.map((item, index) => (
-                <option value={item} key={index}>
-                  {item}
-                </option>
-              ))}
+              {listTopic &&
+                (listTopic as Topic[]) &&
+                listTopic.map((item: Topic) => (
+                  <option value={item.name} key={item._id}>
+                    {item.name}
+                  </option>
+                ))}
             </select>
           )}
         </div>

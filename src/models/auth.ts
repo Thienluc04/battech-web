@@ -16,3 +16,8 @@ export interface TokensResponse {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface CheckCode {
+  code: number;
+  email: string;
+}

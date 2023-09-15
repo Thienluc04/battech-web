@@ -7,3 +7,5 @@ export * from './auth';
 export * from './post';
 export * from './topic';
 export * from './api';
+export * from './author';
+export * from './tag';

@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
-import { useDeleteTopicMutation, useGetListTopicQuery } from '@/api/topicApi';
+import {
+  useDeleteListTopicMutation,
+  useDeleteTopicMutation,
+  useGetListTopicQuery,
+} from '@/api/topicApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { ArrowDownIcon, CardIcon, NotePencilIcon, TrashIcon } from '@/components/icons';
+import { CardIcon, NotePencilIcon, TrashIcon } from '@/components/icons';
 import { selectListTopic, selectParamsTopic, topicActions } from '@/features/topic/topicSlice';
-
-import { Pagination } from '..';
+import { BottomAdminTable } from '@/modules';
 
 const TOPIC_PER_PAGE = 5;
 
@@ -17,11 +21,15 @@ export function TableTopic() {
 
   const listTopic = useAppSelector(selectListTopic);
   const currentParams = useAppSelector(selectParamsTopic);
+  const [listChecked, setListChecked] = useState<string[]>([]);
+
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const dispatch = useAppDispatch();
 
   const { data: topicResponse, isLoading, refetch } = useGetListTopicQuery(currentParams);
   const [deleteTopic] = useDeleteTopicMutation();
+  const [deleteListTopic] = useDeleteListTopicMutation();
 
   useEffect(() => {
     if (topicResponse) {
@@ -41,22 +49,80 @@ export function TableTopic() {
     }
   }, [currentPage]);
 
+  const handleDeleteListTopic = async () => {
+    if (listChecked.length > 0) {
+      Swal.fire({
+        title: 'Bạn chắc chứ?',
+        text: 'Sau khi đồng ý, các tag đã chọn sẽ bị xóa khỏi danh sách',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Đồng ý',
+        cancelButtonText: 'Hủy',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await deleteListTopic(listChecked);
+          Swal.fire('Xóa thành công!', 'Đã xóa các tag đã chọn khỏi danh sách', 'success');
+          refetch();
+          setListChecked([]);
+        }
+      });
+    }
+  };
+
   const handleDeleteTopic = async (id: string) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Bạn chắc chứ?',
+      text: 'Sau khi đồng ý, chủ đề này sẽ xóa khỏi danh sách',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: 'Hủy',
     }).then(async (result) => {
       if (result.isConfirmed) {
         await deleteTopic(id);
-        Swal.fire('Deleted!', 'Delete topic successfully', 'success');
+        Swal.fire('Xóa thành công!', 'Đã xóa chủ đề khỏi danh sách', 'success');
         refetch();
       }
     });
+  };
+
+  const handleCheckAll = (checked: boolean) => {
+    if (checked) {
+      const listInput = inputRefs.current;
+      if (listInput) {
+        listInput.forEach((item) => {
+          item!.checked = true;
+        });
+      }
+      setListChecked([]);
+      listTopic.forEach((item) => {
+        setListChecked((prev) => [...prev, item._id as string]);
+      });
+    } else {
+      const listInput = inputRefs.current;
+      if (listInput) {
+        listInput.forEach((item) => {
+          item!.checked = false;
+        });
+      }
+      setListChecked([]);
+    }
+  };
+
+  const handleChangeInput = (checked: boolean, id: string) => {
+    if (checked) {
+      const item = listChecked.find((item) => item === id);
+      if (!item) {
+        setListChecked((prev) => [...prev, id]);
+      }
+    } else {
+      const list = listChecked.filter((item) => item !== id);
+      setListChecked(list);
+    }
   };
 
   return (
@@ -65,7 +131,7 @@ export function TableTopic() {
         <thead className="text-white bg-primaryAdmin">
           <tr>
             <th className="w-[45px] rounded-tl-md">
-              <input type="checkbox" />
+              <input type="checkbox" onChange={(e) => handleCheckAll(e.target.checked)} />
             </th>
             <th className="w-[30%]">Tên chủ đề</th>
             <th className="w-[30%]">Slug</th>
@@ -75,9 +141,13 @@ export function TableTopic() {
         </thead>
         <tbody className="bg-white">
           {listTopic.map((item, index) => (
-            <tr key={index}>
+            <tr key={item._id}>
               <td className="w-[45px] text-center">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  onChange={(e) => handleChangeInput(e.target.checked, item._id as string)}
+                  ref={(el) => (inputRefs.current[index] = el)}
+                />
               </td>
               <td>{item.name}</td>
               <td>{item.slug}</td>
@@ -98,30 +168,22 @@ export function TableTopic() {
           ))}
         </tbody>
       </table>
-      {listTopic.length <= 0 && isLoading && (
-        <div className="bg-white py-10 flex justify-center items-center">
-          <div className="w-10 h-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent border-b-transparent"></div>
+      {isLoading && (
+        <div>
+          {new Array(5).fill(0).map((_, index) => (
+            <Skeleton key={index} className="w-full h-[45px]"></Skeleton>
+          ))}
         </div>
       )}
-      <div className="py-p10 px-3 flex justify-between items-center bg-[#E3E5E8] rounded-b-md">
-        {listTopic.length > 0 && (
-          <>
-            <div className="flex items-center gap-1 rounded bg-white border border-[#D5D8DD] py-1 px-2 text-textAdmin">
-              50
-              <ArrowDownIcon></ArrowDownIcon>
-            </div>
-            <Pagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPage={totalPage}
-              type="admin"
-            ></Pagination>
-          </>
-        )}
-        {listTopic.length <= 0 && !isLoading && (
-          <p className="block w-full text-center">Không tìm thấy bài viết nào phù hợp </p>
-        )}
-      </div>
+      <BottomAdminTable
+        currentPage={currentPage}
+        isLoading={isLoading}
+        list={listTopic}
+        setCurrentPage={setCurrentPage}
+        totalPage={totalPage}
+        handleDeleteList={handleDeleteListTopic}
+        listChecked={listChecked}
+      ></BottomAdminTable>
     </>
   );
 }

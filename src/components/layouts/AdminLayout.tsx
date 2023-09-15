@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from 'react-router';
 import { useAppSelector } from '@/app/hooks';
 import { AdminSidebar } from '@/components/sidebar';
 import { selectCurrentUser } from '@/features/auth/authSlice';
-import { getToken } from '@/utils/auth';
+import { getSession, getToken } from '@/utils/auth';
 
 export function AdminLayout() {
   const navigate = useNavigate();
@@ -13,7 +13,8 @@ export function AdminLayout() {
 
   useEffect(() => {
     const { accessToken } = getToken();
-    if (!accessToken && !currentUser) {
+    const { accessToken: accessTokenSession } = getSession();
+    if (!accessToken && !accessTokenSession && !currentUser) {
       navigate('/login');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -22,9 +23,11 @@ export function AdminLayout() {
   if (!currentUser) return null;
 
   return (
-    <div className="flex">
-      <AdminSidebar></AdminSidebar>
-      <Outlet></Outlet>
-    </div>
+    <>
+      <div className="flex">
+        <AdminSidebar></AdminSidebar>
+        <Outlet></Outlet>
+      </div>
+    </>
   );
 }

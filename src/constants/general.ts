@@ -70,6 +70,7 @@ export const listImgPartners: string[] = [
 export const linkApi = 'https://battech-server.onrender.com/api/';
 export const linkAuth = 'http://localhost:3000/auth/';
 export const linkApiSecond = 'http://localhost:3000/api/';
+export const linkApiPass = 'http://localhost:3000/pass/';
 
 export const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;

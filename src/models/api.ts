@@ -4,6 +4,8 @@ export interface ResponseSuccess<T> {
 }
 
 export interface ResponseError {
+  data: {
+    messageError: string;
+  };
   statusCode: number;
-  messageError: string;
 }

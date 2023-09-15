@@ -11,9 +11,11 @@ import {
   useLazyGetSingleTopicQuery,
   useUpdateTopicMutation,
 } from '@/api/topicApi';
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Button } from '@/components/button';
 import { ArrowLeftIcon } from '@/components/icons';
 import { Input } from '@/components/input';
+import { selectParamsTopic, topicActions } from '@/features/topic/topicSlice';
 import { Topic } from '@/models';
 import { PostField } from '@/modules/post';
 
@@ -22,11 +24,7 @@ const schema = yup.object({
   slug: yup.string().required('Chủ đề này phải có slug'),
 });
 
-export interface DetailCategoryProps {
-  mode: 'create' | 'update';
-}
-
-export function DetailTopic({ mode }: DetailCategoryProps) {
+export function DetailTopic() {
   const [topicId, setTopicId] = useState<string>('');
 
   const {
@@ -57,6 +55,9 @@ export function DetailTopic({ mode }: DetailCategoryProps) {
 
   const [getSingleTopic, { data: singleTopic }] = useLazyGetSingleTopicQuery();
 
+  const currentParams = useAppSelector(selectParamsTopic);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (topicId) {
       getSingleTopic(topicId);
@@ -83,21 +84,22 @@ export function DetailTopic({ mode }: DetailCategoryProps) {
 
   useEffect(() => {
     if (watchName && watchName.length > 0) {
-      setValue('slug', slugify(watchName));
+      setValue('slug', slugify(watchName, { lower: true }));
     }
   }, [watchName]);
 
   const handleSubmitTopic: SubmitHandler<FieldValues> = async (values) => {
     if (!isValid) return;
-    if (mode === 'create') {
-      await handleCreateTopic(values as Topic);
-    } else {
+    if (slug && slug.length > 0) {
       await handleUpdateTopic({ _id: slug, ...values } as Topic);
+    } else {
+      await handleCreateTopic(values as Topic);
     }
     reset({
       name: '',
       slug: '',
     });
+    dispatch(topicActions.setParams({ ...currentParams, page: 1 }));
     navigate('/manage/topics');
   };
 
@@ -108,7 +110,9 @@ export function DetailTopic({ mode }: DetailCategoryProps) {
           <Link to={'/manage/topics'}>
             <ArrowLeftIcon variant="black"></ArrowLeftIcon>
           </Link>
-          <h1 className="text-2xl font-semibold leading-5 font-fontRoboto">Chủ đề mới</h1>
+          <h1 className="text-2xl font-semibold leading-5 font-fontRoboto">
+            {slug && slug.length > 0 ? 'Cập nhật chủ đề' : 'Chủ đề mới'}
+          </h1>
         </div>
         <div className="flex gap-p10">
           <Button
@@ -116,7 +120,7 @@ export function DetailTopic({ mode }: DetailCategoryProps) {
             className="flex items-center gap-[6px] px-p10 bg-primaryAdmin rounded h-8"
           >
             <span className="text-base text-white font-fontRoboto">
-              {mode === 'create' ? 'Thêm' : 'Lưu'}
+              {slug && slug.length > 0 ? 'Lưu' : 'Thêm'}
             </span>
           </Button>
         </div>

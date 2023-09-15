@@ -3,8 +3,12 @@ import { Suspense, lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 
 import { AdminLayout, MainLayout } from '@/components/layouts';
+import { AuthLayout } from '@/components/layouts/AuthLayout';
 import { Footer, Header } from '@/modules';
-import { CreatePost, ManagePost } from '@/modules/post';
+import { ForgotPass, ForgotPassConfirm } from '@/modules/auth';
+import { DetailAuthor, ManageAuthor } from '@/modules/author';
+import { DetailPost, ManagePost } from '@/modules/post';
+import { DetailTag, ManageTag } from '@/modules/tag';
 import { DetailTopic, ManageTopic } from '@/modules/topic';
 
 const HomePage = lazy(() => import('@/pages/HomePage'));
@@ -126,10 +130,26 @@ export const routerBrowser = createBrowserRouter([
         ),
       },
       {
+        path: '/manage/authors',
+        element: (
+          <Suspense>
+            <ManageAuthor></ManageAuthor>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/manage/tags',
+        element: (
+          <Suspense>
+            <ManageTag></ManageTag>
+          </Suspense>
+        ),
+      },
+      {
         path: '/manage/posts/create',
         element: (
           <Suspense>
-            <CreatePost></CreatePost>
+            <DetailPost></DetailPost>
           </Suspense>
         ),
       },
@@ -137,7 +157,31 @@ export const routerBrowser = createBrowserRouter([
         path: '/manage/topics/create',
         element: (
           <Suspense>
-            <DetailTopic mode="create"></DetailTopic>
+            <DetailTopic></DetailTopic>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/manage/authors/create',
+        element: (
+          <Suspense>
+            <DetailAuthor></DetailAuthor>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/manage/tags/create',
+        element: (
+          <Suspense>
+            <DetailTag></DetailTag>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/manage/posts/:slug',
+        element: (
+          <Suspense>
+            <DetailPost></DetailPost>
           </Suspense>
         ),
       },
@@ -145,7 +189,52 @@ export const routerBrowser = createBrowserRouter([
         path: '/manage/topics/:slug',
         element: (
           <Suspense>
-            <DetailTopic mode="update"></DetailTopic>
+            <DetailTopic></DetailTopic>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/manage/authors/:slug',
+        element: (
+          <Suspense>
+            <DetailAuthor></DetailAuthor>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/manage/tags/:slug',
+        element: (
+          <Suspense>
+            <DetailTag></DetailTag>
+          </Suspense>
+        ),
+      },
+    ],
+  },
+  {
+    element: <AuthLayout></AuthLayout>,
+    children: [
+      {
+        path: '/login',
+        element: (
+          <Suspense>
+            <LoginPage></LoginPage>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/forgot-pass',
+        element: (
+          <Suspense>
+            <ForgotPass></ForgotPass>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/forgot-pass/:email',
+        element: (
+          <Suspense>
+            <ForgotPassConfirm></ForgotPassConfirm>
           </Suspense>
         ),
       },
@@ -166,14 +255,6 @@ export const routerBrowser = createBrowserRouter([
         }
       >
         <ContactPage></ContactPage>,
-      </Suspense>
-    ),
-  },
-  {
-    path: '/login',
-    element: (
-      <Suspense>
-        <LoginPage></LoginPage>
       </Suspense>
     ),
   },

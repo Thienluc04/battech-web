@@ -1,76 +1,76 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { linkApiSecond } from '@/constants/general';
-import { ListParamsSecond, ResponseSuccess, Topic } from '@/models';
+import { ListParamsSecond, ResponseSuccess, Tag } from '@/models';
 
-export const topicApi = createApi({
-  reducerPath: 'topicApi',
-  tagTypes: ['Topic'],
+export const tagApi = createApi({
+  reducerPath: 'TagApi',
+  tagTypes: ['Tag'],
   keepUnusedDataFor: 10,
   refetchOnMountOrArgChange: true,
   baseQuery: fetchBaseQuery({ baseUrl: linkApiSecond }),
   endpoints: (builder) => ({
-    getListTopic: builder.query({
+    getListTag: builder.query({
       query: (params: ListParamsSecond) => {
         return {
-          url: 'topics',
+          url: 'tags',
           params,
         };
       },
       providesTags(result) {
-        if (result.data) {
+        if (result?.data) {
           const final = [
-            ...result.data.map((item: Topic) => ({
-              type: 'Topic' as const,
+            ...result.data.map((item: Tag) => ({
+              type: 'Tag' as const,
               id: item._id,
             })),
             {
-              type: 'Topic' as const,
+              type: 'Tag' as const,
               id: 'LIST',
             },
           ];
           return final;
         }
-        return [{ type: 'Topic' as const, id: 'LIST' }];
+        return [{ type: 'Tag' as const, id: 'LIST' }];
       },
     }),
-    getSingleTopic: builder.query<Topic, string>({
+    getSingleTag: builder.query<Tag, string>({
       query: (id) => {
         return {
-          url: `topics/${id}`,
+          url: `tags/${id}`,
         };
       },
     }),
-    createTopic: builder.mutation<ResponseSuccess<Topic>, Topic>({
+    createTag: builder.mutation<ResponseSuccess<Tag>, Tag>({
       query: (data) => {
         return {
-          url: 'topics',
+          url: 'tags',
           method: 'POST',
           body: data,
         };
       },
     }),
-    updateTopic: builder.mutation<ResponseSuccess<Topic>, Topic>({
+    updateTag: builder.mutation<ResponseSuccess<Tag>, Tag>({
       query: (data) => {
         return {
-          url: `topics/${data._id}`,
+          url: `tags/${data._id}`,
           method: 'PUT',
           body: data,
         };
       },
     }),
-    deleteTopic: builder.mutation<ResponseSuccess<Topic>, string>({
+    deleteTag: builder.mutation<ResponseSuccess<Tag>, string>({
       query: (id) => {
         return {
-          url: `topics/${id}`,
+          url: `tags/${id}`,
           method: 'DELETE',
         };
       },
     }),
-    deleteListTopic: builder.mutation<ResponseSuccess<string>, string[]>({
+    deleteListTag: builder.mutation<ResponseSuccess<string>, string[]>({
       query: (listId) => {
         return {
-          url: 'topics',
+          url: 'tags',
           method: 'DELETE',
           body: {
             listId,
@@ -82,10 +82,10 @@ export const topicApi = createApi({
 });
 
 export const {
-  useGetListTopicQuery,
-  useLazyGetSingleTopicQuery,
-  useCreateTopicMutation,
-  useUpdateTopicMutation,
-  useDeleteTopicMutation,
-  useDeleteListTopicMutation,
-} = topicApi;
+  useLazyGetListTagQuery,
+  useLazyGetSingleTagQuery,
+  useCreateTagMutation,
+  useUpdateTagMutation,
+  useDeleteTagMutation,
+  useDeleteListTagMutation,
+} = tagApi;

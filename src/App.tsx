@@ -6,7 +6,7 @@ import { useHandleFetchMeMutation, useHandleRefreshTokenMutation } from './api/a
 import { useAppDispatch, useAppSelector } from './app/hooks';
 import { routerBrowser } from './constants/routerBrowser';
 import { authAction, selectCurrentUser } from './features/auth/authSlice';
-import { getToken, saveToken } from './utils/auth';
+import { getSession, getToken, saveSession, saveToken } from './utils/auth';
 
 function App() {
   const currentUser = useAppSelector(selectCurrentUser);
@@ -19,8 +19,12 @@ function App() {
       dispatch(authAction.setCurrentUser(currentUser));
     } else {
       const { refreshToken } = getToken();
+      const { refreshToken: refreshTokenSession } = getSession();
       if (refreshToken) {
         handleRefreshToken(refreshToken);
+      }
+      if (refreshTokenSession) {
+        handleRefreshToken(refreshTokenSession);
       }
     }
   }, [currentUser]);
@@ -28,7 +32,12 @@ function App() {
   useEffect(() => {
     if (newTokens) {
       handleFetchMe(newTokens.accessToken);
-      saveToken(newTokens.accessToken, newTokens.refreshToken);
+      const { refreshToken: refreshTokenSession } = getSession();
+      if (!refreshTokenSession) {
+        saveToken(newTokens.accessToken, newTokens.refreshToken);
+      } else {
+        saveSession(newTokens.accessToken, newTokens.refreshToken);
+      }
     }
   }, [newTokens]);
 

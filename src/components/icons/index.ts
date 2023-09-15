@@ -37,3 +37,4 @@ export * from './CloseCircleIcon';
 export * from './UploadIcon';
 export * from './ImageIcon';
 export * from './SettingIcon';
+export * from './MenuLeftIcon';

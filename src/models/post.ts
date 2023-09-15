@@ -5,8 +5,8 @@ export interface Post {
   slug: string;
   content: string;
   image: string;
-  category: string;
+  topic: string;
   author: string;
-  tag: string[];
+  tags: string[];
   date: string;
 }

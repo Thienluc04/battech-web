@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react';
+import { ChangeEvent, ComponentProps } from 'react';
 import { Control, FieldValues, Path, PathValue, useController } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 
@@ -14,6 +14,7 @@ export function Input<T extends FieldValues>({
   placeholder,
   errorMessage,
   type = 'text',
+  onChange: externalOnchange,
   className = '',
 }: InputProps<T>) {
   const { field } = useController({
@@ -29,6 +30,12 @@ export function Input<T extends FieldValues>({
         className={twMerge('h-12 p-3 border rounded-xl border-grayC4', className)}
         placeholder={placeholder}
         {...field}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          field.onChange(e);
+          if (externalOnchange) {
+            externalOnchange(e);
+          }
+        }}
       />
       {errorMessage && <p className="pt-1 text-sm font-bold text-red-500">{errorMessage}</p>}
     </>

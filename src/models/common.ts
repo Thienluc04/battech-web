@@ -34,7 +34,7 @@ export interface ListParamsSecond {
   limit?: number;
   sort?: 'asc' | 'desc';
   search?: string;
-  category?: string;
+  topic?: string;
 }
 
 export interface jobKind {

@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react';
+import { ChangeEvent, ComponentProps } from 'react';
 import { Control, FieldValues, Path, PathValue, useController } from 'react-hook-form';
 import { twMerge } from 'tailwind-merge';
 
@@ -13,6 +13,7 @@ export function Textarea<T extends FieldValues>({
   name,
   placeholder,
   errorMessage,
+  onChange = () => {},
   className = '',
 }: TextareaProps<T>) {
   const { field } = useController({
@@ -30,6 +31,10 @@ export function Textarea<T extends FieldValues>({
         )}
         placeholder={placeholder}
         {...field}
+        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+          field.onChange(e);
+          onChange(e);
+        }}
       ></textarea>
       {errorMessage && <p className="pt-1 text-sm font-bold text-red-500">{errorMessage}</p>}
     </>

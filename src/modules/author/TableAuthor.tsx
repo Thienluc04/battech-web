@@ -4,56 +4,56 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import {
-  useDeleteListPostMutation,
-  useDeletePostMutation,
-  useGetListPostQuery,
-} from '@/api/postApi';
+  useDeleteAuthorMutation,
+  useDeleteListAuthorMutation,
+  useGetListAuthorQuery,
+} from '@/api/authorApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { CardIcon, NotePencilIcon, TrashIcon } from '@/components/icons';
-import { postActions, selectListPost, selectParamsPost } from '@/features/post/postSlice';
+import { authorActions, selectListAuthor, selectParamsAuthor } from '@/features/author/authorSlice';
 import { BottomAdminTable } from '@/modules';
 
-const POST_PER_PAGE = 5;
+const AUTHOR_PER_PAGE = 5;
 
-export interface TableAdminProps {}
-
-export function TablePost(props: TableAdminProps) {
+export function TableAuthor() {
   const [totalPage, setTotalPage] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const listAuthor = useAppSelector(selectListAuthor);
+  const currentParams = useAppSelector(selectParamsAuthor);
   const [listChecked, setListChecked] = useState<string[]>([]);
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  const currentParams = useAppSelector(selectParamsPost);
-  const listPost = useAppSelector(selectListPost);
-
   const dispatch = useAppDispatch();
 
-  const { data: postResponse, isLoading, refetch } = useGetListPostQuery(currentParams);
-  const [deletePost] = useDeletePostMutation();
-  const [deleteListPost] = useDeleteListPostMutation();
+  const { data: authorResponse, isLoading, refetch } = useGetListAuthorQuery(currentParams);
+  const [deleteAuthor] = useDeleteAuthorMutation();
+  const [deleteListAuthor] = useDeleteListAuthorMutation();
 
   useEffect(() => {
-    if (postResponse) {
-      dispatch(postActions.setListPost(postResponse.data));
+    if (authorResponse) {
+      dispatch(authorActions.setListAuthor(authorResponse.data));
     }
-  }, [postResponse]);
+  }, [authorResponse]);
 
   useEffect(() => {
-    if (postResponse?.pagination) {
-      setTotalPage(Math.ceil(postResponse.pagination.totalRows / POST_PER_PAGE));
+    if (authorResponse?.pagination) {
+      setTotalPage(Math.ceil(authorResponse.pagination.totalRows / AUTHOR_PER_PAGE));
     }
-  }, [postResponse?.pagination]);
+  }, [authorResponse?.pagination]);
 
   useEffect(() => {
-    dispatch(postActions.setParams({ ...currentParams, page: currentPage }));
+    if (currentPage > 0) {
+      dispatch(authorActions.setParams({ ...currentParams, page: currentPage }));
+    }
   }, [currentPage]);
 
-  const handleDeleteListPost = async () => {
+  const handleDeleteListAuthor = async () => {
     if (listChecked.length > 0) {
       Swal.fire({
         title: 'Bạn chắc chứ?',
-        text: 'Sau khi đồng ý, các bài viết đã chọn sẽ bị xóa khỏi danh sách',
+        text: 'Sau khi đồng ý, các tác giả đã chọn sẽ bị xóa khỏi danh sách',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -62,8 +62,8 @@ export function TablePost(props: TableAdminProps) {
         cancelButtonText: 'Hủy',
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await deleteListPost(listChecked);
-          Swal.fire('Xóa thành công!', 'Đã xóa các bài viết đã chọn khỏi danh sách', 'success');
+          await deleteListAuthor(listChecked);
+          Swal.fire('Xóa thành công!', 'Đã xóa các tác giả đã chọn khỏi danh sách', 'success');
           refetch();
           setListChecked([]);
         }
@@ -71,10 +71,10 @@ export function TablePost(props: TableAdminProps) {
     }
   };
 
-  const handleDeletePost = async (id: string) => {
+  const handleDeleteAuthor = (id: string) => {
     Swal.fire({
       title: 'Bạn chắc chứ?',
-      text: 'Sau khi đồng ý, bài viết này sẽ xóa khỏi danh sách',
+      text: 'Sau khi đồng ý, tác giả này sẽ xóa khỏi danh sách',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -83,8 +83,8 @@ export function TablePost(props: TableAdminProps) {
       cancelButtonText: 'Hủy',
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await deletePost(id);
-        Swal.fire('Xóa thành công!', 'Đã xóa bài viết khỏi danh sách', 'success');
+        await deleteAuthor(id);
+        Swal.fire('Xóa thành công!', 'Đã xóa tác giả khỏi danh sách', 'success');
         refetch();
       }
     });
@@ -99,8 +99,8 @@ export function TablePost(props: TableAdminProps) {
         });
       }
       setListChecked([]);
-      listPost.forEach((item) => {
-        setListChecked((prev) => [...prev, item._id]);
+      listAuthor.forEach((item) => {
+        setListChecked((prev) => [...prev, item._id as string]);
       });
     } else {
       const listInput = inputRefs.current;
@@ -127,46 +127,36 @@ export function TablePost(props: TableAdminProps) {
 
   return (
     <>
-      <table className="w-full rounded-md admin-table" {...props}>
+      <table className="w-full rounded-md admin-table">
         <thead className="text-white bg-primaryAdmin">
           <tr>
             <th className="w-[45px] rounded-tl-md">
               <input type="checkbox" onChange={(e) => handleCheckAll(e.target.checked)} />
             </th>
-            <th className="w-20">ID</th>
-            <th className="w-2/5">Tên bài viết</th>
-            <th className="w-[15%]">Mô tả</th>
-            <th>Tác giả</th>
-            <th>Chủ đề</th>
-            <th>Ngày đăng bài</th>
+            <th>Tên tác giả</th>
             <th className="rounded-tr-md w-[126px]">Thao tác</th>
           </tr>
         </thead>
         <tbody className="bg-white">
-          {listPost.map((item, index) => (
+          {listAuthor.map((item, index) => (
             <tr key={item._id}>
               <td className="w-[45px] text-center">
                 <input
                   type="checkbox"
-                  onChange={(e) => handleChangeInput(e.target.checked, item._id)}
+                  onChange={(e) => handleChangeInput(e.target.checked, item._id as string)}
                   ref={(el) => (inputRefs.current[index] = el)}
                 />
               </td>
-              <td title={item._id}>{item._id.slice(0, 8) + '...'}</td>
-              <td>{item.title}</td>
-              <td className="titleShort">{item.description}</td>
-              <td>{item.author}</td>
-              <td>{item.topic}</td>
-              <td>{item.date}</td>
+              <td>{item.name}</td>
               <td>
                 <div className="flex items-center justify-center gap-p10">
                   <CardIcon></CardIcon>
-                  <Link to={`/manage/posts/${item._id}`}>
+                  <Link to={`/manage/authors/${item._id}`}>
                     <NotePencilIcon></NotePencilIcon>
                   </Link>
                   <TrashIcon
                     className="cursor-pointer"
-                    onClick={() => handleDeletePost(item._id)}
+                    onClick={() => handleDeleteAuthor(item._id as string)}
                   ></TrashIcon>
                 </div>
               </td>
@@ -174,7 +164,7 @@ export function TablePost(props: TableAdminProps) {
           ))}
         </tbody>
       </table>
-      {isLoading && listPost.length <= 0 && (
+      {isLoading && (
         <div>
           {new Array(5).fill(0).map((_, index) => (
             <Skeleton key={index} className="w-full h-[45px]"></Skeleton>
@@ -183,12 +173,12 @@ export function TablePost(props: TableAdminProps) {
       )}
       <BottomAdminTable
         currentPage={currentPage}
-        handleDeleteList={handleDeleteListPost}
         isLoading={isLoading}
-        list={listPost}
-        listChecked={listChecked}
+        list={listAuthor}
         setCurrentPage={setCurrentPage}
         totalPage={totalPage}
+        handleDeleteList={handleDeleteListAuthor}
+        listChecked={listChecked}
       ></BottomAdminTable>
     </>
   );

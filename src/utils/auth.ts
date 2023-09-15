@@ -31,8 +31,30 @@ export const getToken = () => {
 
 export const logOut = () => {
   const access_token = Cookies.get(accessTokenKey);
+  const session = sessionStorage.getItem(accessTokenKey);
   if (access_token) {
     Cookies.remove(accessTokenKey);
     Cookies.remove(refreshTokenKey);
   }
+  if (session) {
+    sessionStorage.removeItem(accessTokenKey);
+    sessionStorage.removeItem(refreshTokenKey);
+  }
+};
+
+export const saveSession = (accessToken: string, refreshToken: string) => {
+  if (accessToken && refreshToken) {
+    logOut();
+    sessionStorage.setItem(accessTokenKey, accessToken);
+    sessionStorage.setItem(refreshTokenKey, refreshToken);
+  }
+};
+
+export const getSession = () => {
+  const accessToken = sessionStorage.getItem(accessTokenKey);
+  const refreshToken = sessionStorage.getItem(refreshTokenKey);
+  return {
+    accessToken,
+    refreshToken,
+  };
 };

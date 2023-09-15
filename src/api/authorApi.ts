@@ -1,77 +1,76 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { linkApiSecond } from '@/constants/general';
-import { Post, ResponseSuccess } from '@/models';
-import { ListParamsSecond, ListResponseSecond } from '@/models/common';
+import { Author, ResponseSuccess } from '@/models';
 
-export const postApi = createApi({
-  reducerPath: 'postApi',
-  tagTypes: ['Post'],
+export const authorApi = createApi({
+  reducerPath: 'AuthorApi',
+  tagTypes: ['Author'],
   keepUnusedDataFor: 10,
   refetchOnMountOrArgChange: true,
   baseQuery: fetchBaseQuery({ baseUrl: linkApiSecond }),
   endpoints: (builder) => ({
-    getListPost: builder.query<ListResponseSecond<Post>, ListParamsSecond>({
+    getListAuthor: builder.query({
       query: (params) => {
         return {
-          url: 'posts',
+          url: 'authors',
           params,
         };
       },
       providesTags(result) {
-        if (result) {
+        if (result.data) {
           const final = [
-            ...result.data.map((item) => ({
-              type: 'Post' as const,
+            ...result.data.map((item: Author) => ({
+              type: 'Author' as const,
               id: item._id,
             })),
             {
-              type: 'Post' as const,
+              type: 'Author' as const,
               id: 'LIST',
             },
           ];
           return final;
         }
-        return [{ type: 'Post' as const, id: 'LIST' }];
+        return [{ type: 'Author' as const, id: 'LIST' }];
       },
     }),
-    getSinglePost: builder.query<Post, string>({
+    getSingleAuthor: builder.query<Author, string>({
       query: (id) => {
         return {
-          url: `posts/${id}`,
+          url: `authors/${id}`,
         };
       },
     }),
-    createPost: builder.mutation<ResponseSuccess<Post>, Post>({
+    createAuthor: builder.mutation<ResponseSuccess<Author>, Author>({
       query: (data) => {
         return {
-          url: 'posts',
+          url: 'authors',
           method: 'POST',
           body: data,
         };
       },
     }),
-    updatePost: builder.mutation<ResponseSuccess<Post>, Post>({
+    updateAuthor: builder.mutation<ResponseSuccess<Author>, Author>({
       query: (data) => {
         return {
-          url: `posts/${data._id}`,
+          url: `authors/${data._id}`,
           method: 'PUT',
           body: data,
         };
       },
     }),
-    deletePost: builder.mutation<ResponseSuccess<Post>, string>({
+    deleteAuthor: builder.mutation<ResponseSuccess<Author>, string>({
       query: (id) => {
         return {
-          url: `posts/${id}`,
+          url: `authors/${id}`,
           method: 'DELETE',
         };
       },
     }),
-    deleteListPost: builder.mutation<ResponseSuccess<string>, string[]>({
+    deleteListAuthor: builder.mutation<ResponseSuccess<string>, string[]>({
       query: (listId) => {
         return {
-          url: 'posts',
+          url: 'authors',
           method: 'DELETE',
           body: {
             listId,
@@ -83,10 +82,10 @@ export const postApi = createApi({
 });
 
 export const {
-  useGetListPostQuery,
-  useLazyGetSinglePostQuery,
-  useCreatePostMutation,
-  useUpdatePostMutation,
-  useDeletePostMutation,
-  useDeleteListPostMutation,
-} = postApi;
+  useGetListAuthorQuery,
+  useLazyGetSingleAuthorQuery,
+  useCreateAuthorMutation,
+  useUpdateAuthorMutation,
+  useDeleteAuthorMutation,
+  useDeleteListAuthorMutation,
+} = authorApi;

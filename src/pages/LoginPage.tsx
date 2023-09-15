@@ -3,15 +3,16 @@ import { useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import { useHandleFetchMeMutation, useHandleLoginMutation } from '@/api/authApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Checkbox } from '@/components/checkbox';
-import { authAction, selectCurrentUser } from '@/features/auth/authSlice';
-import { AuthLogin } from '@/models';
-import { LoginField } from '@/modules/login';
-import { saveToken } from '@/utils/auth';
+import { authAction, selectCurrentUser, selectRememberPass } from '@/features/auth/authSlice';
+import { AuthLogin, ResponseError } from '@/models';
+import { LoginField } from '@/modules/auth';
+import { saveSession, saveToken } from '@/utils/auth';
 
 const schema = yup.object({
   email: yup
@@ -35,10 +36,11 @@ export default function LoginPage() {
   });
 
   const { t } = useTranslation();
-  const [login, { data: dataLogin }] = useHandleLoginMutation();
+  const [login, { data: dataLogin, error: errorLogin }] = useHandleLoginMutation();
   const [fetchMe, { data: dataFetchMe }] = useHandleFetchMeMutation();
 
   const currentUser = useAppSelector(selectCurrentUser);
+  const rememberPass = useAppSelector(selectRememberPass);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -50,11 +52,23 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (dataLogin) {
+      if (rememberPass) {
+        saveToken(dataLogin.accessToken, dataLogin.refreshToken);
+      } else {
+        saveSession(dataLogin.accessToken, dataLogin.refreshToken);
+      }
       fetchMe(dataLogin.accessToken);
-      saveToken(dataLogin.accessToken, dataLogin.refreshToken);
+      toast.success('Đăng nhập thành công');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataLogin]);
+
+  useEffect(() => {
+    const error: ResponseError = errorLogin as ResponseError;
+    if (error) {
+      toast.error(error.data.messageError);
+    }
+  }, [errorLogin]);
 
   useEffect(() => {
     if (dataFetchMe) {
@@ -72,48 +86,40 @@ export default function LoginPage() {
   if (currentUser) return null;
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen bg-blueBg">
-      <div className="absolute">
-        <img src="/images/login-bg.png" alt="logo-bg" />
-      </div>
-      <div className="z-10 w-[508px] rounded-3xl bg-white shadow-[0px_0px_4px_0px_rgba(0,_0,_0,_0.25)]">
-        <Link to={'/'} className="my-[58px] flex justify-center">
-          <img src="/images/login-logo.png" alt="login-logo" />
+    <form className="mx-11" onSubmit={handleSubmit(handleLoginForm)}>
+      <h1 className="xl:text-3xl text-2xl font-bold text-center xl:text-left leading-[45px] font-fontRoboto mb-4">
+        Đăng nhập tài khoản
+      </h1>
+      <LoginField
+        control={control}
+        name="email"
+        title="Email"
+        className="mb-5"
+        type="email"
+        errorMessage={errors.email && t(String(errors.email.message))}
+      />
+      <LoginField
+        control={control}
+        name="password"
+        title="Mật khẩu"
+        className="mb-5"
+        type="password"
+        errorMessage={errors.password && t(String(errors.password.message))}
+      />
+      <div className="flex flex-col items-center justify-between gap-3 mb-6 md:gap-0 md:flex-row">
+        <Checkbox onChange={() => dispatch(authAction.setRememberPass(!rememberPass))}>
+          Nhớ mật khẩu
+        </Checkbox>
+        <Link to={'/forgot-pass'} className="leading-6 underline text-blueText font-fontRoboto">
+          Quên mật khẩu
         </Link>
-        <form className="mx-11" onSubmit={handleSubmit(handleLoginForm)}>
-          <h1 className="text-3xl font-bold leading-[45px] font-fontRoboto mb-4">
-            Đăng nhập tài khoản
-          </h1>
-          <LoginField
-            control={control}
-            name="email"
-            title="Email"
-            className="mb-5"
-            type="email"
-            errorMessage={errors.email && t(String(errors.email.message))}
-          />
-          <LoginField
-            control={control}
-            name="password"
-            title="Mật khẩu"
-            className="mb-5"
-            type="password"
-            errorMessage={errors.password && t(String(errors.password.message))}
-          />
-          <div className="flex justify-between mb-6">
-            <Checkbox>Nhớ mật khẩu</Checkbox>
-            <Link to={''} className="leading-6 underline text-blueText font-fontRoboto">
-              Quên mật khẩu
-            </Link>
-          </div>
-          <button
-            type="submit"
-            className="bg-[#F27024] text-white rounded-3xl text-xl font-bold font-fontRoboto leading-6 w-full py-3 mb-[63px]"
-          >
-            Đăng nhập
-          </button>
-        </form>
       </div>
-    </div>
+      <button
+        type="submit"
+        className="bg-[#F27024] text-white rounded-3xl text-xl font-bold font-fontRoboto leading-6 w-full py-3 mb-[63px]"
+      >
+        Đăng nhập
+      </button>
+    </form>
   );
 }
