@@ -154,6 +154,7 @@ export const i18nInit = {
         'Không có công việc nào tương tự': 'There are no similar jobs',
         'Bạn đã gửi CV thành công': 'Your CV has been submitted successfully',
         'Gửi tin nhắn thành công': 'Send message successfully',
+        'Bóng đá': 'Football',
       },
     },
   },

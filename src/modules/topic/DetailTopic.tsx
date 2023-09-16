@@ -107,7 +107,12 @@ export function DetailTopic() {
     <form onSubmit={handleSubmit(handleSubmitTopic)} className="flex-1 px-4 py-[26px] bg-blueBg">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-1">
-          <Link to={'/manage/topics'}>
+          <Link
+            to={'/manage/topics'}
+            onClick={() => {
+              dispatch(topicActions.setParams({ ...currentParams, page: 1 }));
+            }}
+          >
             <ArrowLeftIcon variant="black"></ArrowLeftIcon>
           </Link>
           <h1 className="text-2xl font-semibold leading-5 font-fontRoboto">

@@ -4,11 +4,17 @@ import { Link } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Button } from '@/components/button';
-import { FilterIcon, PlusIcon, SearchIcon, SquaresFourIcon } from '@/components/icons';
+import {
+  FilterIcon,
+  MenuLeftIcon,
+  PlusIcon,
+  SearchIcon,
+  SquaresFourIcon,
+} from '@/components/icons';
 import { Input } from '@/components/input';
+import { authAction, selectShowSidebar } from '@/features/auth/authSlice';
 import { selectParamsTopic, topicActions } from '@/features/topic/topicSlice';
-
-import { TableTopic } from '.';
+import { TableTopic } from '@/modules/topic';
 
 export function ManageTopic() {
   const [sortValue, setSortValue] = useState<'asc' | 'desc'>('asc');
@@ -21,6 +27,8 @@ export function ManageTopic() {
   } = useForm({ mode: 'onSubmit' });
 
   const currentParams = useAppSelector(selectParamsTopic);
+  const showSidebar = useAppSelector(selectShowSidebar);
+
   const dispatch = useAppDispatch();
 
   const watchSearch = watch('search');
@@ -51,7 +59,13 @@ export function ManageTopic() {
   return (
     <div className="flex-1 px-4 py-[26px] bg-blueBg">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold leading-5 font-fontRoboto">Chủ đề</h1>
+        <div className="flex items-center gap-5">
+          <MenuLeftIcon
+            className="xl:hidden"
+            onClick={() => dispatch(authAction.setShowSidebar(!showSidebar))}
+          ></MenuLeftIcon>
+          <h1 className="text-2xl font-semibold leading-5 font-fontRoboto">Chủ đề</h1>
+        </div>
         <Link
           to={'/manage/topics/create'}
           className="flex items-center gap-[6px] px-p10 h-8 bg-primaryAdmin rounded"

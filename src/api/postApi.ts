@@ -1,17 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { linkApiSecond } from '@/constants/general';
+import { linkApi } from '@/constants/general';
 import { Post, ResponseSuccess } from '@/models';
-import { ListParamsSecond, ListResponseSecond } from '@/models/common';
+import { ListParams, ListResponse } from '@/models/common';
 
 export const postApi = createApi({
   reducerPath: 'postApi',
   tagTypes: ['Post'],
   keepUnusedDataFor: 10,
   refetchOnMountOrArgChange: true,
-  baseQuery: fetchBaseQuery({ baseUrl: linkApiSecond }),
+  baseQuery: fetchBaseQuery({ baseUrl: linkApi }),
   endpoints: (builder) => ({
-    getListPost: builder.query<ListResponseSecond<Post>, ListParamsSecond>({
+    getListPost: builder.query<ListResponse<Post>, ListParams>({
       query: (params) => {
         return {
           url: 'posts',
@@ -84,6 +84,7 @@ export const postApi = createApi({
 
 export const {
   useGetListPostQuery,
+  useLazyGetListPostQuery,
   useLazyGetSinglePostQuery,
   useCreatePostMutation,
   useUpdatePostMutation,

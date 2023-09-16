@@ -1,5 +1,3 @@
-import { Category } from '@/models';
-
 interface SocialNetwork {
   image: string;
   alt: string;
@@ -48,14 +46,6 @@ export const listLinkAdmin: LinkAdmin[] = [
   },
 ];
 
-export const listCategories: Category[] = [
-  'TIN NỘI BỘ',
-  'METAVERSE',
-  'BLOCKCHAIN',
-  'GAME NFT',
-  'PHÁT TRIỂN PHẦN MỀM',
-];
-
 export const listImgPartners: string[] = [
   '/images/partner-1.png',
   '/images/partner-2.png',
@@ -67,10 +57,10 @@ export const listImgPartners: string[] = [
   '/images/partner-4.png',
 ];
 
-export const linkApi = 'https://battech-server.onrender.com/api/';
-export const linkAuth = 'http://localhost:3000/auth/';
-export const linkApiSecond = 'http://localhost:3000/api/';
-export const linkApiPass = 'http://localhost:3000/pass/';
+export const linkApi = 'https://battech-node.onrender.com/api/';
+export const linkApiJob = 'https://battech-server.onrender.com/api/';
+export const linkAuth = 'https://battech-node.onrender.com/auth/';
+export const linkApiPass = 'https://battech-node.onrender.com/pass/';
 
 export const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;

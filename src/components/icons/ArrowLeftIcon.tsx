@@ -2,6 +2,7 @@ import { ComponentProps } from 'react';
 
 export interface ArrowLeftIconProps extends ComponentProps<'span'> {
   variant?: 'white' | 'green' | 'gray' | string;
+  size?: 'normal' | 'large';
 }
 
 export function ArrowLeftIcon({

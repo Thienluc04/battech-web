@@ -1,70 +1,58 @@
-import { useEffect, useState } from 'react';
+import parse from 'html-react-parser';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Skeleton from 'react-loading-skeleton';
 import { useParams } from 'react-router';
 import Slider from 'react-slick';
 
-import { useGetNewsWithCategoryQuery, useGetSingleNewsQuery } from '@/api/newsApi';
-import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { useLazyGetListPostQuery, useLazyGetSinglePostQuery } from '@/api/postApi';
 import { NewsSidebar } from '@/components/sidebar';
 import { vn } from '@/constants/languages';
-import { newsActions, selectListSimilarNews } from '@/features/news/newsSlice';
-import { News, NewsContent } from '@/models';
 import { NewsItem } from '@/modules/news';
 
 export default function NewsDetailsPage() {
   const { slug } = useParams();
 
-  const { data: singleNews } = useGetSingleNewsQuery(String(slug));
-
-  const [newsDetail, setNewsDetail] = useState<News>();
-  const [contentNews, setContentNews] = useState<NewsContent[]>();
-
-  const listSimilarNews = useAppSelector(selectListSimilarNews);
-
-  const dispatch = useAppDispatch();
+  const [getSinglePost, { data: singlePost }] = useLazyGetSinglePostQuery();
 
   const { t } = useTranslation();
 
-  const { data: similarNewsData, isLoading } = useGetNewsWithCategoryQuery(
-    newsDetail?.category as string,
-  );
+  const [getListPost, { data: postSimilarRes, isLoading }] = useLazyGetListPostQuery();
 
   useEffect(() => {
-    if (singleNews && singleNews.length > 0) {
-      setNewsDetail(singleNews[0]);
+    if (slug) {
+      getSinglePost(slug);
     }
-  }, [singleNews]);
+  }, [slug]);
 
   useEffect(() => {
-    if (newsDetail) {
-      setContentNews(newsDetail.content);
+    if (singlePost) {
+      getListPost({
+        limit: 6,
+        page: 1,
+        sort: 'asc',
+        topic: singlePost.topic,
+      });
     }
-  }, [newsDetail]);
-
-  useEffect(() => {
-    if (similarNewsData && similarNewsData.length > 0) {
-      dispatch(newsActions.setListNewsSimilar(similarNewsData));
-    }
-  }, [dispatch, similarNewsData]);
+  }, [singlePost]);
 
   return (
     <div className="max-w-[1200px] mx-auto">
       <div className="flex items-center mx-5 my-6 xl:mx-0 md:max-w-[790px] md:mx-auto xl:max-w-none md:px-5 xl:px-0">
-        {newsDetail && (
+        {singlePost && (
           <p className="font-medium leading-6">
             <span className="text-primary">{t(vn.news.DETAIL_BREADCRUMB)}</span> /{' '}
-            <span className="text-primary">{t(newsDetail?.category)}</span> / {newsDetail?.title}
+            <span className="text-primary">{t(singlePost?.topic)}</span> / {singlePost?.title}
           </p>
         )}
-        {!newsDetail && (
+        {!singlePost && (
           <div className="w-full xl:w-2/4">
             <Skeleton className="w-full leading-6"></Skeleton>
           </div>
         )}
       </div>
       <div className="flex flex-col gap-8 mb-16 xl:flex-row">
-        {!newsDetail && (
+        {!singlePost && (
           <div className="md:w-[790px] w-full xl:mx-0 mx-auto px-5 xl:px-0">
             <Skeleton className="text-[32px] font-bold leading-9 mb-8"></Skeleton>
             <Skeleton className="mb-5 font-medium leading-6"></Skeleton>
@@ -84,23 +72,13 @@ export default function NewsDetailsPage() {
             </div>
           </div>
         )}
-        {newsDetail && (
+        {singlePost && (
           <div className="max-w-[790px] xl:mx-0 mx-auto px-5 xl:px-0">
             <h1 className="text-[32px] font-fontArial font-bold leading-9 text-textPrimary mb-8">
-              {newsDetail?.title}
+              {singlePost?.title}
             </h1>
-            <p className="mb-12 font-medium leading-6 text-textPrimary">
-              {newsDetail?.description}
-            </p>
-            {contentNews?.map((item, index) => (
-              <div key={index}>
-                <h2 className="mb-2 text-xl font-bold leading-7">{item.contentTitle}</h2>
-                <p className="mb-5 font-medium leading-6">{item.contentDesc}</p>
-                <div className="mb-12">
-                  <img src={item.contentImg} alt="news-details-img" />
-                </div>
-              </div>
-            ))}
+            <p className="mb-8 font-medium leading-6 text-textPrimary">{singlePost?.description}</p>
+            <div className="news-content">{parse(singlePost.content)}</div>
           </div>
         )}
         <NewsSidebar></NewsSidebar>
@@ -110,7 +88,7 @@ export default function NewsDetailsPage() {
         <h2 className="text-[#0a0a0a] text-xl font-bold leading-7 mb-7">
           {t(vn.news.DETAIL_SIMILAR_TITLE)}
         </h2>
-        {listSimilarNews.length > 3 ? (
+        {postSimilarRes && postSimilarRes?.data.length > 3 ? (
           <Slider
             dots
             infinite
@@ -129,15 +107,15 @@ export default function NewsDetailsPage() {
             ]}
             className="flex xl:mb-[144px] mb-20 xl:pb-10 pb-5 news"
           >
-            {listSimilarNews.map((item, index) => (
-              <NewsItem key={index} news={item}></NewsItem>
+            {postSimilarRes?.data.map((item, index) => (
+              <NewsItem key={index} post={item}></NewsItem>
             ))}
           </Slider>
         ) : (
           <>
             <div className="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 xl:mb-[144px] mb-20 xl:pb-10 pb-5">
-              {listSimilarNews.map((item, index) => (
-                <NewsItem key={index} news={item}></NewsItem>
+              {postSimilarRes?.data.map((item, index) => (
+                <NewsItem key={index} post={item}></NewsItem>
               ))}
             </div>
             {isLoading && (

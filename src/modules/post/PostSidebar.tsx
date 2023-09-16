@@ -14,7 +14,7 @@ import { SelectPost } from '.';
 interface PostSidebarProps<T extends FieldValues> extends ComponentProps<'div'> {
   setValue: UseFormSetValue<T>;
   date: string;
-  listTag?: string[];
+  listTag: string[];
   control: Control<T>;
   nameTopic: Path<T>;
   nameAuthor: Path<T>;
@@ -34,11 +34,11 @@ export function PostSidebar<T extends FieldValues>({
   nameAuthor,
   className = '',
 }: PostSidebarProps<T>) {
+  console.log('listTag:', listTag);
   const [listTopic, setListTopic] = useState<Topic[]>([]);
   const [listAuthor, setListAuthor] = useState<Author[]>([]);
 
   const [listOption, setListOption] = useState<Option[]>([]);
-  const [listChoosed, setListChoosed] = useState<Option[]>([]);
 
   const { data: responseTopic } = useGetListTopicQuery({ sort: 'asc' });
   const { data: responseAuthor } = useGetListAuthorQuery({ sort: 'asc' });
@@ -49,16 +49,6 @@ export function PostSidebar<T extends FieldValues>({
   useEffect(() => {
     getListTag({ sort: 'asc' });
   }, []);
-
-  useEffect(() => {
-    if (listTag && listTag?.length > 0) {
-      const newTags: Option[] = [];
-      listTag?.forEach((item) => {
-        newTags.push({ value: item, label: item });
-      });
-      setListChoosed(newTags);
-    }
-  }, [listTag]);
 
   useEffect(() => {
     if (responseTopic) {
@@ -84,7 +74,7 @@ export function PostSidebar<T extends FieldValues>({
   return (
     <div
       className={twMerge(
-        'w-[320px] border border-borderAdmin rounded-md bg-white mb-auto',
+        'xl:w-[320px] w-full border border-borderAdmin rounded-md bg-white mb-auto',
         className,
       )}
     >
@@ -104,21 +94,26 @@ export function PostSidebar<T extends FieldValues>({
         </div>
         <div>
           <h3 className="mb-2 font-fontRoboto">Tag</h3>
-          <Select
-            components={animatedComponents}
-            placeholder="Chọn tag..."
-            isMulti
-            options={listOption}
-            defaultValue={listChoosed}
-            onChange={(tags) => {
-              const list = tags as Option[];
-              const newTags: string[] = [];
-              list.forEach((item) => {
-                newTags.push(item.value);
-              });
-              setValue('tags' as Path<T>, newTags as PathValue<T, Path<T>>);
-            }}
-          />
+          {listTag && (
+            <Select
+              components={animatedComponents}
+              placeholder="Chọn tag..."
+              isMulti
+              options={listOption}
+              defaultValue={[
+                { value: listTag?.[0], label: listTag?.[0] },
+                { value: listTag?.[1], label: listTag?.[1] },
+              ]}
+              onChange={(tags) => {
+                const list = tags as Option[];
+                const newTags: string[] = [];
+                list.forEach((item) => {
+                  newTags.push(item.value);
+                });
+                setValue('tags' as Path<T>, newTags as PathValue<T, Path<T>>);
+              }}
+            />
+          )}
         </div>
       </div>
       <div className="flex items-center justify-between px-3 py-2 border-t border-t-borderAdmin">

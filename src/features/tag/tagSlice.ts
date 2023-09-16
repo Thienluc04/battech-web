@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '@/app/store';
-import { ListParamsSecond, Tag } from '@/models';
+import { ListParams, Tag } from '@/models';
 
 interface TagState {
   list: Tag[];
-  params: ListParamsSecond;
+  params: ListParams;
 }
 
 const initialState: TagState = {
@@ -24,7 +24,7 @@ const tagSlice = createSlice({
     setListTag(state, action: PayloadAction<Tag[]>) {
       state.list = action.payload;
     },
-    setParams(state, action: PayloadAction<ListParamsSecond>) {
+    setParams(state, action: PayloadAction<ListParams>) {
       state.params = action.payload;
     },
   },

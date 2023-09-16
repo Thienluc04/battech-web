@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useGetAllNewsQuery } from '@/api/newsApi';
+import { useGetListPostQuery } from '@/api/postApi';
+import { useGetListTopicQuery } from '@/api/topicApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
-import { listCategories } from '@/constants/general';
 import { vn } from '@/constants/languages';
-import { newsActions, selectListNews, selectParamsNews } from '@/features/news/newsSlice';
-import { Category } from '@/models';
+import { postActions, selectListPost, selectParamsPost } from '@/features/post/postSlice';
+import { Topic } from '@/models';
 
 import { ListNews, NewsItem } from '.';
 import { Pagination } from '..';
@@ -19,50 +19,53 @@ export function ListNewsSection(props: ListNewsSectionProps) {
   const [totalPage, setTotalPage] = useState<number>(0);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [currentCategory, setCurrentCategory] = useState<Category>('');
+  const [currentCategory, setCurrentCategory] = useState<string>('');
 
-  const currentParams = useAppSelector(selectParamsNews);
+  const currentParams = useAppSelector(selectParamsPost);
 
   const { t } = useTranslation();
 
-  const { data: newsResponse, isLoading } = useGetAllNewsQuery(currentParams);
+  const { data: postResponse, isLoading } = useGetListPostQuery({ ...currentParams, limit: 8 });
+  const { data: listTopic } = useGetListTopicQuery({
+    sort: 'asc',
+  });
 
   const dispatch = useAppDispatch();
-  const listNews = useAppSelector(selectListNews);
+  const listNews = useAppSelector(selectListPost);
 
   useEffect(() => {
-    if (currentParams.category) {
+    if (currentParams.topic) {
       const params = { ...currentParams };
-      delete params.category;
-      dispatch(newsActions.setParams({ ...params }));
+      delete params.topic;
+      dispatch(postActions.setParams({ ...params }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (newsResponse?.data) {
-      dispatch(newsActions.setListNews(newsResponse?.data));
+    if (postResponse?.data) {
+      dispatch(postActions.setListPost(postResponse?.data));
     }
-  }, [dispatch, newsResponse]);
+  }, [dispatch, postResponse]);
 
   useEffect(() => {
-    if (newsResponse?.pagination) {
-      setTotalPage(Math.ceil(newsResponse.pagination._totalRows / NEWS_PER_PAGE));
+    if (postResponse?.pagination) {
+      setTotalPage(Math.ceil(postResponse.pagination.totalRows / NEWS_PER_PAGE));
     }
-  }, [newsResponse?.pagination]);
+  }, [postResponse?.pagination]);
 
   useEffect(() => {
-    dispatch(newsActions.setParams({ ...currentParams, _page: currentPage }));
+    dispatch(postActions.setParams({ ...currentParams, page: currentPage }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   useEffect(() => {
     if (currentCategory.length > 0) {
-      dispatch(newsActions.setParams({ ...currentParams, category: currentCategory, _page: 1 }));
+      dispatch(postActions.setParams({ ...currentParams, topic: currentCategory, page: 1 }));
     } else if (currentCategory === '') {
       const params = { ...currentParams };
-      delete params.category;
-      dispatch(newsActions.setParams({ ...params }));
+      delete params.topic;
+      dispatch(postActions.setParams({ ...params }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentCategory]);
@@ -70,29 +73,30 @@ export function ListNewsSection(props: ListNewsSectionProps) {
   return (
     <section className="max-w-[1200px] mx-auto mb-[130px]" {...props}>
       <div className="flex flex-wrap justify-between gap-3 mx-5 mb-10 xl:gap-8 xl:mx-0 xl:justify-normal">
-        {listCategories.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => {
-              if (item === currentCategory) {
-                setCurrentCategory('');
-                setCurrentPage(1);
-              } else {
-                setCurrentCategory(item as Category);
-                setCurrentPage(1);
-              }
-            }}
-            className={`xl:text-2xl text-xl font-bold leading-7 cursor-pointer ${
-              item === currentCategory ? 'text-primary' : 'text-gray7A'
-            }`}
-          >
-            {t(item)}
-          </div>
-        ))}
+        {listTopic?.length > 0 &&
+          listTopic?.map((item: Topic, index: number) => (
+            <div
+              key={index}
+              onClick={() => {
+                if (item.name === currentCategory) {
+                  setCurrentCategory('');
+                  setCurrentPage(1);
+                } else {
+                  setCurrentCategory(item.name);
+                  setCurrentPage(1);
+                }
+              }}
+              className={`xl:text-2xl text-xl font-bold leading-7 cursor-pointer ${
+                item.name === currentCategory ? 'text-primary' : 'text-gray7A'
+              }`}
+            >
+              {t(item.name)}
+            </div>
+          ))}
       </div>
       <ListNews>
         {listNews.length > 0 &&
-          listNews?.map((item, index) => <NewsItem key={index} news={item}></NewsItem>)}
+          listNews?.map((item, index) => <NewsItem key={index} post={item}></NewsItem>)}
       </ListNews>
       {listNews.length > 0 && (
         <Pagination

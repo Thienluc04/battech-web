@@ -50,8 +50,10 @@ export function DetailPost() {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [date, setDate] = useState<string>('');
 
-  const [handleCreatePost, { data: createResponse }] = useCreatePostMutation();
-  const [handleUpdatePost, { data: updateResponse }] = useUpdatePostMutation();
+  const [handleCreatePost, { data: createResponse, isLoading: createLoading }] =
+    useCreatePostMutation();
+  const [handleUpdatePost, { data: updateResponse, isLoading: updateLoading }] =
+    useUpdatePostMutation();
 
   const [getSinglePost, { data: singlePost }] = useLazyGetSinglePostQuery();
 
@@ -125,7 +127,12 @@ export function DetailPost() {
     <form onSubmit={handleSubmit(handleSubmitPost)} className="flex-1 px-3 py-5 bg-blueBg">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-1">
-          <Link to={'/manage/posts'}>
+          <Link
+            to={'/manage/posts'}
+            onClick={() => {
+              dispatch(postActions.setParams({ ...currentParams, page: 1 }));
+            }}
+          >
             <ArrowLeftIcon variant="black"></ArrowLeftIcon>
           </Link>
           <h1 className="text-2xl font-semibold leading-5 font-fontRoboto">Bài viết mới</h1>
@@ -137,12 +144,26 @@ export function DetailPost() {
             className="flex items-center gap-[6px] px-p10 bg-primaryAdmin rounded h-8"
           >
             <span className="text-base text-white font-fontRoboto">
-              {slug ? 'Lưu' : 'Thêm'} bài viết
+              {slug ? (
+                updateLoading ? (
+                  <div className="w-[102px]">
+                    <div className="w-5 h-5 mx-auto border-2 border-white rounded-full animate-spin border-t-transparent"></div>
+                  </div>
+                ) : (
+                  'Lưu bài viết'
+                )
+              ) : createLoading ? (
+                <div className="w-[102px]">
+                  <div className="w-5 h-5 mx-auto border-2 border-white rounded-full animate-spin border-t-transparent"></div>
+                </div>
+              ) : (
+                'Thêm bài viết'
+              )}
             </span>
           </Button>
         </div>
       </div>
-      <div className="flex">
+      <div className="flex flex-col gap-8 xl:flex-row xl:gap-0">
         <DetailPostContent
           control={control}
           errors={errors}
@@ -158,7 +179,7 @@ export function DetailPost() {
           control={control}
           nameAuthor="author"
           nameTopic="topic"
-          listTag={singlePost?.tags}
+          listTag={singlePost?.tags as string[]}
         ></PostSidebar>
       </div>
     </form>

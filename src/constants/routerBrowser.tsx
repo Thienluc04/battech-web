@@ -116,7 +116,7 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/posts',
         element: (
-          <Suspense>
+          <Suspense fallback={<>Loading...</>}>
             <ManagePost></ManagePost>
           </Suspense>
         ),
@@ -217,7 +217,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/login',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 mx-auto mb-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <LoginPage></LoginPage>
           </Suspense>
         ),
@@ -225,7 +231,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/forgot-pass',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 mx-auto mb-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <ForgotPass></ForgotPass>
           </Suspense>
         ),
@@ -233,7 +245,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/forgot-pass/:email',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 mx-auto mb-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <ForgotPassConfirm></ForgotPassConfirm>
           </Suspense>
         ),

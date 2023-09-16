@@ -2,10 +2,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import { useForgotPassMutation } from '@/api/passApi';
+import { ArrowLeftIcon } from '@/components/icons';
 import { ResponseError } from '@/models';
 import { LoginField } from '@/modules/auth';
 
@@ -51,6 +53,10 @@ export function ForgotPass() {
 
   return (
     <form className="mx-11" onSubmit={handleSubmit(handleForgotPassword)}>
+      <Link to={'/login'} className="flex items-center gap-1">
+        <ArrowLeftIcon variant="gray"></ArrowLeftIcon>
+        <span className="text-lg text-gray-500">Quay lại</span>
+      </Link>
       <h1 className="text-2xl text-center leading-[45px] font-fontRoboto mb-5">Lấy lại mật khẩu</h1>
       <LoginField
         control={control}
@@ -65,7 +71,7 @@ export function ForgotPass() {
         className="bg-[#F27024] text-white rounded-3xl text-xl font-bold font-fontRoboto leading-6 w-full py-3 mb-[63px]"
       >
         {isLoading ? (
-          <div className="mx-auto w-8 h-8 border-2 border-white rounded-full animate-spin border-t-transparent"></div>
+          <div className="w-8 h-8 mx-auto border-2 border-white rounded-full animate-spin border-t-transparent"></div>
         ) : (
           'Gửi mã'
         )}

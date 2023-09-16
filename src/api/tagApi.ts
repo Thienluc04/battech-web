@@ -1,17 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { linkApiSecond } from '@/constants/general';
-import { ListParamsSecond, ResponseSuccess, Tag } from '@/models';
+import { linkApi } from '@/constants/general';
+import { ListParams, ResponseSuccess, Tag } from '@/models';
 
 export const tagApi = createApi({
   reducerPath: 'TagApi',
   tagTypes: ['Tag'],
   keepUnusedDataFor: 10,
   refetchOnMountOrArgChange: true,
-  baseQuery: fetchBaseQuery({ baseUrl: linkApiSecond }),
+  baseQuery: fetchBaseQuery({ baseUrl: linkApi }),
   endpoints: (builder) => ({
     getListTag: builder.query({
-      query: (params: ListParamsSecond) => {
+      query: (params: ListParams) => {
         return {
           url: 'tags',
           params,

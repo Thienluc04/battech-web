@@ -1,10 +1,11 @@
 import { ComponentProps } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 export interface CardIconProps extends ComponentProps<'span'> {}
 
 export function CardIcon({ className = '' }: CardIconProps) {
   return (
-    <span className={className}>
+    <span className={twMerge('block', className)}>
       <svg
         width={20}
         height={20}

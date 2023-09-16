@@ -90,7 +90,12 @@ export function DetailTag() {
     <form onSubmit={handleSubmit(handleSubmitTag)} className="flex-1 px-4 py-[26px] bg-blueBg">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-1">
-          <Link to={'/manage/tags'}>
+          <Link
+            to={'/manage/tags'}
+            onClick={() => {
+              dispatch(tagActions.setParams({ ...currentParams, page: 1 }));
+            }}
+          >
             <ArrowLeftIcon variant="black"></ArrowLeftIcon>
           </Link>
           <h1 className="text-2xl font-semibold leading-5 font-fontRoboto">

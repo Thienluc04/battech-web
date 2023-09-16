@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '@/app/store';
-import { Author, ListParamsSecond } from '@/models';
+import { Author, ListParams } from '@/models';
 
 interface AuthorState {
   list: Author[];
-  params: ListParamsSecond;
+  params: ListParams;
 }
 
 const initialState: AuthorState = {
@@ -24,7 +24,7 @@ const authorSlice = createSlice({
     setListAuthor(state, action: PayloadAction<Author[]>) {
       state.list = action.payload;
     },
-    setParams(state, action: PayloadAction<ListParamsSecond>) {
+    setParams(state, action: PayloadAction<ListParams>) {
       state.params = action.payload;
     },
   },

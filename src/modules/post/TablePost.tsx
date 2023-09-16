@@ -134,7 +134,7 @@ export function TablePost(props: TableAdminProps) {
               <input type="checkbox" onChange={(e) => handleCheckAll(e.target.checked)} />
             </th>
             <th className="w-20">ID</th>
-            <th className="w-2/5">Tên bài viết</th>
+            <th className="w-1/6 xl:w-2/5">Tên bài viết</th>
             <th className="w-[15%]">Mô tả</th>
             <th>Tác giả</th>
             <th>Chủ đề</th>
@@ -161,7 +161,7 @@ export function TablePost(props: TableAdminProps) {
               <td>
                 <div className="flex items-center justify-center gap-p10">
                   <CardIcon></CardIcon>
-                  <Link to={`/manage/posts/${item._id}`}>
+                  <Link to={`/manage/posts/${item.slug}`}>
                     <NotePencilIcon></NotePencilIcon>
                   </Link>
                   <TrashIcon

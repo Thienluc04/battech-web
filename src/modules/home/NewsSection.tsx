@@ -1,30 +1,20 @@
-import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Slider from 'react-slick';
 
-import { useAppSelector } from '@/app/hooks';
+import { useGetListPostQuery } from '@/api/postApi';
 import { vn } from '@/constants/languages';
-import { selectListEventNews, selectListNewestNews } from '@/features/news/newsSlice';
-import { News } from '@/models';
 import { NewestItem, NewsItem } from '@/modules/news';
 
 export interface NewsSectionProps {}
 
 export function NewsSection(props: NewsSectionProps) {
-  const currentNewsList = useAppSelector(selectListNewestNews);
-  const eventNewsList = useAppSelector(selectListEventNews);
-
-  const [largeNewest, setLargeNewest] = useState<News>();
-  const [newestItem, setNewestItem] = useState<News>();
-
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (currentNewsList.length > 0) {
-      setLargeNewest(currentNewsList[0]);
-      setNewestItem(currentNewsList[1]);
-    }
-  }, [currentNewsList]);
+  const { data: listPost, isLoading } = useGetListPostQuery({
+    sort: 'asc',
+    limit: 6,
+    page: 1,
+  });
 
   return (
     <section className="max-w-[1200px] xl:mx-auto mx-3 xl:mt-[144px] mt-20" {...props}>
@@ -33,9 +23,9 @@ export function NewsSection(props: NewsSectionProps) {
       </h2>
       <h3 className="mb-4 text-xl font-bold leading-7 text-textDesc">{t(vn.home.NEWEST_TITLE)}</h3>
       <div className="flex flex-col gap-4 mb-8 md:flex-row xl:mb-0">
-        {largeNewest ? (
+        {listPost?.data[0] ? (
           <NewestItem
-            newest={largeNewest}
+            newest={listPost.data[0]}
             className="xl:w-[780px] md:flex-1 xl:flex-none xl:h-[358px] rounded-xl"
           ></NewestItem>
         ) : (
@@ -44,8 +34,11 @@ export function NewsSection(props: NewsSectionProps) {
             loading
           ></NewestItem>
         )}
-        {newestItem ? (
-          <NewestItem newest={newestItem} className="flex-1 xl:h-[358px] rounded-xl"></NewestItem>
+        {listPost?.data[1] ? (
+          <NewestItem
+            newest={listPost.data[1]}
+            className="flex-1 xl:h-[358px] rounded-xl"
+          ></NewestItem>
         ) : (
           <div className="flex-1">
             <NewestItem className="w-full xl:h-[358px] h-[176px] rounded-xl" loading></NewestItem>
@@ -55,7 +48,7 @@ export function NewsSection(props: NewsSectionProps) {
       <h3 className="mt-6 mb-4 text-xl font-bold leading-7 text-textDesc">
         {t(vn.home.NEWS_EVENT_TITLE)}
       </h3>
-      {eventNewsList.length > 0 && (
+      {listPost && listPost?.data.length > 0 && (
         <Slider
           dots
           infinite
@@ -76,13 +69,13 @@ export function NewsSection(props: NewsSectionProps) {
           ]}
           className="flex xl:mb-[144px] mb-20 xl:pb-10 pb-5 news"
         >
-          {eventNewsList.map((item, index) => (
-            <NewsItem key={index} news={item} hideDesc></NewsItem>
+          {listPost?.data.map((item, index) => (
+            <NewsItem key={index} post={item} hideDesc></NewsItem>
           ))}
         </Slider>
       )}
 
-      {eventNewsList.length <= 0 && (
+      {isLoading && !listPost && (
         <div className="flex xl:flex-row flex-col flex-wrap xl:mb-[144px] mb-20 xl:pb-10 pb-5 gap-8">
           {new Array(3).fill(0).map((_item, index) => (
             <NewsItem className="flex-1" key={index} loading></NewsItem>

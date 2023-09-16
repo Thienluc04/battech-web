@@ -4,57 +4,57 @@ import { Link } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
 import { DateIcon, UserIcon } from '@/components/icons';
-import { News } from '@/models';
+import { Post } from '@/models';
 
 export interface NewsItemProps extends ComponentProps<'div'> {
-  news?: News;
+  post?: Post;
   hideDesc?: boolean;
   loading?: boolean;
 }
 
 export function NewsItem({
-  news,
+  post,
   hideDesc = false,
   loading = false,
   className = '',
 }: NewsItemProps) {
   return (
     <>
-      {!loading && news && (
+      {!loading && post && (
         <div
           className={twMerge(
             'shadow-[4px_2px_15px_0px_rgba(0,_0,_0,_0.05)] rounded-2xl',
             className,
           )}
         >
-          <Link to={`/news/${news.slug}`} className="flex justify-center">
+          <Link to={`/news/${post.slug}`} className="flex justify-center">
             <img
-              src={news.image}
-              className="rounded-xl bg-[#ddd] mb-3 xl:object-contain object-cover xl:mx-0 mx-auto"
-              alt="news-item-img"
+              src={post.image}
+              className="rounded-xl bg-[#ddd] mb-3 xl:object-contain object-contain h-[165px] max-h-[165px] xl:mx-0 mx-auto"
+              alt="post-item-img"
             />
           </Link>
           <div className="flex justify-between px-4 mb-2">
             <div className="flex items-center gap-3 rounded-2xl">
               <UserIcon variant="green"></UserIcon>
-              <span className="leading-6">{news.authorName}</span>
+              <span className="leading-6">{post.author}</span>
             </div>
             <div className="flex items-center gap-3 rounded-2xl">
               <DateIcon variant="gray"></DateIcon>
               <span className="leading-6 text-gray92">
-                <span className="leading-6 text-gray92">{news.datePublished}</span>
+                <span className="leading-6 text-gray92">{post.date}</span>
               </span>
             </div>
           </div>
           <Link
-            to={`/news/${news.slug}`}
+            to={`/post/${post.slug}`}
             className="px-3 mb-2 text-lg font-bold leading-7 xl:text-xl text-textPrimary titleShort min-h-[56px]"
           >
-            {news.title}
+            {post.title}
           </Link>
           {!hideDesc && (
             <p className="mx-3 mb-4 font-medium leading-6 text-gray92 descShort">
-              {news.description}
+              {post.description}
             </p>
           )}
         </div>

@@ -2,10 +2,10 @@ import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router-dom';
 
 import { DateIcon, UserIcon } from '@/components/icons';
-import { News } from '@/models';
+import { Post } from '@/models';
 
 export interface SidebarNewsItemProps {
-  news?: News;
+  news?: Post;
   loading?: boolean;
 }
 
@@ -28,11 +28,11 @@ export function SidebarNewsItem({ news, loading = false }: SidebarNewsItemProps)
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1">
                 <UserIcon variant="green"></UserIcon>
-                <p className="text-xs font-fontArial">{news.authorName}</p>
+                <p className="text-xs font-fontArial">{news.author}</p>
               </div>
               <div className="flex items-center gap-1">
                 <DateIcon variant="gray"></DateIcon>
-                <p className="text-xs text-gray92 font-fontArial">{news.datePublished}</p>
+                <p className="text-xs text-gray92 font-fontArial">{news.date}</p>
               </div>
             </div>
           </div>

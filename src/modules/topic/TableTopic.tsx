@@ -168,7 +168,7 @@ export function TableTopic() {
           ))}
         </tbody>
       </table>
-      {isLoading && (
+      {isLoading && listTopic.length <= 0 && (
         <div>
           {new Array(5).fill(0).map((_, index) => (
             <Skeleton key={index} className="w-full h-[45px]"></Skeleton>

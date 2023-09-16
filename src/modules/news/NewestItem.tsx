@@ -6,10 +6,10 @@ import { twMerge } from 'tailwind-merge';
 
 import { Button } from '@/components/button';
 import { DateIcon, UserIcon } from '@/components/icons';
-import { News } from '@/models';
+import { Post } from '@/models';
 
 export interface NewestItemProps extends ComponentProps<'div'> {
-  newest?: News;
+  newest?: Post;
   loading?: boolean;
 }
 
@@ -20,7 +20,7 @@ export function NewestItem({ newest, loading = false, className = '' }: NewestIt
     <>
       {!loading && newest && (
         <div
-          className={twMerge('p-6 flex flex-col justify-end', className)}
+          className={twMerge('p-6 flex flex-col justify-end rounded-[20px]', className)}
           style={{
             backgroundImage: `url(${newest.image})`,
             backgroundRepeat: 'no-repeat',
@@ -30,7 +30,7 @@ export function NewestItem({ newest, loading = false, className = '' }: NewestIt
         >
           <div>
             <Button variant="secondary" className="mb-2 xl:text-xl text-base py-[6px] px-3">
-              {t(newest.category)}
+              {t(newest.topic)}
             </Button>
             <Link
               to={`/news/${newest.slug}`}
@@ -41,11 +41,11 @@ export function NewestItem({ newest, loading = false, className = '' }: NewestIt
             <div className="max-w-[252px] flex justify-between items-center text-white">
               <div className="flex gap-2">
                 <UserIcon></UserIcon>
-                <span className="text-sm leading-5 font-fontArial">{newest.authorName}</span>
+                <span className="text-sm leading-5 font-fontArial">{newest.author}</span>
               </div>
               <div className="flex gap-2">
                 <DateIcon></DateIcon>
-                <span className="text-sm leading-5 font-fontArial">{newest.datePublished}</span>
+                <span className="text-sm leading-5 font-fontArial">{newest.date}</span>
               </div>
             </div>
           </div>

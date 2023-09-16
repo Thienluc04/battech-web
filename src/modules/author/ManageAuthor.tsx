@@ -4,8 +4,15 @@ import { Link } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Button } from '@/components/button';
-import { FilterIcon, PlusIcon, SearchIcon, SquaresFourIcon } from '@/components/icons';
+import {
+  FilterIcon,
+  MenuLeftIcon,
+  PlusIcon,
+  SearchIcon,
+  SquaresFourIcon,
+} from '@/components/icons';
 import { Input } from '@/components/input';
+import { authAction, selectShowSidebar } from '@/features/auth/authSlice';
 import { authorActions, selectParamsAuthor } from '@/features/author/authorSlice';
 import { TableAuthor } from '@/modules/author';
 
@@ -20,6 +27,8 @@ export function ManageAuthor() {
   const [sortValue, setSortValue] = useState<'asc' | 'desc'>('asc');
 
   const currentParams = useAppSelector(selectParamsAuthor);
+  const showSidebar = useAppSelector(selectShowSidebar);
+
   const watchSearch = watch('search');
 
   const dispatch = useAppDispatch();
@@ -50,7 +59,13 @@ export function ManageAuthor() {
   return (
     <div className="flex-1 px-4 py-[26px] bg-blueBg">
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold leading-5 font-fontRoboto">Tác giả</h1>
+        <div className="flex items-center gap-5">
+          <MenuLeftIcon
+            className="xl:hidden"
+            onClick={() => dispatch(authAction.setShowSidebar(!showSidebar))}
+          ></MenuLeftIcon>
+          <h1 className="text-2xl font-semibold leading-5 font-fontRoboto">Tác giả</h1>
+        </div>
         <Link
           to={'/manage/authors/create'}
           className="flex items-center gap-[6px] px-p10 h-8 bg-primaryAdmin rounded"

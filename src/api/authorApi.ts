@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { linkApiSecond } from '@/constants/general';
+import { linkApi } from '@/constants/general';
 import { Author, ResponseSuccess } from '@/models';
 
 export const authorApi = createApi({
@@ -8,7 +8,7 @@ export const authorApi = createApi({
   tagTypes: ['Author'],
   keepUnusedDataFor: 10,
   refetchOnMountOrArgChange: true,
-  baseQuery: fetchBaseQuery({ baseUrl: linkApiSecond }),
+  baseQuery: fetchBaseQuery({ baseUrl: linkApi }),
   endpoints: (builder) => ({
     getListAuthor: builder.query({
       query: (params) => {

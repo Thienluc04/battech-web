@@ -1,14 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { linkApi } from '@/constants/general';
-import { Job } from '@/models';
-import { ListParams, ListResponse, jobKind } from '@/models';
+import { linkApiJob } from '@/constants/general';
+import { Job, ListParams, ListResponse, jobKind } from '@/models';
 
 export const jobApi = createApi({
   reducerPath: 'jobApi',
   tagTypes: ['Job'],
   keepUnusedDataFor: 10,
-  baseQuery: fetchBaseQuery({ baseUrl: linkApi }),
+  baseQuery: fetchBaseQuery({ baseUrl: linkApiJob }),
   endpoints: (builder) => ({
     getAllJob: builder.query<ListResponse<Job>, ListParams>({
       query: (params) => {

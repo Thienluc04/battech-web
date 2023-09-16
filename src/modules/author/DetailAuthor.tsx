@@ -94,7 +94,12 @@ export function DetailAuthor() {
     <form onSubmit={handleSubmit(handleSubmitAuthor)} className="flex-1 px-4 py-[26px] bg-blueBg">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-1">
-          <Link to={'/manage/authors'}>
+          <Link
+            to={'/manage/authors'}
+            onClick={() => {
+              dispatch(authorActions.setParams({ ...currentParams, page: 1 }));
+            }}
+          >
             <ArrowLeftIcon variant="black"></ArrowLeftIcon>
           </Link>
           <h1 className="text-2xl font-semibold leading-5 font-fontRoboto">

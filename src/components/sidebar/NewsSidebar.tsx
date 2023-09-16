@@ -1,17 +1,16 @@
 import { useTranslation } from 'react-i18next';
 
-import { useGetAllNewsQuery } from '@/api/newsApi';
+import { useGetListPostQuery } from '@/api/postApi';
 import { vn } from '@/constants/languages';
 import { SidebarNewsItem } from '@/modules/news';
 
 export interface NewsSidebarProps {}
 
 export function NewsSidebar(props: NewsSidebarProps) {
-  const { data: listNews, isLoading } = useGetAllNewsQuery({
-    isNewest: false,
-    isEvent: false,
-    _page: 1,
-    _limit: 6,
+  const { data: listPost, isLoading } = useGetListPostQuery({
+    sort: 'asc',
+    limit: 6,
+    page: 1,
   });
 
   const { t } = useTranslation();
@@ -22,9 +21,9 @@ export function NewsSidebar(props: NewsSidebarProps) {
         {t(vn.news.DETAIL_SIDEBAR_TITLE)}
       </h2>
       <div className="flex flex-col gap-5 shadow-[4px_2px_15px_0px_rgba(0,_0,_0,_0.05)] md:max-w-[790px] xl:max-w-none mx-auto">
-        {listNews &&
-          listNews?.data.length > 0 &&
-          listNews?.data.map((item, index) => (
+        {listPost &&
+          listPost?.data.length > 0 &&
+          listPost?.data.map((item, index) => (
             <SidebarNewsItem key={index} news={item}></SidebarNewsItem>
           ))}
         {isLoading &&
