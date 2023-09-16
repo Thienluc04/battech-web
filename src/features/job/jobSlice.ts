@@ -1,13 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { RootState } from '@/app/store';
-import { Job } from '@/models';
-import { ListParams } from '@/models';
+import { Job, ListParamsJob } from '@/models';
 
 interface JobState {
   list: Job[];
   similarJobs: Job[];
-  params: ListParams;
+  params: ListParamsJob;
 }
 
 const initialState: JobState = {
@@ -29,7 +28,7 @@ const jobSlice = createSlice({
     setSimilarJobs(state, action: PayloadAction<Job[]>) {
       state.similarJobs = action.payload;
     },
-    setParams(state, action: PayloadAction<ListParams>) {
+    setParams(state, action: PayloadAction<ListParamsJob>) {
       state.params = action.payload;
     },
   },

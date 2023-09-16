@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { linkApiJob } from '@/constants/general';
-import { Job, ListParams, ListResponse, jobKind } from '@/models';
+import { Job, ListParamsJob, ListResponseJob, jobKind } from '@/models';
 
 export const jobApi = createApi({
   reducerPath: 'jobApi',
@@ -9,7 +9,7 @@ export const jobApi = createApi({
   keepUnusedDataFor: 10,
   baseQuery: fetchBaseQuery({ baseUrl: linkApiJob }),
   endpoints: (builder) => ({
-    getAllJob: builder.query<ListResponse<Job>, ListParams>({
+    getAllJob: builder.query<ListResponseJob<Job>, ListParamsJob>({
       query: (params) => {
         return {
           url: 'jobs',
@@ -53,7 +53,7 @@ export const jobApi = createApi({
         };
       },
     }),
-    getWorkCategories: builder.query<jobKind[], ListParams>({
+    getWorkCategories: builder.query<jobKind[], ListParamsJob>({
       query: (params) => {
         return {
           url: 'workCategories',
@@ -61,7 +61,7 @@ export const jobApi = createApi({
         };
       },
     }),
-    getWorkLocations: builder.query<jobKind[], ListParams>({
+    getWorkLocations: builder.query<jobKind[], ListParamsJob>({
       query: (params) => {
         return {
           url: 'workLocations',
@@ -69,7 +69,7 @@ export const jobApi = createApi({
         };
       },
     }),
-    getWorkTypes: builder.query<jobKind[], ListParams>({
+    getWorkTypes: builder.query<jobKind[], ListParamsJob>({
       query: (params) => {
         return {
           url: 'workTypes',
