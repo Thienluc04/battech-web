@@ -26,7 +26,7 @@ export function ManagePost() {
     watch,
   } = useForm({ mode: 'onSubmit' });
 
-  const [sortValue, setSortValue] = useState<'asc' | 'desc'>('asc');
+  const [sortValue, setSortValue] = useState<'asc' | 'desc'>('desc');
   const [showFilter, setShowFilter] = useState<boolean>(false);
 
   const currentParams = useAppSelector(selectParamsPost);
@@ -36,14 +36,14 @@ export function ManagePost() {
 
   const watchSearch = watch('search');
 
-  const { data: listTopic } = useGetListTopicQuery({ sort: 'asc' });
+  const { data: listTopic } = useGetListTopicQuery({ sort: 'desc' });
 
   useEffect(() => {
     dispatch(postActions.setParams({ ...currentParams, sort: sortValue }));
   }, [sortValue]);
 
   useEffect(() => {
-    if (watchSearch === '') {
+    if (watchSearch === '' && currentParams.search) {
       dispatch(postActions.setParams({ ...currentParams, search: '' }));
     }
   }, [watchSearch]);

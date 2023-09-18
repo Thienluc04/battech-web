@@ -114,6 +114,22 @@ export function PostSidebar<T extends FieldValues>({
               }}
             />
           )}
+          {!listTag && (
+            <Select
+              components={animatedComponents}
+              placeholder="Chọn tag..."
+              isMulti
+              options={listOption}
+              onChange={(tags) => {
+                const list = tags as Option[];
+                const newTags: string[] = [];
+                list.forEach((item) => {
+                  newTags.push(item.value);
+                });
+                setValue('tags' as Path<T>, newTags as PathValue<T, Path<T>>);
+              }}
+            />
+          )}
         </div>
       </div>
       <div className="flex items-center justify-between px-3 py-2 border-t border-t-borderAdmin">
