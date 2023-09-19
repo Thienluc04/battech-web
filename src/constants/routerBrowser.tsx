@@ -6,10 +6,6 @@ import { AdminLayout, MainLayout } from '@/components/layouts';
 import { AuthLayout } from '@/components/layouts/AuthLayout';
 import { Footer, Header } from '@/modules';
 import { ForgotPass, ForgotPassConfirm } from '@/modules/auth';
-import { DetailAuthor, ManageAuthor } from '@/modules/author';
-import { DetailPost, ManagePost } from '@/modules/post';
-import { DetailTag, ManageTag } from '@/modules/tag';
-import { DetailTopic, ManageTopic } from '@/modules/topic';
 
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const IntroducePage = lazy(() => import('@/pages/IntroducePage'));
@@ -19,6 +15,14 @@ const RecruitmentJobPage = lazy(() => import('@/pages/RecruitmentJobPage'));
 const JobDetailsPage = lazy(() => import('@/pages/JobDetailsPage'));
 const ContactPage = lazy(() => import('@/pages/ContactPage'));
 const LoginPage = lazy(() => import('@/pages/LoginPage'));
+const ManagePost = lazy(() => import('@/modules/post/ManagePost'));
+const ManageTopic = lazy(() => import('@/modules/topic/ManageTopic'));
+const ManageAuthor = lazy(() => import('@/modules/author/ManageAuthor'));
+const ManageTag = lazy(() => import('@/modules/tag/ManageTag'));
+const DetailPost = lazy(() => import('@/modules/post/DetailPost'));
+const DetailTopic = lazy(() => import('@/modules/topic/DetailTopic'));
+const DetailAuthor = lazy(() => import('@/modules/author/DetailAuthor'));
+const DetailTag = lazy(() => import('@/modules/tag/DetailTag'));
 
 export const routerBrowser = createBrowserRouter([
   {
@@ -116,7 +120,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/posts',
         element: (
-          <Suspense fallback={<>Loading...</>}>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <ManagePost></ManagePost>
           </Suspense>
         ),
@@ -124,7 +134,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/topics',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <ManageTopic></ManageTopic>
           </Suspense>
         ),
@@ -132,7 +148,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/authors',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <ManageAuthor></ManageAuthor>
           </Suspense>
         ),
@@ -140,7 +162,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/tags',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <ManageTag></ManageTag>
           </Suspense>
         ),
@@ -148,7 +176,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/posts/create',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <DetailPost></DetailPost>
           </Suspense>
         ),
@@ -156,7 +190,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/topics/create',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <DetailTopic></DetailTopic>
           </Suspense>
         ),
@@ -164,7 +204,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/authors/create',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <DetailAuthor></DetailAuthor>
           </Suspense>
         ),
@@ -172,7 +218,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/tags/create',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <DetailTag></DetailTag>
           </Suspense>
         ),
@@ -180,7 +232,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/posts/:slug',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <DetailPost></DetailPost>
           </Suspense>
         ),
@@ -188,7 +246,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/topics/:slug',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <DetailTopic></DetailTopic>
           </Suspense>
         ),
@@ -196,7 +260,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/authors/:slug',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <DetailAuthor></DetailAuthor>
           </Suspense>
         ),
@@ -204,7 +274,13 @@ export const routerBrowser = createBrowserRouter([
       {
         path: '/manage/tags/:slug',
         element: (
-          <Suspense>
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
             <DetailTag></DetailTag>
           </Suspense>
         ),

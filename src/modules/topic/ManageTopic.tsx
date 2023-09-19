@@ -16,8 +16,8 @@ import { authAction, selectShowSidebar } from '@/features/auth/authSlice';
 import { selectParamsTopic, topicActions } from '@/features/topic/topicSlice';
 import { TableTopic } from '@/modules/topic';
 
-export function ManageTopic() {
-  const [sortValue, setSortValue] = useState<'asc' | 'desc'>('asc');
+export default function ManageTopic() {
+  const [sortValue, setSortValue] = useState<'asc' | 'desc'>('desc');
 
   const {
     control,

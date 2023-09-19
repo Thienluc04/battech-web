@@ -24,7 +24,7 @@ const schema = yup.object({
   slug: yup.string().required('Chủ đề này phải có slug'),
 });
 
-export function DetailTopic() {
+export default function DetailTopic() {
   const [topicId, setTopicId] = useState<string>('');
 
   const {

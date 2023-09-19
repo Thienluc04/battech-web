@@ -98,7 +98,14 @@ export function AdminSidebar(props: AdminSidebarProps) {
         </div>
         <div className="bg-[#2A3444] px-4">
           <div className="flex items-center mb-4 gap-p10">
-            <img src={currentUser?.avatar} className="w-10 h-10 rounded-full" alt="admin-author" />
+            {currentUser && (
+              <img
+                src={currentUser?.avatar}
+                className="w-10 h-10 rounded-full"
+                alt="admin-author"
+              />
+            )}
+            {!currentUser && <div className="w-10 h-10 rounded-full bg-slate-600"></div>}
             <div>
               <p className="font-semibold text-white font-fontRoboto">{currentUser?.username}</p>
               <span className="text-[#939393] text-sm font-fontRoboto">{currentUser?.role}</span>

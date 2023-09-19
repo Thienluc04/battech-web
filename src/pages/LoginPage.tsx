@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import { useHandleFetchMeMutation, useHandleLoginMutation } from '@/api/authApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Checkbox } from '@/components/checkbox';
-import { authAction, selectCurrentUser, selectRememberPass } from '@/features/auth/authSlice';
+import { authAction, selectRememberPass } from '@/features/auth/authSlice';
 import { AuthLogin, ResponseError } from '@/models';
 import { LoginField } from '@/modules/auth';
 import { saveSession, saveToken } from '@/utils/auth';
@@ -39,16 +39,10 @@ export default function LoginPage() {
   const [login, { data: dataLogin, error: errorLogin, isLoading }] = useHandleLoginMutation();
   const [fetchMe, { data: dataFetchMe }] = useHandleFetchMeMutation();
 
-  const currentUser = useAppSelector(selectCurrentUser);
   const rememberPass = useAppSelector(selectRememberPass);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (currentUser) navigate('/manage/posts');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     (async () => {
@@ -84,8 +78,6 @@ export default function LoginPage() {
     if (!isValid) return;
     login(values as AuthLogin);
   };
-
-  if (currentUser) return null;
 
   return (
     <form className="mx-11" onSubmit={handleSubmit(handleLoginForm)}>

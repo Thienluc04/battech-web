@@ -13,7 +13,7 @@ const initialState: TopicState = {
   params: {
     limit: 5,
     page: 1,
-    sort: 'asc',
+    sort: 'desc',
   },
 };
 

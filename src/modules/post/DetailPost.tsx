@@ -31,13 +31,14 @@ const schema = yup.object({
   date: yup.string(),
 });
 
-export function DetailPost() {
+export default function DetailPost() {
   const {
     control,
     handleSubmit,
-    formState: { isValid, errors },
+    formState: { errors },
     setValue,
     reset,
+    setError,
   } = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(schema),
@@ -89,6 +90,7 @@ export function DetailPost() {
   useEffect(() => {
     if (content.length > 0) {
       setValue('content', content);
+      setError('content', { message: '' });
     }
   }, [content]);
 
@@ -99,7 +101,7 @@ export function DetailPost() {
   }, [imageUrl]);
 
   const handleSubmitPost: SubmitHandler<FieldValues> = async (values) => {
-    if (!isValid) return;
+    // if (!isValid) return;
     values.date = date;
     if (!values.tags) return toast.error('Bạn chưa chọn tag cho bài viết');
     if (!slug) {
@@ -172,6 +174,7 @@ export function DetailPost() {
           imageUrl={imageUrl}
           setContent={setContent}
           setImageUrl={setImageUrl}
+          setError={setError}
         ></DetailPostContent>
         <PostSidebar
           setValue={setValue}

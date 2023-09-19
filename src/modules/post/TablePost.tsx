@@ -21,6 +21,7 @@ export function TablePost(props: TableAdminProps) {
   const [totalPage, setTotalPage] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [listChecked, setListChecked] = useState<string[]>([]);
+  const [checkAll, setCheckAll] = useState<boolean>(false);
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -47,7 +48,31 @@ export function TablePost(props: TableAdminProps) {
 
   useEffect(() => {
     dispatch(postActions.setParams({ ...currentParams, page: currentPage }));
+    setCheckAll(false);
   }, [currentPage]);
+
+  useEffect(() => {
+    if (checkAll) {
+      const listInput = inputRefs.current;
+      if (listInput) {
+        listInput.forEach((item) => {
+          if (item) item.checked = true;
+        });
+      }
+      setListChecked([]);
+      listPost.forEach((item) => {
+        setListChecked((prev) => [...prev, item._id]);
+      });
+    } else {
+      const listInput = inputRefs.current;
+      if (listInput) {
+        listInput.forEach((item) => {
+          if (item) item.checked = false;
+        });
+      }
+      setListChecked([]);
+    }
+  }, [checkAll]);
 
   const handleDeleteListPost = async () => {
     if (listChecked.length > 0) {
@@ -66,6 +91,8 @@ export function TablePost(props: TableAdminProps) {
           Swal.fire('Xóa thành công!', 'Đã xóa các bài viết đã chọn khỏi danh sách', 'success');
           refetch();
           setListChecked([]);
+          setCheckAll(false);
+          setCurrentPage(1);
         }
       });
     }
@@ -90,29 +117,6 @@ export function TablePost(props: TableAdminProps) {
     });
   };
 
-  const handleCheckAll = (checked: boolean) => {
-    if (checked) {
-      const listInput = inputRefs.current;
-      if (listInput) {
-        listInput.forEach((item) => {
-          item!.checked = true;
-        });
-      }
-      setListChecked([]);
-      listPost.forEach((item) => {
-        setListChecked((prev) => [...prev, item._id]);
-      });
-    } else {
-      const listInput = inputRefs.current;
-      if (listInput) {
-        listInput.forEach((item) => {
-          item!.checked = false;
-        });
-      }
-      setListChecked([]);
-    }
-  };
-
   const handleChangeInput = (checked: boolean, id: string) => {
     if (checked) {
       const item = listChecked.find((item) => item === id);
@@ -131,7 +135,7 @@ export function TablePost(props: TableAdminProps) {
         <thead className="text-white bg-primaryAdmin">
           <tr>
             <th className="w-[45px] rounded-tl-md">
-              <input type="checkbox" onChange={(e) => handleCheckAll(e.target.checked)} />
+              <input type="checkbox" checked={checkAll} onChange={() => setCheckAll(!checkAll)} />
             </th>
             <th className="w-20">ID</th>
             <th className="w-1/6 xl:w-2/5">Tên bài viết</th>

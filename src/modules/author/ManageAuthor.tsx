@@ -16,7 +16,7 @@ import { authAction, selectShowSidebar } from '@/features/auth/authSlice';
 import { authorActions, selectParamsAuthor } from '@/features/author/authorSlice';
 import { TableAuthor } from '@/modules/author';
 
-export function ManageAuthor() {
+export default function ManageAuthor() {
   const {
     control,
     handleSubmit,
@@ -24,7 +24,7 @@ export function ManageAuthor() {
     watch,
   } = useForm({ mode: 'onSubmit' });
 
-  const [sortValue, setSortValue] = useState<'asc' | 'desc'>('asc');
+  const [sortValue, setSortValue] = useState<'asc' | 'desc'>('desc');
 
   const currentParams = useAppSelector(selectParamsAuthor);
   const showSidebar = useAppSelector(selectShowSidebar);

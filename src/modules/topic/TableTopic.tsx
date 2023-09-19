@@ -22,6 +22,7 @@ export function TableTopic() {
   const listTopic = useAppSelector(selectListTopic);
   const currentParams = useAppSelector(selectParamsTopic);
   const [listChecked, setListChecked] = useState<string[]>([]);
+  const [checkAll, setCheckAll] = useState<boolean>(false);
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -46,8 +47,32 @@ export function TableTopic() {
   useEffect(() => {
     if (currentPage > 0) {
       dispatch(topicActions.setParams({ ...currentParams, page: currentPage }));
+      setCheckAll(false);
     }
   }, [currentPage]);
+
+  useEffect(() => {
+    if (checkAll) {
+      const listInput = inputRefs.current;
+      if (listInput) {
+        listInput.forEach((item) => {
+          if (item) item.checked = true;
+        });
+      }
+      setListChecked([]);
+      listTopic.forEach((item) => {
+        setListChecked((prev) => [...prev, item._id as string]);
+      });
+    } else {
+      const listInput = inputRefs.current;
+      if (listInput) {
+        listInput.forEach((item) => {
+          if (item) item.checked = false;
+        });
+      }
+      setListChecked([]);
+    }
+  }, [checkAll]);
 
   const handleDeleteListTopic = async () => {
     if (listChecked.length > 0) {
@@ -66,6 +91,8 @@ export function TableTopic() {
           Swal.fire('Xóa thành công!', 'Đã xóa các tag đã chọn khỏi danh sách', 'success');
           refetch();
           setListChecked([]);
+          setCheckAll(false);
+          setCurrentPage(1);
         }
       });
     }
@@ -90,29 +117,6 @@ export function TableTopic() {
     });
   };
 
-  const handleCheckAll = (checked: boolean) => {
-    if (checked) {
-      const listInput = inputRefs.current;
-      if (listInput) {
-        listInput.forEach((item) => {
-          item!.checked = true;
-        });
-      }
-      setListChecked([]);
-      listTopic.forEach((item) => {
-        setListChecked((prev) => [...prev, item._id as string]);
-      });
-    } else {
-      const listInput = inputRefs.current;
-      if (listInput) {
-        listInput.forEach((item) => {
-          item!.checked = false;
-        });
-      }
-      setListChecked([]);
-    }
-  };
-
   const handleChangeInput = (checked: boolean, id: string) => {
     if (checked) {
       const item = listChecked.find((item) => item === id);
@@ -131,7 +135,7 @@ export function TableTopic() {
         <thead className="text-white bg-primaryAdmin">
           <tr>
             <th className="w-[45px] rounded-tl-md">
-              <input type="checkbox" onChange={(e) => handleCheckAll(e.target.checked)} />
+              <input type="checkbox" checked={checkAll} onChange={() => setCheckAll(!checkAll)} />
             </th>
             <th className="w-[30%]">Tên chủ đề</th>
             <th className="w-[30%]">Slug</th>

@@ -34,7 +34,6 @@ export function PostSidebar<T extends FieldValues>({
   nameAuthor,
   className = '',
 }: PostSidebarProps<T>) {
-  console.log('listTag:', listTag);
   const [listTopic, setListTopic] = useState<Topic[]>([]);
   const [listAuthor, setListAuthor] = useState<Author[]>([]);
 

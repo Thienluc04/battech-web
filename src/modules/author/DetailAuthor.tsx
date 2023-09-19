@@ -23,7 +23,7 @@ const schema = yup.object({
   name: yup.string().required('Bạn phải nhập tên tác giả vào trường này'),
 });
 
-export function DetailAuthor() {
+export default function DetailAuthor() {
   const [authorId, setAuthorId] = useState<string>('');
 
   const {

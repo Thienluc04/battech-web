@@ -19,7 +19,7 @@ const schema = yup.object({
   name: yup.string().required('Bạn phải nhập tên tag vào trường này'),
 });
 
-export function DetailTag() {
+export default function DetailTag() {
   const [tagId, setTagId] = useState<string>('');
 
   const {

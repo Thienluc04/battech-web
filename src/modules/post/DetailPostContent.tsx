@@ -6,6 +6,7 @@ import {
   FieldValues,
   Path,
   PathValue,
+  UseFormSetError,
   UseFormSetValue,
 } from 'react-hook-form';
 import ReactQuill from 'react-quill';
@@ -23,6 +24,7 @@ export interface DetailPostContentProps<T extends FieldValues> {
   control: Control<T>;
   errors: FieldErrors<T>;
   setValue: UseFormSetValue<T>;
+  setError: UseFormSetError<T>;
   content: string;
   setContent: Dispatch<SetStateAction<string>>;
   imageUrl: string;
@@ -36,12 +38,14 @@ export function DetailPostContent<T extends FieldValues>({
   content,
   setContent,
   imageUrl,
+  setError,
   setImageUrl,
 }: DetailPostContentProps<T>) {
   const [loadingImage, setLoadingImage] = useState<boolean>(false);
 
   const handleChangeTitlePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue('slug' as Path<T>, slugify(e.target.value, { lower: true }) as PathValue<T, Path<T>>);
+    setError('slug' as Path<T>, { message: '' });
   };
 
   const handleUploadImage = async (file: File | null) => {
@@ -56,6 +60,7 @@ export function DetailPostContent<T extends FieldValues>({
       setLoadingImage(false);
     });
   };
+
   return (
     <div className="flex-1 flex gap-[18px] pr-4">
       <div className="flex-1 p-4 bg-white rounded-md">
@@ -88,7 +93,7 @@ export function DetailPostContent<T extends FieldValues>({
               className="max-h-full h-[90%] font-fontRoboto max-w-full resize-none"
             ></ReactQuill>
           </div>
-          {errors.content && (
+          {errors.content && errors.content.message && (
             <p className="pt-1 mb-2 text-sm font-bold text-red-500">
               {String(errors.content.message)}
             </p>

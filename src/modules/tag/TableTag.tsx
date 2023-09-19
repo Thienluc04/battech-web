@@ -19,6 +19,7 @@ export function TableTag() {
   const [totalPage, setTotalPage] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [listChecked, setListChecked] = useState<string[]>([]);
+  const [checkAll, setCheckAll] = useState<boolean>(false);
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
@@ -50,8 +51,34 @@ export function TableTag() {
   useEffect(() => {
     if (currentPage > 0) {
       dispatch(tagActions.setParams({ ...currentParams, page: currentPage }));
+      setCheckAll(false);
     }
   }, [currentPage]);
+
+  useEffect(() => {
+    if (inputRefs.current) {
+      if (checkAll) {
+        const listInput = inputRefs.current;
+        if (listInput) {
+          listInput.forEach((item) => {
+            if (item) item.checked = true;
+          });
+        }
+        setListChecked([]);
+        listTag.forEach((item) => {
+          setListChecked((prev) => [...prev, item._id]);
+        });
+      } else {
+        const listInput = inputRefs.current;
+        if (listInput) {
+          listInput.forEach((item) => {
+            if (item) item.checked = false;
+          });
+        }
+        setListChecked([]);
+      }
+    }
+  }, [checkAll]);
 
   const handleDeleteListTag = async () => {
     if (listChecked.length > 0) {
@@ -70,6 +97,8 @@ export function TableTag() {
           Swal.fire('Xóa thành công!', 'Đã xóa các tag đã chọn khỏi danh sách', 'success');
           getListTag(currentParams);
           setListChecked([]);
+          setCheckAll(false);
+          setCurrentPage(1);
         }
       });
     }
@@ -94,29 +123,6 @@ export function TableTag() {
     });
   };
 
-  const handleCheckAll = (checked: boolean) => {
-    if (checked) {
-      const listInput = inputRefs.current;
-      if (listInput) {
-        listInput.forEach((item) => {
-          item!.checked = true;
-        });
-      }
-      setListChecked([]);
-      listTag.forEach((item) => {
-        setListChecked((prev) => [...prev, item._id]);
-      });
-    } else {
-      const listInput = inputRefs.current;
-      if (listInput) {
-        listInput.forEach((item) => {
-          item!.checked = false;
-        });
-      }
-      setListChecked([]);
-    }
-  };
-
   const handleChangeInput = (checked: boolean, id: string) => {
     if (checked) {
       const item = listChecked.find((item) => item === id);
@@ -135,7 +141,7 @@ export function TableTag() {
         <thead className="text-white bg-primaryAdmin">
           <tr>
             <th className="w-[45px] rounded-tl-md">
-              <input type="checkbox" onChange={(e) => handleCheckAll(e.target.checked)} />
+              <input type="checkbox" checked={checkAll} onChange={() => setCheckAll(!checkAll)} />
             </th>
             <th>Tag</th>
             <th className="rounded-tr-md w-[126px]">Thao tác</th>

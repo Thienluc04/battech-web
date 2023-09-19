@@ -1,7 +1,14 @@
-import { Outlet } from 'react-router';
+import { Navigate, Outlet } from 'react-router';
 import { Link } from 'react-router-dom';
 
+import { getSession, getToken } from '@/utils/auth';
+
 export function AuthLayout() {
+  const { accessToken } = getToken();
+  const { accessToken: accessTokenSession } = getSession();
+
+  if (accessToken || accessTokenSession) return <Navigate to={'/manage/posts'}></Navigate>;
+
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-blueBg">
       <div className="absolute">

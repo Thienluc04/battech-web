@@ -18,7 +18,7 @@ import { postActions, selectParamsPost } from '@/features/post/postSlice';
 import { Topic } from '@/models';
 import { TablePost } from '@/modules/post';
 
-export function ManagePost() {
+export default function ManagePost() {
   const {
     control,
     handleSubmit,

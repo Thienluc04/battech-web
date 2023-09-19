@@ -16,7 +16,7 @@ import { authAction, selectShowSidebar } from '@/features/auth/authSlice';
 import { selectParamsTag, tagActions } from '@/features/tag/tagSlice';
 import { TableTag } from '@/modules/tag';
 
-export function ManageTag() {
+export default function ManageTag() {
   const {
     control,
     handleSubmit,
