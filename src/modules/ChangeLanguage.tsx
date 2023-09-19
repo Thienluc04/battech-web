@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { ComponentProps, Dispatch, SetStateAction } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -62,9 +63,10 @@ export function ChangeLanguage({
       {languageShow && language && (
         <>
           <div
-            className={`${
-              language !== 'vn' ? 'absolute top-full' : ''
-            } flex items-center gap-2 cursor-pointer`}
+            className={clsx(
+              language !== 'vn' && 'absolute top-full',
+              'flex items-center gap-2 cursor-pointer',
+            )}
             onClick={() => {
               setLanguage('vn');
               setLanguageShow(false);
@@ -74,9 +76,10 @@ export function ChangeLanguage({
             <span className="text-xl uppercase">vn</span>
           </div>
           <div
-            className={`${
-              language !== 'en' ? 'absolute top-full' : ''
-            } flex items-center gap-2 cursor-pointer`}
+            className={clsx(
+              language !== 'en' && 'absolute top-full',
+              'flex items-center gap-2 cursor-pointer',
+            )}
             onClick={() => {
               setLanguage('en');
               setLanguageShow(false);

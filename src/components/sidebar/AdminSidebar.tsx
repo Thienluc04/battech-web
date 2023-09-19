@@ -72,9 +72,10 @@ export function AdminSidebar(props: AdminSidebarProps) {
                       to={item.url}
                       key={index}
                       onClick={() => dispatch(authAction.setShowSidebar(false))}
-                      className={`${
-                        item.url === location.pathname ? 'bg-[#3F4D63]' : ''
-                      } rounded-md text-white font-medium px-11 h-10 leading-10 font-fontRoboto cursor-pointer`}
+                      className={clsx(
+                        item.url === location.pathname && 'bg-[#3F4D63]',
+                        'rounded-md text-white font-medium px-11 h-10 leading-10 font-fontRoboto cursor-pointer',
+                      )}
                     >
                       {item.title}
                     </Link>
