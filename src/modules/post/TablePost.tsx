@@ -158,7 +158,7 @@ export function TablePost(props: TableAdminProps) {
               </td>
               <td title={item._id}>{item._id.slice(0, 8) + '...'}</td>
               <td>{item.title}</td>
-              <td className="titleShort">{item.description}</td>
+              <td className="titleShort !border-b-transparent">{item.description}</td>
               <td>{item.author}</td>
               <td>{item.topic}</td>
               <td>{item.date}</td>
