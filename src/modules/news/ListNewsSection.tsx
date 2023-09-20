@@ -27,7 +27,7 @@ export function ListNewsSection(props: ListNewsSectionProps) {
 
   const { data: postResponse, isLoading } = useGetListPostQuery({ ...currentParams, limit: 8 });
   const { data: listTopic } = useGetListTopicQuery({
-    sort: 'asc',
+    sort: 'desc',
   });
 
   const dispatch = useAppDispatch();
