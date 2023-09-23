@@ -35,17 +35,17 @@ export default function ManageTag() {
 
   useEffect(() => {
     if (currentParams.search && watchSearch === '') {
-      dispatch(tagActions.setParams({ ...currentParams, search: '' }));
+      dispatch(tagActions.setParams({ ...currentParams, search: '', page: 1 }));
     }
   }, [watchSearch]);
 
   useEffect(() => {
-    dispatch(tagActions.setParams({ ...currentParams, sort: sortValue }));
+    dispatch(tagActions.setParams({ ...currentParams, sort: sortValue, page: 1 }));
   }, [sortValue]);
 
   const handleSearchTag: SubmitHandler<FieldValues> = (values) => {
     if (!isValid) return;
-    dispatch(tagActions.setParams({ ...currentParams, search: values.search }));
+    dispatch(tagActions.setParams({ ...currentParams, search: values.search, page: 1 }));
   };
 
   const handleSortTag = () => {

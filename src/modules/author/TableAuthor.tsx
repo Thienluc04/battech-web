@@ -39,6 +39,12 @@ export function TableAuthor() {
   }, [authorResponse]);
 
   useEffect(() => {
+    if (currentParams) {
+      setCurrentPage(currentParams?.page as number);
+    }
+  }, [currentParams]);
+
+  useEffect(() => {
     if (authorResponse?.pagination) {
       setTotalPage(Math.ceil(authorResponse.pagination.totalRows / AUTHOR_PER_PAGE));
     }

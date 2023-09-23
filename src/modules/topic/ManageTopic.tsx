@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
+import { useGetListTopicQuery } from '@/api/topicApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Button } from '@/components/button';
 import {
@@ -33,13 +34,21 @@ export default function ManageTopic() {
 
   const watchSearch = watch('search');
 
+  const { data: topicResponse } = useGetListTopicQuery({ ...currentParams, page: 1 });
+
   useEffect(() => {
-    dispatch(topicActions.setParams({ ...currentParams, sort: sortValue }));
+    if (topicResponse) {
+      dispatch(topicActions.setListTopic(topicResponse?.data));
+    }
+  }, []);
+
+  useEffect(() => {
+    dispatch(topicActions.setParams({ ...currentParams, sort: sortValue, page: 1 }));
   }, [sortValue]);
 
   useEffect(() => {
     if (currentParams.search && watchSearch === '') {
-      dispatch(topicActions.setParams({ ...currentParams, search: '' }));
+      dispatch(topicActions.setParams({ ...currentParams, search: '', page: 1 }));
     }
   }, [watchSearch]);
 
@@ -53,7 +62,7 @@ export default function ManageTopic() {
 
   const handleSearchTopic: SubmitHandler<FieldValues> = (values) => {
     if (!isValid) return;
-    dispatch(topicActions.setParams({ ...currentParams, search: values.search }));
+    dispatch(topicActions.setParams({ ...currentParams, search: values.search, page: 1 }));
   };
 
   return (

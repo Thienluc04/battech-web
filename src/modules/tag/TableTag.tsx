@@ -34,6 +34,7 @@ export function TableTag() {
 
   useEffect(() => {
     getListTag(currentParams);
+    setCurrentPage(currentParams?.page as number);
   }, [currentParams]);
 
   useEffect(() => {

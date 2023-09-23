@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
+import { useGetListPostQuery } from '@/api/postApi';
 import { useGetListTopicQuery } from '@/api/topicApi';
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { Button } from '@/components/button';
@@ -37,14 +38,21 @@ export default function ManagePost() {
   const watchSearch = watch('search');
 
   const { data: listTopic } = useGetListTopicQuery({ sort: 'desc' });
+  const { data: postResponse } = useGetListPostQuery({ ...currentParams, page: 1 });
 
   useEffect(() => {
-    dispatch(postActions.setParams({ ...currentParams, sort: sortValue }));
+    if (postResponse) {
+      dispatch(postActions.setListPost(postResponse?.data));
+    }
+  }, []);
+
+  useEffect(() => {
+    dispatch(postActions.setParams({ ...currentParams, sort: sortValue, page: 1 }));
   }, [sortValue]);
 
   useEffect(() => {
     if (watchSearch === '' && currentParams.search) {
-      dispatch(postActions.setParams({ ...currentParams, search: '' }));
+      dispatch(postActions.setParams({ ...currentParams, search: '', page: 1 }));
     }
   }, [watchSearch]);
 
@@ -58,14 +66,14 @@ export default function ManagePost() {
 
   const handleSearchPost: SubmitHandler<FieldValues> = (values) => {
     if (!isValid) return;
-    dispatch(postActions.setParams({ ...currentParams, search: values.search }));
+    dispatch(postActions.setParams({ ...currentParams, search: values.search, page: 1 }));
   };
 
   const handleFilterByCategory = (topic: string) => {
     if (topic === 'All') {
-      dispatch(postActions.setParams({ ...currentParams, topic: '' }));
+      dispatch(postActions.setParams({ ...currentParams, topic: '', page: 1 }));
     } else {
-      dispatch(postActions.setParams({ ...currentParams, topic }));
+      dispatch(postActions.setParams({ ...currentParams, topic, page: 1 }));
     }
   };
 

@@ -35,17 +35,17 @@ export default function ManageAuthor() {
 
   useEffect(() => {
     if (currentParams.search && watchSearch === '') {
-      dispatch(authorActions.setParams({ ...currentParams, search: '' }));
+      dispatch(authorActions.setParams({ ...currentParams, search: '', page: 1 }));
     }
   }, [watchSearch]);
 
   useEffect(() => {
-    dispatch(authorActions.setParams({ ...currentParams, sort: sortValue }));
+    dispatch(authorActions.setParams({ ...currentParams, sort: sortValue, page: 1 }));
   }, [sortValue]);
 
   const handleSearchAuthor: SubmitHandler<FieldValues> = (values) => {
     if (!isValid) return;
-    dispatch(authorActions.setParams({ ...currentParams, search: values.search }));
+    dispatch(authorActions.setParams({ ...currentParams, search: values.search, page: 1 }));
   };
 
   const handleSortAuthor = () => {

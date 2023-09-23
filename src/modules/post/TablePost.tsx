@@ -24,7 +24,6 @@ export function TablePost(props: TableAdminProps) {
   const [checkAll, setCheckAll] = useState<boolean>(false);
 
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-
   const currentParams = useAppSelector(selectParamsPost);
   const listPost = useAppSelector(selectListPost);
 
@@ -39,6 +38,12 @@ export function TablePost(props: TableAdminProps) {
       dispatch(postActions.setListPost(postResponse.data));
     }
   }, [postResponse]);
+
+  useEffect(() => {
+    if (currentParams) {
+      setCurrentPage(currentParams?.page as number);
+    }
+  }, [currentParams]);
 
   useEffect(() => {
     if (postResponse?.pagination) {

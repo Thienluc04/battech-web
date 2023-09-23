@@ -39,6 +39,12 @@ export function TableTopic() {
   }, [topicResponse]);
 
   useEffect(() => {
+    if (currentParams) {
+      setCurrentPage(currentParams?.page as number);
+    }
+  }, [currentParams]);
+
+  useEffect(() => {
     if (topicResponse?.pagination) {
       setTotalPage(Math.ceil(topicResponse.pagination.totalRows / TOPIC_PER_PAGE));
     }
