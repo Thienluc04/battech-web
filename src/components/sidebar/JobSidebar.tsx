@@ -116,7 +116,7 @@ export function JobSidebar() {
             ))}
           {locationsLoading && <Skeleton className="w-[150px] h-4" count={6}></Skeleton>}
         </JobGroupField>
-        <JobGroupField title={t(vn.job.FILTER_GROUP_TITLE)}>
+        <JobGroupField title={t(vn.job.FILTER_TYPE_TITLE)}>
           {workTypes &&
             workTypes.map((item, index) => (
               <RadioBox
