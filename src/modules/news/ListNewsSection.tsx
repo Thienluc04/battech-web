@@ -109,7 +109,7 @@ export function ListNewsSection(props: ListNewsSectionProps) {
         <p className="text-center">{t(vn.news.NEWS_NOT_MATCH)}</p>
       )}
 
-      {isLoading && (
+      {isLoading && listNews.length <= 0 && (
         <ListNews>
           {new Array(8).fill(0).map((_item, index) => (
             <NewsItem key={index} loading></NewsItem>

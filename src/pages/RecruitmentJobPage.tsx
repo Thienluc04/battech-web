@@ -62,7 +62,7 @@ export default function RecruitmentJobPage() {
           {!isLoading && currentJobList.length <= 0 && (
             <p className="flex-1 text-center">{t(vn.job.FILTER_NOT_MATCH)}</p>
           )}
-          {isLoading && (
+          {isLoading && currentJobList.length <= 0 && (
             <div className="flex-1">
               <JobList>
                 {new Array(6).fill(0).map((_item, index) => (
