@@ -28,14 +28,15 @@ export function ForgotPassConfirm() {
   const { email } = useParams();
   const navigate = useNavigate();
 
-  const [handleForgotPassCheck, { data, isLoading, error }] = useForgotPassCheckMutation();
+  const [handleForgotPassCheck, { data: response, isLoading, error }] =
+    useForgotPassCheckMutation();
 
   useEffect(() => {
-    if (data) {
-      toast.success(data.message);
-      navigate('/login');
+    if (response) {
+      toast.success(response.message);
+      navigate(`/reset-pass/${email}`);
     }
-  }, [data]);
+  }, [response]);
 
   useEffect(() => {
     const newError: ResponseError = error as ResponseError;
@@ -46,12 +47,12 @@ export function ForgotPassConfirm() {
 
   const handleForgotPasswordConfirm: SubmitHandler<FieldValues> = (values) => {
     if (!isValid) return;
-    handleForgotPassCheck({ code: values.code as number, email: email + '@gmail.com' });
+    handleForgotPassCheck({ code: values.code as number, email: email as string });
   };
 
   return (
     <form className="mx-11" onSubmit={handleSubmit(handleForgotPasswordConfirm)}>
-      <Link to={'/forgot-pass'} className="flex items-center gap-1">
+      <Link to={'/forgot-pass'} className="inline-flex items-center gap-1">
         <ArrowLeftIcon variant="gray"></ArrowLeftIcon>
         <span className="text-lg text-gray-500">Quay lại</span>
       </Link>

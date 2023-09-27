@@ -37,7 +37,7 @@ export default function LoginPage() {
 
   const { t } = useTranslation();
   const [login, { data: dataLogin, error: errorLogin, isLoading }] = useHandleLoginMutation();
-  const [fetchMe, { data: dataFetchMe }] = useHandleFetchMeMutation();
+  const [fetchMe, { data: dataFetchMe, isLoading: isLoadingFetchMe }] = useHandleFetchMeMutation();
 
   const rememberPass = useAppSelector(selectRememberPass);
 
@@ -112,7 +112,7 @@ export default function LoginPage() {
         type="submit"
         className="bg-[#F27024] text-white rounded-3xl text-xl font-bold font-fontRoboto leading-6 w-full py-3 mb-[63px]"
       >
-        {isLoading ? (
+        {isLoading || isLoadingFetchMe ? (
           <div className="w-8 h-8 mx-auto border-2 border-white rounded-full animate-spin border-t-transparent"></div>
         ) : (
           'Đăng nhập'

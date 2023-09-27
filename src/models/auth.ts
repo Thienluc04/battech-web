@@ -18,6 +18,11 @@ export interface TokensResponse {
 }
 
 export interface CheckCode {
-  code: number;
   email: string;
+  code: number;
+}
+
+export interface ResetPass {
+  email: string;
+  newPass: string;
 }

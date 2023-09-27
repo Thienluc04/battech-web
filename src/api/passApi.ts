@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { linkApiPass } from '@/constants/general';
-import { CheckCode, ResponseSuccess } from '@/models';
+import { CheckCode, ResetPass, ResponseSuccess } from '@/models';
 
 export const passApi = createApi({
   reducerPath: 'passApi',
@@ -29,7 +29,16 @@ export const passApi = createApi({
         };
       },
     }),
+    resetPass: builder.mutation<ResponseSuccess<string>, ResetPass>({
+      query: (data) => {
+        return {
+          url: 'reset-pass',
+          method: 'POST',
+          body: data,
+        };
+      },
+    }),
   }),
 });
 
-export const { useForgotPassMutation, useForgotPassCheckMutation } = passApi;
+export const { useForgotPassMutation, useForgotPassCheckMutation, useResetPassMutation } = passApi;

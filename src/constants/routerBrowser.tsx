@@ -5,7 +5,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { AdminLayout, MainLayout } from '@/components/layouts';
 import { AuthLayout } from '@/components/layouts/AuthLayout';
 import { Footer, Header } from '@/modules';
-import { ForgotPass, ForgotPassConfirm } from '@/modules/auth';
+import { ForgotPass, ForgotPassConfirm, ResetPass } from '@/modules/auth';
 
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const IntroducePage = lazy(() => import('@/pages/IntroducePage'));
@@ -123,7 +123,7 @@ export const routerBrowser = createBrowserRouter([
           <Suspense
             fallback={
               <>
-                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+                <div className="w-10 h-10 mx-auto mt-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
               </>
             }
           >
@@ -137,7 +137,7 @@ export const routerBrowser = createBrowserRouter([
           <Suspense
             fallback={
               <>
-                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+                <div className="w-10 h-10 mx-auto mt-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
               </>
             }
           >
@@ -151,7 +151,7 @@ export const routerBrowser = createBrowserRouter([
           <Suspense
             fallback={
               <>
-                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+                <div className="w-10 h-10 mx-auto mt-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
               </>
             }
           >
@@ -165,7 +165,7 @@ export const routerBrowser = createBrowserRouter([
           <Suspense
             fallback={
               <>
-                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+                <div className="w-10 h-10 mx-auto mt-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
               </>
             }
           >
@@ -179,7 +179,7 @@ export const routerBrowser = createBrowserRouter([
           <Suspense
             fallback={
               <>
-                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+                <div className="w-10 h-10 mx-auto mt-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
               </>
             }
           >
@@ -193,7 +193,7 @@ export const routerBrowser = createBrowserRouter([
           <Suspense
             fallback={
               <>
-                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+                <div className="w-10 h-10 mx-auto mt-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
               </>
             }
           >
@@ -207,7 +207,7 @@ export const routerBrowser = createBrowserRouter([
           <Suspense
             fallback={
               <>
-                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+                <div className="w-10 h-10 mx-auto mt-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
               </>
             }
           >
@@ -221,7 +221,7 @@ export const routerBrowser = createBrowserRouter([
           <Suspense
             fallback={
               <>
-                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+                <div className="w-10 h-10 mx-auto mt-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
               </>
             }
           >
@@ -235,7 +235,7 @@ export const routerBrowser = createBrowserRouter([
           <Suspense
             fallback={
               <>
-                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+                <div className="w-10 h-10 mx-auto mt-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
               </>
             }
           >
@@ -249,7 +249,7 @@ export const routerBrowser = createBrowserRouter([
           <Suspense
             fallback={
               <>
-                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+                <div className="w-10 h-10 mx-auto mt-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
               </>
             }
           >
@@ -263,7 +263,7 @@ export const routerBrowser = createBrowserRouter([
           <Suspense
             fallback={
               <>
-                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+                <div className="w-10 h-10 mx-auto mt-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
               </>
             }
           >
@@ -277,7 +277,7 @@ export const routerBrowser = createBrowserRouter([
           <Suspense
             fallback={
               <>
-                <div className="w-10 h-10 border-2 mx-auto mt-10 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+                <div className="w-10 h-10 mx-auto mt-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
               </>
             }
           >
@@ -329,6 +329,20 @@ export const routerBrowser = createBrowserRouter([
             }
           >
             <ForgotPassConfirm></ForgotPassConfirm>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/reset-pass/:email',
+        element: (
+          <Suspense
+            fallback={
+              <>
+                <div className="w-10 h-10 mx-auto mb-10 border-2 border-blue-500 rounded-full animate-spin border-t-transparent"></div>
+              </>
+            }
+          >
+            <ResetPass></ResetPass>
           </Suspense>
         ),
       },

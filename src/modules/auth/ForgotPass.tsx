@@ -30,14 +30,15 @@ export function ForgotPass() {
 
   const navigate = useNavigate();
 
-  const [handleForgotPass, { data, isLoading, error }] = useForgotPassMutation();
+  const [handleForgotPass, { data: response, isLoading, error }] = useForgotPassMutation();
+  console.log('ForgotPass ~ response:', response);
 
   useEffect(() => {
-    if (data) {
-      toast.success(data.message);
-      navigate(`/forgot-pass/${data.data?.split('@')[0]}`);
+    if (response) {
+      toast.success(response.message);
+      navigate(`/forgot-pass/${response.data}`);
     }
-  }, [data]);
+  }, [response]);
 
   useEffect(() => {
     const newError: ResponseError = error as ResponseError;
@@ -53,7 +54,7 @@ export function ForgotPass() {
 
   return (
     <form className="mx-11" onSubmit={handleSubmit(handleForgotPassword)}>
-      <Link to={'/login'} className="flex items-center gap-1">
+      <Link to={'/login'} className="inline-flex items-center gap-1">
         <ArrowLeftIcon variant="gray"></ArrowLeftIcon>
         <span className="text-lg text-gray-500">Quay lại</span>
       </Link>
