@@ -119,6 +119,7 @@ export function TableAuthor() {
         await deleteAuthor(id);
         Swal.fire('Xóa thành công!', 'Đã xóa tác giả khỏi danh sách', 'success');
         refetch();
+        setCurrentPage(1);
       }
     });
   };

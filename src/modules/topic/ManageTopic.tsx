@@ -62,7 +62,9 @@ export default function ManageTopic() {
 
   const handleSearchTopic: SubmitHandler<FieldValues> = (values) => {
     if (!isValid) return;
-    dispatch(topicActions.setParams({ ...currentParams, search: values.search, page: 1 }));
+    dispatch(
+      topicActions.setParams({ ...currentParams, search: values.search, page: 1, sort: 'desc' }),
+    );
   };
 
   return (

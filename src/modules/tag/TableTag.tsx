@@ -120,6 +120,7 @@ export function TableTag() {
         await deleteTag(id);
         Swal.fire('Xóa thành công!', 'Đã xóa tag khỏi danh sách', 'success');
         getListTag(currentParams);
+        setCurrentPage(1);
       }
     });
   };

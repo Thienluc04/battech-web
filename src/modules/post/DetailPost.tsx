@@ -119,7 +119,9 @@ export default function DetailPost() {
       title: '',
       topic: '',
     });
-    dispatch(postActions.setParams({ ...currentParams, page: 1 }));
+    dispatch(
+      postActions.setParams({ ...currentParams, page: 1, search: '', sort: 'desc', topic: '' }),
+    );
     setContent('');
     setImageUrl('');
     navigate('/manage/posts');

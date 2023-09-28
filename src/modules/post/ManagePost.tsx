@@ -38,7 +38,13 @@ export default function ManagePost() {
   const watchSearch = watch('search');
 
   const { data: listTopic } = useGetListTopicQuery({ sort: 'desc' });
-  const { data: postResponse } = useGetListPostQuery({ ...currentParams, page: 1 });
+  const { data: postResponse } = useGetListPostQuery({
+    ...currentParams,
+    page: 1,
+    search: '',
+    sort: 'desc',
+    topic: '',
+  });
 
   useEffect(() => {
     if (postResponse) {

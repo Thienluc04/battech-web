@@ -119,6 +119,7 @@ export function TableTopic() {
         await deleteTopic(id);
         Swal.fire('Xóa thành công!', 'Đã xóa chủ đề khỏi danh sách', 'success');
         refetch();
+        setCurrentPage(1);
       }
     });
   };

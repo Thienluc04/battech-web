@@ -118,6 +118,7 @@ export function TablePost(props: TableAdminProps) {
         await deletePost(id);
         Swal.fire('Xóa thành công!', 'Đã xóa bài viết khỏi danh sách', 'success');
         refetch();
+        setCurrentPage(1);
       }
     });
   };
